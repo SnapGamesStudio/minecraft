@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="ItemBlock" load_steps=3 format=3 uid="uid://sgt34vgrv8r7"]
+
+[ext_resource type="Script" path="res://scripts/items/item_block.gd" id="1_83qbj"]
+[ext_resource type="Texture2D" uid="uid://bp8uhx4feem2q" path="res://assets/textures/blocks/cobblestone.png" id="2_c3ljp"]
+
+[resource]
+script = ExtResource("1_83qbj")
+break_time = 0.4
+spawn_chance = 0.1
+spawn_size = 1
+unique_name = &"test_ore"
+texture = ExtResource("2_c3ljp")
+max_stack = 64
+forgable = false
+forge_time = 2.0
