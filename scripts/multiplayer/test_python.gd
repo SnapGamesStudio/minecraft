@@ -1,6 +1,8 @@
 extends Node
 class_name Python_Item_Backend_Client
 
+var fnished_requests:int = 0
+
 var SERVER_UPLOAD_URL = "http://localhost:8000/upload"
 var SERVER_DOWNLOAD_URL = "http://localhost:8000/download/"
 var SERVER_CHECK_URL = "http://localhost:8000/file_exists/"
@@ -55,6 +57,7 @@ func upload_files(file_list: Array):
 		print("Upload request failed:", err)
 
 func _on_upload_completed(result, response_code, headers, body):
+	fnished_requests += 1
 	if response_code != 200:
 		print("Upload failed with code:", response_code)
 		return
@@ -86,6 +89,7 @@ func download_folder_files(filename: String):
 		print("Download request failed:", err)
 
 func _on_download_completed(result, response_code, headers, body):
+	fnished_requests += 1
 	if response_code != 200:
 		print("Download failed with code:", response_code)
 		return
@@ -136,6 +140,8 @@ func check_file_exists(filename: String, callback: Callable):
 		callback.call({"exists": false})
 
 func _on_check_completed(result, response_code, headers, body, callback: Callable, request: HTTPRequest):
+	fnished_requests += 1
+	
 	request.queue_free()  # remove request node
 
 	if response_code != 200:

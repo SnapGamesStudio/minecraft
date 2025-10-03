@@ -1,12 +1,8 @@
-[gd_resource type="Resource" script_class="ItemBlock" load_steps=5 format=3 uid="uid://w67gfj5ynnx3"]
+[gd_resource type="Resource" script_class="ItemBlock" load_steps=4 format=3 uid="uid://w67gfj5ynnx3"]
 
-[ext_resource type="AudioStream" uid="uid://8cg57dcdfxcl" path="res://assets/sounds/block/Sand Break.mp3" id="1_qnrdc"]
 [ext_resource type="Script" path="res://scripts/items/item_block.gd" id="1_sukvu"]
+[ext_resource type="AudioStream" uid="uid://bsfaiu4i7r46u" path="res://assets/sounds/streams/sand_break.tres" id="1_tbbjb"]
 [ext_resource type="Texture2D" uid="uid://c38jlnq2eub2t" path="res://assets/textures/items/Sand.png" id="2_deun3"]
-
-[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_efjkb"]
-streams_count = 1
-stream_0/stream = ExtResource("1_qnrdc")
 
 [resource]
 script = ExtResource("1_sukvu")
@@ -18,7 +14,7 @@ light_size = 5.0
 has_sound = false
 sound_distance = 10.0
 panning = 1.0
-block_sound = SubResource("AudioStreamRandomizer_efjkb")
+block_sound = ExtResource("1_tbbjb")
 volume = -13.0
 pitch = 1.0
 max_distance = 20

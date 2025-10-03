@@ -1,0 +1,18 @@
+[gd_resource type="AudioStreamRandomizer" load_steps=7 format=3 uid="uid://dgeo6uweprlm3"]
+
+[ext_resource type="AudioStream" uid="uid://cch5k6cgj7gho" path="res://assets/sounds/block/log 1.mp3" id="1_6eik4"]
+[ext_resource type="AudioStream" uid="uid://bemkbp5uo6lth" path="res://assets/sounds/block/log 2.mp3" id="2_oeeol"]
+[ext_resource type="AudioStream" uid="uid://d2lp05mnpj8s2" path="res://assets/sounds/block/log 3.mp3" id="3_7sd0g"]
+[ext_resource type="AudioStream" uid="uid://cbnrhqvwib116" path="res://assets/sounds/block/log 4.mp3" id="4_c3rr3"]
+[ext_resource type="AudioStream" uid="uid://cxwmqe0gyn2or" path="res://assets/sounds/block/log 6.mp3" id="5_tm4fr"]
+[ext_resource type="AudioStream" uid="uid://winjkqayvpbo" path="res://assets/sounds/block/log 7.mp3" id="6_5ndgi"]
+
+[resource]
+random_volume_offset_db = 2.0
+streams_count = 6
+stream_0/stream = ExtResource("1_6eik4")
+stream_1/stream = ExtResource("2_oeeol")
+stream_2/stream = ExtResource("3_7sd0g")
+stream_3/stream = ExtResource("4_c3rr3")
+stream_4/stream = ExtResource("5_tm4fr")
+stream_5/stream = ExtResource("6_5ndgi")

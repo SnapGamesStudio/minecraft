@@ -3,8 +3,7 @@
 [ext_resource type="Script" path="res://scripts/items/craftables/blueprint.gd" id="1_63jsf"]
 [ext_resource type="Resource" uid="uid://dn2s8tsdl4rca" path="res://resources/items/blueprint_station.tres" id="1_jw4f3"]
 [ext_resource type="Texture2D" uid="uid://h8nndohifc41" path="res://assets/textures/items/Oak Log.png" id="1_xb5od"]
-
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_c3ywf"]
+[ext_resource type="Texture2D" uid="uid://cu30002wogui3" path="res://assets/textures/items/new_placeholder_texture_2d.tres" id="4_dj2pa"]
 
 [resource]
 script = ExtResource("1_63jsf")
@@ -18,7 +17,7 @@ items_needed = {
 }
 }
 unique_name = &"blueprint_station_craftable"
-texture = SubResource("PlaceholderTexture2D_c3ywf")
+texture = ExtResource("4_dj2pa")
 max_stack = 64
 rotatable = false
 drop_items = Array[StringName]([])
