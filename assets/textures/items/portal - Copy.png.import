@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ea67abfva84w"
-path="res://.godot/imported/ammo.png-c681ad6332e5073e37301fab37b75e34.ctex"
+uid="uid://bcyo2nvsv0hmp"
+path="res://.godot/imported/portal - Copy.png-cac970617861580f495790e00bd3c1c8.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/textures/items/ammo.png"
-dest_files=["res://.godot/imported/ammo.png-c681ad6332e5073e37301fab37b75e34.ctex"]
+source_file="res://assets/textures/items/portal - Copy.png"
+dest_files=["res://.godot/imported/portal - Copy.png-cac970617861580f495790e00bd3c1c8.ctex"]
 
 [params]
 

@@ -208,8 +208,15 @@ func update_client(data):
 		
 		var slot = find_child(data[i].parent).get_child(i.to_int())
 		
-		if data[i].item_path != "":
-			slot.item = load(data[i].item_path)
+		var item_name:String = data[i].item_path.get_file()
+		
+		if item_name != "":
+			var loaded_texture = ItemDownloader.load_tres_from_package("gun.png")
+		
+			var loaded_item:ItemBase = ItemDownloader.load_tres_from_package(item_name)
+			loaded_item.texture = loaded_texture
+			print("texture ",loaded_texture," item ",loaded_item)
+			slot.item = loaded_item
 		else:
 			slot.item = null
 			

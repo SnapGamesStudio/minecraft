@@ -30,6 +30,7 @@ SettingsManager="*res://scripts/common/SettingsManager.gd"
 Backend="*res://scenes/backend.tscn"
 Nav="*res://scripts/common/nav.gd"
 MouseMode="*res://scripts/common/mouse_mode.gd"
+ItemDownloader="*res://scenes/other/item_downloader.tscn"
 
 [debug]
 

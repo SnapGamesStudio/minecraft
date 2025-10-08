@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d2wb2eygnb33v"
-path="res://.godot/imported/gun.png-3d9397c32870e0736b1b45f58b073d4d.ctex"
+uid="uid://dh8601l4njpg6"
+path="res://.godot/imported/cooked chicken (1) - Copy.png-49aad18860a10bd7c46f60a02547b42e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/textures/items/gun.png"
-dest_files=["res://.godot/imported/gun.png-3d9397c32870e0736b1b45f58b073d4d.ctex"]
+source_file="res://assets/textures/items/cooked chicken (1) - Copy.png"
+dest_files=["res://.godot/imported/cooked chicken (1) - Copy.png-49aad18860a10bd7c46f60a02547b42e.ctex"]
 
 [params]
 

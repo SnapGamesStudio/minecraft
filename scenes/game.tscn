@@ -67,7 +67,7 @@
 [ext_resource type="Resource" uid="uid://dqtqm7pgedy1n" path="res://resources/items/water.tres" id="55_vdp4r"]
 [ext_resource type="Script" path="res://scripts/items/items_library.gd" id="56_rtthk"]
 [ext_resource type="Script" path="res://scripts/ui/blueprints.gd" id="63_smcjb"]
-[ext_resource type="Resource" uid="uid://cxgyc78ob8tvg" path="res://resources/items/craftables/blueprint_station.tres" id="64_naaa1"]
+[ext_resource type="Resource" uid="uid://cxgyc78ob8tvg" path="res://resources/items/craftables/blueprint_station_craftable.tres" id="64_naaa1"]
 [ext_resource type="Script" path="res://scripts/ui/player_direct.gd" id="65_nyrmm"]
 [ext_resource type="Script" path="res://scripts/ui/gameplay_settings.gd" id="66_h5gdj"]
 [ext_resource type="PackedScene" uid="uid://beu8kujo2qfke" path="res://scenes/ui/player_marker.tscn" id="66_uv6sr"]

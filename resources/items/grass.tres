@@ -2,7 +2,7 @@
 
 [ext_resource type="AudioStream" uid="uid://cnnb3xqcs2wia" path="res://assets/sounds/streams/grass_break.tres" id="1_67uxp"]
 [ext_resource type="Script" path="res://scripts/items/item_block.gd" id="1_xvy7c"]
-[ext_resource type="Texture2D" uid="uid://cylnevjm3cw6o" path="res://assets/textures/items/Grass.png" id="2_r1p67"]
+[ext_resource type="Texture2D" uid="uid://dwsqysjbij6nt" path="res://assets/textures/items/Grass - Copy.png" id="3_0y8vh"]
 [ext_resource type="AudioStream" uid="uid://bklcunwamqd80" path="res://assets/sounds/streams/grass_walk.tres" id="4_e7adb"]
 
 [resource]
@@ -26,7 +26,7 @@ walk_pitch = 3.1
 walk_max_distance = 10
 walk_panning_strength = 3
 unique_name = &"grass"
-texture = ExtResource("2_r1p67")
+texture = ExtResource("3_0y8vh")
 max_stack = 64
 rotatable = false
 drop_items = Array[StringName]([&"grass"])

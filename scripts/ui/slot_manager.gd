@@ -38,7 +38,6 @@ func slot_clicked(slot:Slot):
 		last_clicked_slot.focused = true
 		return
 		
-
 	
 	if slot == last_clicked_slot: ## deselect
 		last_clicked_slot.focused = false
@@ -54,7 +53,8 @@ func slot_clicked(slot:Slot):
 			last_clicked_slot = null
 			
 			
-	elif slot.item == last_clicked_slot.item:
+	elif slot.item.unique_name == last_clicked_slot.item.unique_name:
+		print("stack")
 		_stack_items(slot)
 	else:
 		if last_clicked_slot.item.unique_name != "blueprint_station_craftable":

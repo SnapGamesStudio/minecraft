@@ -1,9 +1,10 @@
-[gd_scene load_steps=10 format=4 uid="uid://cvh8mc8ybmio1"]
+[gd_scene load_steps=11 format=4 uid="uid://cvh8mc8ybmio1"]
 
 [ext_resource type="Theme" uid="uid://c1tenirmy1xiy" path="res://assets/menu/main_menu_theme.tres" id="1_6ja64"]
 [ext_resource type="Script" path="res://scripts/ui/loading page.gd" id="2_ijexi"]
 [ext_resource type="PackedScene" uid="uid://de27e3hbp0hph" path="res://scenes/multiplayer.tscn" id="3_cfeif"]
 [ext_resource type="AudioStream" uid="uid://8srankxfcp10" path="res://assets/sounds/music/Untitled song (3).mp3" id="4_23x62"]
+[ext_resource type="PackedScene" uid="uid://dp3vw6ecck05s" path="res://scenes/ui/slot.tscn" id="5_godpr"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_alat4"]
 bg_color = Color(0.0901961, 0.0901961, 0.0901961, 1)
@@ -133,5 +134,8 @@ horizontal_alignment = 1
 uppercase = true
 
 [node name="Checks" type="Timer" parent="."]
+
+[node name="Slot" parent="." instance=ExtResource("5_godpr")]
+layout_mode = 0
 
 [connection signal="timeout" from="Checks" to="." method="_on_checks_timeout"]

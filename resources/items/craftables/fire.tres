@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="Craftable" load_steps=5 format=3 uid="uid://dwyevxsjqljjl"]
+[gd_resource type="Resource" script_class="Blueprint" load_steps=5 format=3 uid="uid://dwyevxsjqljjl"]
 
 [ext_resource type="Texture2D" uid="uid://h8nndohifc41" path="res://assets/textures/items/Oak Log.png" id="1_jw5r7"]
 [ext_resource type="Resource" uid="uid://b1r2gkiv3wqnm" path="res://resources/items/fire pit.tres" id="2_1sann"]
@@ -8,8 +8,6 @@
 [resource]
 script = ExtResource("3_ayu3j")
 Name = "cooker"
-texture = ExtResource("4_tbcow")
-output_item = ExtResource("2_1sann")
 output_amount = 1
 items_needed = {
 1: {
@@ -18,3 +16,12 @@ items_needed = {
 "texture": ExtResource("1_jw5r7")
 }
 }
+unique_name = &"fire"
+texture = ExtResource("4_tbcow")
+max_stack = 64
+rotatable = false
+drop_items = Array[StringName]([])
+forgable = false
+forge_time = 2.0
+output_item = ExtResource("2_1sann")
+value = 10
