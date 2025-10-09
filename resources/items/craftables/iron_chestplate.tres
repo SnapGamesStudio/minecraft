@@ -20,7 +20,7 @@ items_needed = {
 "texture": ExtResource("1_ka6ho")
 }
 }
-unique_name = &""
+unique_name = &"iron_chestplate"
 texture = SubResource("AtlasTexture_gqlgr")
 max_stack = 64
 rotatable = false

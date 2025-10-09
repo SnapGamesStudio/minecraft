@@ -66,6 +66,7 @@ func save_player_ui() -> void:
 	for ui in get_tree().get_nodes_in_group("PlayersUI"):
 		if ui.has_method("save"):
 			var ui_data = ui.call("save")
+			print(ui_data)
 			var data = JSON.stringify(ui_data)
 			Globals.send_to_server.emit({"client_id" : Backend.client_id , "change_name" : ui.name,"change" : data})
 

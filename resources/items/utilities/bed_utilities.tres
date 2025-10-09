@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Utilities" load_steps=2 format=3 uid="uid://dcf1w76l2etm8"]
+
+[ext_resource type="Script" path="res://scripts/items/utilities.gd" id="1_keyor"]
+
+[resource]
+script = ExtResource("1_keyor")
+has_ui = false
+ui_scene_path = ""
+spawn_point = true
+portal = false
+needs_metadata = false

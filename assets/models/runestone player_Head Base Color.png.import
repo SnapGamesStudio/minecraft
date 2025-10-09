@@ -2,14 +2,11 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://byydkxo6aq3jp"
+uid="uid://caymkbt21b5xt"
 path.s3tc="res://.godot/imported/runestone player_Head Base Color.png-89fa86102623d1d7ef50144a5433aaec.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
-}
-generator_parameters={
-"md5": "5e4da548594b01ee0bc859eebba19c37"
 }
 
 [deps]

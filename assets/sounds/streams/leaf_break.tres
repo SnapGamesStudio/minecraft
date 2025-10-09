@@ -1,0 +1,19 @@
+[gd_resource type="AudioStreamRandomizer" load_steps=8 format=3 uid="uid://c8qmawwdr84rt"]
+
+[ext_resource type="AudioStream" uid="uid://c5q37kiorev5f" path="res://assets/sounds/block/azalea_leaves_break1.ogg" id="1_2ngi1"]
+[ext_resource type="AudioStream" uid="uid://gs2ru240ycf" path="res://assets/sounds/block/azalea_leaves_break2.ogg" id="2_cegcy"]
+[ext_resource type="AudioStream" uid="uid://bqkby1vtht45a" path="res://assets/sounds/block/azalea_leaves_break3.ogg" id="3_gnfop"]
+[ext_resource type="AudioStream" uid="uid://2umwby0m5rhk" path="res://assets/sounds/block/azalea_leaves_break4.ogg" id="4_rix73"]
+[ext_resource type="AudioStream" uid="uid://cb34f67nrext7" path="res://assets/sounds/block/azalea_leaves_break5.ogg" id="5_w51xg"]
+[ext_resource type="AudioStream" uid="uid://ctt7t044miel2" path="res://assets/sounds/block/azalea_leaves_break6.ogg" id="6_eq621"]
+[ext_resource type="AudioStream" uid="uid://drnoamqy8nnuo" path="res://assets/sounds/block/azalea_leaves_break7.ogg" id="7_3x7rf"]
+
+[resource]
+streams_count = 7
+stream_0/stream = ExtResource("1_2ngi1")
+stream_1/stream = ExtResource("2_cegcy")
+stream_2/stream = ExtResource("3_gnfop")
+stream_3/stream = ExtResource("4_rix73")
+stream_4/stream = ExtResource("5_w51xg")
+stream_5/stream = ExtResource("6_eq621")
+stream_6/stream = ExtResource("7_3x7rf")

@@ -2,14 +2,11 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ggnfjdyc4ds"
+uid="uid://lcw4loshg821"
 path.s3tc="res://.godot/imported/food models_pixil-frame-0 - 2025-04-04T181805.png-26959d0efd3c1f1af94495de58e71a71.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
-}
-generator_parameters={
-"md5": "c24da40f25915d2d1d411ce36872c0e8"
 }
 
 [deps]

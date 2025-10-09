@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="Craftable" load_steps=5 format=3 uid="uid://dermpqlxy23ti"]
+[gd_resource type="Resource" script_class="Blueprint" load_steps=5 format=3 uid="uid://dermpqlxy23ti"]
 
 [ext_resource type="Texture2D" uid="uid://d0t78qw5lnofb" path="res://assets/textures/items/Birch Log.png" id="1_2ik7t"]
 [ext_resource type="Script" path="res://scripts/items/craftables/blueprint.gd" id="1_ivrsh"]
@@ -8,8 +8,6 @@
 [resource]
 script = ExtResource("1_ivrsh")
 Name = "wood_birch"
-texture = ExtResource("4_xbs6o")
-output_item = ExtResource("1_xmpb0")
 output_amount = 4
 items_needed = {
 1: {
@@ -18,3 +16,12 @@ items_needed = {
 "texture": ExtResource("1_2ik7t")
 }
 }
+unique_name = &"wood_2"
+texture = ExtResource("4_xbs6o")
+max_stack = 64
+rotatable = false
+drop_items = Array[StringName]([])
+forgable = false
+forge_time = 2.0
+output_item = ExtResource("1_xmpb0")
+value = 10

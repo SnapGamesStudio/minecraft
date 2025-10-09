@@ -25,7 +25,7 @@ func _ready() -> void:
 
 	if !Backend.playerdata.is_empty():
 		if Backend.playerdata.Hotbar != null:
-			#update(JSON.parse_string(Backend.playerdata.Hotbar))
+			update(JSON.parse_string(Backend.playerdata.Hotbar))
 			# update the hotbar with the saved data
 			pass
 			
@@ -159,20 +159,29 @@ func save() -> Dictionary:
 				}
 	return save_data
 
-func update(info) -> void:
+func update(data) -> void:
 	#print("update hotbar ",info)
-	for i in info:
+	for i in data:
 		
-		var slot = find_child(info[i].parent).get_child(i.to_int())
+		var slot = find_child(data[i].parent).get_child(i.to_int())
 		
-		if info[i].item_path != "":
-			slot.item = load(info[i].item_path)
+		var item_file:String = data[i].item_path.get_file()
+		
+		if item_file != "":
+			var user_path:String = "user://items/"+item_file
+			var normal_path:String = data[i].item_path
+			
+			if FileAccess.file_exists(user_path):
+				slot.item = load(user_path)
+			else:
+				slot.item = load(data[i].item_path)
+				
 		else:
 			slot.item = null
 			
-		slot.health = info[i].health
-		slot.amount = info[i].amount
-		slot.rot = info[i].rot
+		slot.health = data[i].health
+		slot.amount = data[i].amount
+		slot.rot = data[i].rot
 		slot.update_slot()
 		
 	Globals.hotbar_full = hotbar_full()
@@ -194,7 +203,7 @@ func spawn_item_hotbar(item:ItemBase) -> void:
 			slot.item = item
 			slot.update_slot()
 			break
-		elif slot.item == item:
+		elif slot.item.unique_name == item.unique_name:
 			if slot.item.max_stack >= slot.amount:
 				#return
 				slot.amount += 1

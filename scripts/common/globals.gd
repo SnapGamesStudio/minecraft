@@ -83,22 +83,25 @@ func find_item(item:ItemBase,inventory:bool = true,hotbar:bool = true, blueprint
 	
 	if inventory:
 		for slot in _inventory.slots:
-			if slot.item == item:
-				return_ = slot
-				break
+			if slot.item:
+				if slot.item.unique_name == item.unique_name:
+					return_ = slot
+					break
 				
 	if blueprints:
 		for slot in _blueprints.get_children():
-			if slot.item == item:
-				return_ = slot
-				break
+			if slot.item:
+				if slot.item.unique_name == item.unique_name:
+					return_ = slot
+					break
 				
 	if hotbar:
 		if return_ == null:
 			for slot in hot_bar.buttons:
-				if slot.item == item:
-					return_ = slot
-					break
+				if slot.item:
+					if slot.item.unique_name == item.unique_name:
+						return_ = slot
+						break
 	return return_
 
 func _create_spawner(pos:Vector3i,creature:String):

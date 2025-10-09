@@ -1,6 +1,5 @@
 extends VoxelGeneratorMultipassCB
 
-const Structure = preload("res://scripts/world/structure.gd")
 const voxels:VoxelBlockyTypeLibrary = preload("res://resources/voxel_block_library.tres")
 const curve:Curve = preload("res://resources/heightmap_curve.tres")
 const temp_curve:Curve = preload("res://resources/HeatCurve.tres")
@@ -26,7 +25,6 @@ var biomes : Dictionary = {
 			voxels.get_model_index_default("diamond"): {"spawn_chance":0.0001},
 			},
 		"plants": [voxels.get_model_index_default("tall_grass"),voxels.get_model_index_default("tall_flower")],
-		"noise": preload("res://resources/forest.tres"),
 		"biome_curve": preload("res://resources/heightmap_curve forest.tres"),
 		"trees": ["res://pine_tree 1.txt","res://pine_tree 2.txt","res://pine_tree 3.txt"],
 		"_custom_structures": {"res://chest_island.txt": {"spawn_chance":0.1,}},
@@ -43,7 +41,6 @@ var biomes : Dictionary = {
 			voxels.get_model_index_default("diamond"): {"spawn_chance":0.0001},
 			},
 		"plants": [voxels.get_model_index_default("reeds")],
-		"noise": preload("res://resources/desert.tres"),
 		"biome_curve": preload("res://resources/heightmap_curve desert.tres"),
 		"trees": [],
 		"_custom_structures": {"res://chest_island.txt": {"spawn_chance":0.1,}},

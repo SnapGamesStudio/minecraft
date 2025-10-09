@@ -2,8 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/items/item_block.gd" id="1_b1c5b"]
 [ext_resource type="Script" path="res://scripts/items/utilities.gd" id="2_8pium"]
-
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_bs4qo"]
+[ext_resource type="Texture2D" uid="uid://cu30002wogui3" path="res://assets/textures/items/new_placeholder_texture_2d.tres" id="2_grjyq"]
 
 [sub_resource type="Resource" id="Resource_et5lg"]
 script = ExtResource("2_8pium")
@@ -23,8 +22,16 @@ light_size = 5.0
 has_sound = false
 sound_distance = 10.0
 panning = 1.0
+volume = 0.0
+pitch = 1.0
+max_distance = 20
+panning_strength = 3
+walk_volume = 0.0
+walk_pitch = 1.0
+walk_max_distance = 10
+walk_panning_strength = 3
 unique_name = &"blueprint_station"
-texture = SubResource("PlaceholderTexture2D_bs4qo")
+texture = ExtResource("2_grjyq")
 max_stack = 64
 utility = SubResource("Resource_et5lg")
 rotatable = false

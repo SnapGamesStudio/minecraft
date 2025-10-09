@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="Craftable" load_steps=6 format=3 uid="uid://d0aeff3omljv3"]
+[gd_resource type="Resource" script_class="Blueprint" load_steps=6 format=3 uid="uid://d0aeff3omljv3"]
 
 [ext_resource type="Texture2D" uid="uid://bj12475lpqx8q" path="res://assets/textures/items/fishing_rod_cast.png" id="1_bfgg8"]
 [ext_resource type="Texture2D" uid="uid://b1fb5ogupbs2s" path="res://assets/textures/items/Stone.png" id="2_203lw"]
@@ -9,8 +9,6 @@
 [resource]
 script = ExtResource("4_6p30j")
 Name = "Pickaxe Stone"
-texture = ExtResource("5_ye3lo")
-output_item = ExtResource("3_qi6e3")
 output_amount = 1
 items_needed = {
 1: {
@@ -24,3 +22,12 @@ items_needed = {
 "texture": ExtResource("2_203lw")
 }
 }
+unique_name = &"pickaxe_stone"
+texture = ExtResource("5_ye3lo")
+max_stack = 64
+rotatable = false
+drop_items = Array[StringName]([])
+forgable = false
+forge_time = 2.0
+output_item = ExtResource("3_qi6e3")
+value = 10

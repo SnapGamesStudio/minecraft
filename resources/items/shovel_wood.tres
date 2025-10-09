@@ -1,16 +1,12 @@
-[gd_resource type="Resource" script_class="ItemTool" load_steps=8 format=3 uid="uid://mv1twiklruq5"]
+[gd_resource type="Resource" script_class="ItemTool" load_steps=4 format=3 uid="uid://mv1twiklruq5"]
 
 [ext_resource type="PackedScene" uid="uid://c3w4y20ibrrii" path="res://assets/models/tools/Wood/shovel_wood.tscn" id="1_oikl5"]
 [ext_resource type="Script" path="res://scripts/items/item_tool.gd" id="2_u4dta"]
-[ext_resource type="Script" path="res://scripts/items/item_block.gd" id="3_3f2jh"]
-[ext_resource type="Resource" uid="uid://c5ahbt0pwj3hk" path="res://resources/items/dirt.tres" id="4_kfhlk"]
-[ext_resource type="Resource" uid="uid://bgful1da4rkm2" path="res://resources/items/grass.tres" id="5_gyuis"]
-[ext_resource type="Resource" uid="uid://w67gfj5ynnx3" path="res://resources/items/sand.tres" id="6_ysokq"]
 [ext_resource type="Texture2D" uid="uid://3cnaqqywpwv2" path="res://assets/textures/items/wood_shovel.png" id="7_dj0qq"]
 
 [resource]
 script = ExtResource("2_u4dta")
-suitable_objects = Array[ExtResource("3_3f2jh")]([ExtResource("4_kfhlk"), ExtResource("5_gyuis"), ExtResource("6_ysokq")])
+suitable_objects = Array[StringName]([])
 breaking_efficiency = 0.2
 damage = 2
 max_health = 5.0
