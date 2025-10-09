@@ -1,16 +1,8 @@
-[gd_resource type="Resource" script_class="ItemBlock" load_steps=5 format=3 uid="uid://2cgpe8xf3dkh"]
+[gd_resource type="Resource" script_class="ItemBlock" load_steps=4 format=3 uid="uid://2cgpe8xf3dkh"]
 
 [ext_resource type="Script" path="res://scripts/items/item_block.gd" id="1_kvhy5"]
 [ext_resource type="Texture2D" uid="uid://d100dr2itcy2u" path="res://assets/textures/items/bed.png" id="2_gwas6"]
-[ext_resource type="Script" path="res://scripts/items/utilities.gd" id="3_qjji7"]
-
-[sub_resource type="Resource" id="Resource_8u72f"]
-script = ExtResource("3_qjji7")
-has_ui = false
-ui_scene_path = ""
-spawn_point = true
-portal = false
-needs_metadata = false
+[ext_resource type="Resource" uid="uid://dcf1w76l2etm8" path="res://resources/items/utilities/bed_utilities.tres" id="3_o5ng5"]
 
 [resource]
 script = ExtResource("1_kvhy5")
@@ -33,7 +25,7 @@ walk_panning_strength = 3
 unique_name = &"bed"
 texture = ExtResource("2_gwas6")
 max_stack = 64
-utility = SubResource("Resource_8u72f")
+utility = ExtResource("3_o5ng5")
 rotatable = false
 drop_items = Array[StringName]([&"bed"])
 forgable = false

@@ -25,10 +25,17 @@ func update_client(data):
 		
 		var slot = get_child(i.to_int())
 		
-		var item_name:String = data[i].item_path.get_file()
+		var item_file:String = data[i].item_path.get_file()
 		
-		if item_name != "":
-			slot.item = ItemDownloader.load_tres_from_package(item_name)
+		if item_file != "":
+			var user_path:String = "user://items/"+item_file
+			var normal_path:String = data[i].item_path
+			
+			if FileAccess.file_exists(user_path):
+				slot.item = load(user_path)
+			else:
+				slot.item = load(data[i].item_path)
+				
 		else:
 			slot.item = null
 			

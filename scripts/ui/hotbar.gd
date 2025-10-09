@@ -25,7 +25,7 @@ func _ready() -> void:
 
 	if !Backend.playerdata.is_empty():
 		if Backend.playerdata.Hotbar != null:
-			#update(JSON.parse_string(Backend.playerdata.Hotbar))
+			update(JSON.parse_string(Backend.playerdata.Hotbar))
 			# update the hotbar with the saved data
 			pass
 			
@@ -165,12 +165,17 @@ func update(data) -> void:
 		
 		var slot = find_child(data[i].parent).get_child(i.to_int())
 		
-		var item_name:String = data[i].item_path.get_file()
+		var item_file:String = data[i].item_path.get_file()
 		
-		if item_name != "":
-			var textures = ItemDownloader.load_tres_from_package("gun.png")
-			print(textures)
-			slot.item = ItemDownloader.load_tres_from_package(item_name)
+		if item_file != "":
+			var user_path:String = "user://items/"+item_file
+			var normal_path:String = data[i].item_path
+			
+			if FileAccess.file_exists(user_path):
+				slot.item = load(user_path)
+			else:
+				slot.item = load(data[i].item_path)
+				
 		else:
 			slot.item = null
 			

@@ -1,4 +1,4 @@
-extends Resource
+xtends Resource
 class_name Biome
 
 const voxel_library = preload("res://resources/voxel_block_library.tres")

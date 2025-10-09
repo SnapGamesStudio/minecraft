@@ -1,45 +1,12 @@
-[gd_resource type="Resource" script_class="ItemTool" load_steps=10 format=3 uid="uid://mv1twiklruq5"]
+[gd_resource type="Resource" script_class="ItemTool" load_steps=4 format=3 uid="uid://mv1twiklruq5"]
 
 [ext_resource type="PackedScene" uid="uid://c3w4y20ibrrii" path="res://assets/models/tools/Wood/shovel_wood.tscn" id="1_oikl5"]
 [ext_resource type="Script" path="res://scripts/items/item_tool.gd" id="2_u4dta"]
-[ext_resource type="Script" path="res://scripts/items/item_block.gd" id="3_3f2jh"]
-[ext_resource type="Resource" uid="uid://c5ahbt0pwj3hk" path="res://resources/items/dirt.tres" id="4_kfhlk"]
-[ext_resource type="Resource" uid="uid://bgful1da4rkm2" path="res://resources/items/grass.tres" id="5_gyuis"]
-[ext_resource type="AudioStream" uid="uid://bsfaiu4i7r46u" path="res://assets/sounds/streams/sand_break.tres" id="6_pvule"]
 [ext_resource type="Texture2D" uid="uid://3cnaqqywpwv2" path="res://assets/textures/items/wood_shovel.png" id="7_dj0qq"]
-[ext_resource type="Texture2D" uid="uid://c38jlnq2eub2t" path="res://assets/textures/items/Sand.png" id="7_xh5to"]
-
-[sub_resource type="Resource" id="Resource_pil5u"]
-script = ExtResource("3_3f2jh")
-break_time = 0.6
-light = false
-light_colour = Color(0, 0, 0, 1)
-light_energy = 1.0
-light_size = 5.0
-has_sound = false
-sound_distance = 10.0
-panning = 1.0
-block_sound = ExtResource("6_pvule")
-volume = -13.0
-pitch = 1.0
-max_distance = 20
-panning_strength = 3
-walk_volume = 0.0
-walk_pitch = 1.0
-walk_max_distance = 20
-walk_panning_strength = 3
-unique_name = &"sand"
-texture = ExtResource("7_xh5to")
-max_stack = 64
-rotatable = false
-drop_items = Array[StringName]([&"sand"])
-forgable = false
-forge_time = 2.0
-value = 10
 
 [resource]
 script = ExtResource("2_u4dta")
-suitable_objects = Array[ExtResource("3_3f2jh")]([ExtResource("4_kfhlk"), ExtResource("5_gyuis"), SubResource("Resource_pil5u")])
+suitable_objects = Array[StringName]([])
 breaking_efficiency = 0.2
 damage = 2
 max_health = 5.0

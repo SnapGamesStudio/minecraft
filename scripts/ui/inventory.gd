@@ -201,6 +201,7 @@ func add_meta_data(data):
 	TerrainHelper.get_terrain_tool().get_voxel_tool().set_voxel_metadata(id,data)
 	#print(" change",TerrainHelper.get_terrain_tool().get_voxel_tool().get_voxel_metadata(id))
 
+## updates the ui with the backend playerdata
 func update_client(data):
 	if data == null: return
 
@@ -208,15 +209,17 @@ func update_client(data):
 		
 		var slot = find_child(data[i].parent).get_child(i.to_int())
 		
-		var item_name:String = data[i].item_path.get_file()
+		var item_file:String = data[i].item_path.get_file()
 		
-		if item_name != "":
-			var loaded_texture = ItemDownloader.load_tres_from_package("gun.png")
-		
-			var loaded_item:ItemBase = ItemDownloader.load_tres_from_package(item_name)
-			loaded_item.texture = loaded_texture
-			print("texture ",loaded_texture," item ",loaded_item)
-			slot.item = loaded_item
+		if item_file != "":
+			var user_path:String = "user://items/"+item_file
+			var normal_path:String = data[i].item_path
+			
+			if FileAccess.file_exists(user_path):
+				slot.item = load(user_path)
+			else:
+				slot.item = load(data[i].item_path)
+				
 		else:
 			slot.item = null
 			
