@@ -1,13 +1,15 @@
-[gd_resource type="Resource" script_class="ItemBlock" load_steps=5 format=3 uid="uid://1826b5fcnlfo"]
+[gd_resource type="Resource" script_class="ItemBlock" load_steps=6 format=3 uid="uid://1826b5fcnlfo"]
 
 [ext_resource type="Script" path="res://scripts/items/item_block.gd" id="1_4byef"]
 [ext_resource type="AudioStream" uid="uid://dj0fyae7mbrip" path="res://assets/sounds/streams/wood_break.tres" id="1_gyyk3"]
 [ext_resource type="Texture2D" uid="uid://cf6c450ctftp2" path="res://assets/textures/items/Oak Plank.png" id="2_73mi1"]
+[ext_resource type="VoxelBlockyType" uid="uid://eqnm7lxdi7vu" path="res://resources/voxels/wood_oak.tres" id="4_dv0oi"]
 [ext_resource type="AudioStream" uid="uid://dcdsv4ryt4y45" path="res://assets/sounds/streams/wood_oak_break.tres" id="4_odx0t"]
 
 [resource]
 script = ExtResource("1_4byef")
 break_time = 0.4
+voxel = ExtResource("4_dv0oi")
 light = false
 light_colour = Color(0, 0, 0, 1)
 light_energy = 1.0

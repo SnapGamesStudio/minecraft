@@ -1,0 +1,11 @@
+[gd_resource type="VoxelBlockyType" load_steps=3 format=3 uid="uid://dyuq1pveihdyr"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pg5pm"]
+
+[sub_resource type="VoxelBlockyModelCube" id="VoxelBlockyModelCube_sg625"]
+material_override_0 = SubResource("StandardMaterial3D_pg5pm")
+
+[resource]
+unique_name = &"blueprint_station"
+base_model = SubResource("VoxelBlockyModelCube_sg625")
+resource_name = "blueprint_station"

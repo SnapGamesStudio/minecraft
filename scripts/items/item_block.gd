@@ -3,6 +3,8 @@ class_name ItemBlock
 
 @export var break_time: float = 0.4
 
+@export var voxel:VoxelBlockyType
+
 @export_group("Additive")
 
 @export_subgroup("Lights")

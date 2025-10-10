@@ -1,8 +1,9 @@
-[gd_resource type="Resource" script_class="ItemBlock" load_steps=5 format=3 uid="uid://cn8nqiie237mj"]
+[gd_resource type="Resource" script_class="ItemBlock" load_steps=6 format=3 uid="uid://cn8nqiie237mj"]
 
 [ext_resource type="Script" path="res://scripts/items/item_block.gd" id="1_a26th"]
 [ext_resource type="Texture2D" uid="uid://b0omyudpmrpm4" path="res://assets/textures/items/portal.png" id="2_smnnp"]
 [ext_resource type="Script" path="res://scripts/items/utilities.gd" id="3_318gj"]
+[ext_resource type="VoxelBlockyType" uid="uid://baihyi14m4h2c" path="res://resources/voxels/portal.tres" id="4_8d2ju"]
 
 [sub_resource type="Resource" id="Resource_vss83"]
 script = ExtResource("3_318gj")
@@ -15,6 +16,7 @@ needs_metadata = false
 [resource]
 script = ExtResource("1_a26th")
 break_time = 0.4
+voxel = ExtResource("4_8d2ju")
 light = false
 light_colour = Color(0, 0, 0, 1)
 light_energy = 1.0

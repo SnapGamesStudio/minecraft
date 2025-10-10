@@ -1,0 +1,24 @@
+[gd_resource type="VoxelBlockyType" load_steps=6 format=3 uid="uid://dvbv5jeaclc80"]
+
+[ext_resource type="Shader" path="res://scripts/shaders/wind.gdshader" id="1_5mxli"]
+[ext_resource type="Texture2D" uid="uid://d10fsk4wa54su" path="res://assets/textures/blocks/flower_rose.png" id="2_xmusk"]
+[ext_resource type="ArrayMesh" uid="uid://bj6dxjaih1d51" path="res://assets/models/grass.obj" id="3_42b3j"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2snh6"]
+render_priority = 0
+shader = ExtResource("1_5mxli")
+shader_parameter/trans = true
+shader_parameter/distance_fade_min = null
+shader_parameter/distance_fade_max = null
+shader_parameter/grass_texture = ExtResource("2_xmusk")
+
+[sub_resource type="VoxelBlockyModelMesh" id="VoxelBlockyModelMesh_lt0yd"]
+mesh = ExtResource("3_42b3j")
+culls_neighbors = false
+material_override_0 = SubResource("ShaderMaterial_2snh6")
+collision_enabled_0 = false
+
+[resource]
+unique_name = &"flower"
+base_model = SubResource("VoxelBlockyModelMesh_lt0yd")
+resource_name = "flower"

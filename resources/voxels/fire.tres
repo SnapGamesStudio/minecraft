@@ -1,0 +1,16 @@
+[gd_resource type="VoxelBlockyType" load_steps=4 format=3 uid="uid://dnldhptqsoij8"]
+
+[ext_resource type="Material" uid="uid://dhbknp6n7qomp" path="res://assets/materials/fire.tres" id="1_pdusw"]
+[ext_resource type="ArrayMesh" uid="uid://bj6dxjaih1d51" path="res://assets/models/grass.obj" id="2_dhkac"]
+
+[sub_resource type="VoxelBlockyModelMesh" id="VoxelBlockyModelMesh_7fnfm"]
+mesh = ExtResource("2_dhkac")
+culls_neighbors = false
+random_tickable = true
+material_override_0 = ExtResource("1_pdusw")
+collision_enabled_0 = false
+
+[resource]
+unique_name = &"fire"
+base_model = SubResource("VoxelBlockyModelMesh_7fnfm")
+resource_name = "fire"

@@ -1,396 +1,32 @@
-[gd_resource type="VoxelBlockyTypeLibrary" load_steps=114 format=4 uid="uid://csna43pkcr65d"]
+[gd_resource type="VoxelBlockyTypeLibrary" load_steps=53 format=3 uid="uid://c7aemhrd4kvsy"]
 
-[ext_resource type="Material" uid="uid://csq7hapgiaegg" path="res://assets/materials/terrain.material" id="1_8hqtx"]
-[ext_resource type="Material" uid="uid://6a7s1y7xwrh8" path="res://assets/materials/terrain_material_foliage.material" id="2_tyu8p"]
-[ext_resource type="Texture2D" uid="uid://b2q0kdc7iqkvx" path="res://assets/textures/textures.png" id="3_isu6s"]
-[ext_resource type="Texture2D" uid="uid://djxr6uhl80usp" path="res://assets/textures/blocks/tallgrass.png" id="4_q5um5"]
-[ext_resource type="ArrayMesh" uid="uid://bj6dxjaih1d51" path="res://assets/models/grass.obj" id="4_vwypi"]
-[ext_resource type="Texture2D" uid="uid://cjnpnhygkgq2m" path="res://assets/models/bed_Image_0.png" id="6_c8n1j"]
-[ext_resource type="ArrayMesh" uid="uid://c0esj2hmhatg5" path="res://assets/models/bed.obj" id="7_0r18u"]
+[ext_resource type="VoxelBlockyType" uid="uid://dqi3xynqrujqn" path="res://resources/voxels/air.tres" id="1_e7isu"]
 [ext_resource type="Shader" path="res://scripts/shaders/wind.gdshader" id="7_ssghj"]
-[ext_resource type="Texture2D" uid="uid://d10fsk4wa54su" path="res://assets/textures/blocks/flower_rose.png" id="8_es8ej"]
-[ext_resource type="Texture2D" uid="uid://b7ihfj3ynsmyg" path="res://assets/textures/blocks/fire.png" id="8_lg5pj"]
-[ext_resource type="Material" uid="uid://dhbknp6n7qomp" path="res://assets/materials/fire.tres" id="11_4llsq"]
-[ext_resource type="Shader" path="res://scripts/shaders/portal.gdshader" id="12_rl3je"]
+[ext_resource type="VoxelBlockyType" uid="uid://5cd4wyt5s80c" path="res://resources/voxels/dirt.tres" id="9_k8g2d"]
+[ext_resource type="VoxelBlockyType" uid="uid://cofv8c6nv4ugm" path="res://resources/voxels/stone.tres" id="10_bq2hr"]
+[ext_resource type="VoxelBlockyType" uid="uid://dxu62wr8ruf37" path="res://resources/voxels/wood_parm.tres" id="11_3kaqq"]
+[ext_resource type="VoxelBlockyType" uid="uid://b63358rtdm32j" path="res://resources/voxels/tall_grass.tres" id="11_lyexn"]
+[ext_resource type="VoxelBlockyType" uid="uid://eqnm7lxdi7vu" path="res://resources/voxels/wood_oak.tres" id="12_124rm"]
 [ext_resource type="Shader" path="res://scripts/shaders/water.gdshader" id="12_tb762"]
+[ext_resource type="VoxelBlockyType" uid="uid://cy7nyt7qnw8ek" path="res://resources/voxels/leaf_oak.tres" id="13_g4ji8"]
+[ext_resource type="VoxelBlockyType" uid="uid://d02bs6ckk2vxv" path="res://resources/voxels/leaf_parm.tres" id="14_tllg1"]
 [ext_resource type="Texture2D" uid="uid://c4qc2xe8j6hkv" path="res://assets/textures/blocks/reeds.png" id="15_2yhxf"]
-[ext_resource type="Texture2D" uid="uid://c3pdydgbmeasd" path="res://assets/textures/blocks/wheatpng.png" id="15_neqns"]
-[ext_resource type="Texture2D" uid="uid://cp3y4uihouojd" path="res://assets/textures/blocks/wheat_seeds.png" id="16_gn5r2"]
+[ext_resource type="VoxelBlockyType" uid="uid://cyjm2mjmdkheb" path="res://resources/voxels/log_oak.tres" id="15_l61wi"]
+[ext_resource type="VoxelBlockyType" uid="uid://dytnr321ew43t" path="res://resources/voxels/log_birch.tres" id="16_nk0w4"]
+[ext_resource type="VoxelBlockyType" uid="uid://d1jgou7q0ho8d" path="res://resources/voxels/chest.tres" id="17_bnowl"]
+[ext_resource type="VoxelBlockyType" uid="uid://dvbv5jeaclc80" path="res://resources/voxels/flower.tres" id="17_vrrgl"]
 [ext_resource type="Texture2D" uid="uid://d3tymthu4wkvb" path="res://assets/textures/blocks/flower tall.png" id="18_2bxy0"]
+[ext_resource type="VoxelBlockyType" uid="uid://iap8kftx6bq8" path="res://resources/voxels/iron.tres" id="18_as10g"]
 [ext_resource type="Texture2D" uid="uid://dw1chy4alyqj2" path="res://assets/textures/blocks/test textures.png" id="19_baq5y"]
-
-[sub_resource type="VoxelBlockyModelEmpty" id="VoxelBlockyModelEmpty_54jvr"]
-
-[sub_resource type="VoxelBlockyType" id="VoxelBlockyType_kekrh"]
-unique_name = &"air"
-base_model = SubResource("VoxelBlockyModelEmpty_54jvr")
-resource_name = "air"
-
-[sub_resource type="VoxelBlockyModelCube" id="VoxelBlockyModelCube_1ldwk"]
-atlas_size_in_tiles = Vector2i(12, 4)
-tile_left = Vector2i(2, 0)
-tile_right = Vector2i(2, 0)
-tile_bottom = Vector2i(2, 0)
-tile_top = Vector2i(2, 0)
-tile_back = Vector2i(2, 0)
-tile_front = Vector2i(2, 0)
-culls_neighbors = false
-lod_skirts_enabled = false
-collision_aabbs = Array[AABB]([AABB(1.45519e-11, 1.45519e-11, 1.45519e-11, 1, 1, 1)])
-collision_mask = 5
-material_override_0 = ExtResource("1_8hqtx")
-
-[sub_resource type="VoxelBlockyType" id="VoxelBlockyType_kgnva"]
-unique_name = &"dirt"
-base_model = SubResource("VoxelBlockyModelCube_1ldwk")
-resource_name = "dirt"
-
-[sub_resource type="VoxelBlockyModelCube" id="VoxelBlockyModelCube_55323"]
-atlas_size_in_tiles = Vector2i(12, 4)
-tile_left = Vector2i(1, 0)
-tile_right = Vector2i(1, 0)
-tile_bottom = Vector2i(2, 0)
-tile_back = Vector2i(1, 0)
-tile_front = Vector2i(1, 0)
-random_tickable = true
-collision_aabbs = Array[AABB]([AABB(1.45519e-11, 1.45519e-11, 1.45519e-11, 1, 1, 1)])
-collision_mask = 5
-material_override_0 = ExtResource("1_8hqtx")
-
-[sub_resource type="VoxelBlockyType" id="VoxelBlockyType_4ubr4"]
-unique_name = &"grass"
-base_model = SubResource("VoxelBlockyModelCube_55323")
-resource_name = "grass"
-
-[sub_resource type="VoxelBlockyModelCube" id="VoxelBlockyModelCube_rqnpp"]
-atlas_size_in_tiles = Vector2i(12, 4)
-tile_left = Vector2i(3, 0)
-tile_right = Vector2i(3, 0)
-tile_bottom = Vector2i(3, 0)
-tile_top = Vector2i(3, 0)
-tile_back = Vector2i(3, 0)
-tile_front = Vector2i(3, 0)
-material_override_0 = ExtResource("1_8hqtx")
-
-[sub_resource type="VoxelBlockyType" id="VoxelBlockyType_k4bih"]
-unique_name = &"stone"
-base_model = SubResource("VoxelBlockyModelCube_rqnpp")
-resource_name = "stone"
-
-[sub_resource type="VoxelBlockyModelCube" id="VoxelBlockyModelCube_dcwgv"]
-atlas_size_in_tiles = Vector2i(12, 4)
-tile_left = Vector2i(4, 0)
-tile_right = Vector2i(4, 0)
-tile_bottom = Vector2i(5, 0)
-tile_top = Vector2i(5, 0)
-tile_back = Vector2i(4, 0)
-tile_front = Vector2i(4, 0)
-material_override_0 = ExtResource("1_8hqtx")
-
-[sub_resource type="VoxelBlockyType" id="VoxelBlockyType_yomcl"]
-unique_name = &"log_oak"
-base_model = SubResource("VoxelBlockyModelCube_dcwgv")
-resource_name = "log_oak"
-
-[sub_resource type="VoxelBlockyModelCube" id="VoxelBlockyModelCube_rg3iw"]
-atlas_size_in_tiles = Vector2i(12, 4)
-tile_left = Vector2i(4, 1)
-tile_right = Vector2i(4, 1)
-tile_bottom = Vector2i(5, 1)
-tile_top = Vector2i(5, 1)
-tile_back = Vector2i(4, 1)
-tile_front = Vector2i(4, 1)
-material_override_0 = ExtResource("1_8hqtx")
-
-[sub_resource type="VoxelBlockyType" id="VoxelBlockyType_7argj"]
-unique_name = &"log_birch"
-base_model = SubResource("VoxelBlockyModelCube_rg3iw")
-resource_name = "log_birch"
-
-[sub_resource type="VoxelBlockyModelCube" id="VoxelBlockyModelCube_xuk0k"]
-atlas_size_in_tiles = Vector2i(12, 4)
-tile_left = Vector2i(7, 0)
-tile_right = Vector2i(7, 0)
-tile_bottom = Vector2i(7, 0)
-tile_top = Vector2i(7, 0)
-tile_back = Vector2i(7, 0)
-tile_front = Vector2i(7, 0)
-material_override_0 = ExtResource("1_8hqtx")
-
-[sub_resource type="VoxelBlockyType" id="VoxelBlockyType_fu35l"]
-unique_name = &"wood_oak"
-base_model = SubResource("VoxelBlockyModelCube_xuk0k")
-resource_name = "wood_oak"
-
-[sub_resource type="VoxelBlockyModelCube" id="VoxelBlockyModelCube_gikdy"]
-atlas_size_in_tiles = Vector2i(12, 4)
-tile_left = Vector2i(7, 1)
-tile_right = Vector2i(7, 1)
-tile_bottom = Vector2i(7, 1)
-tile_top = Vector2i(7, 1)
-tile_back = Vector2i(7, 1)
-tile_front = Vector2i(7, 1)
-material_override_0 = ExtResource("1_8hqtx")
-
-[sub_resource type="VoxelBlockyType" id="VoxelBlockyType_bbxuy"]
-unique_name = &"wood_parm"
-base_model = SubResource("VoxelBlockyModelCube_gikdy")
-resource_name = "wood_parm"
-
-[sub_resource type="VoxelBlockyModelCube" id="VoxelBlockyModelCube_j6y2v"]
-atlas_size_in_tiles = Vector2i(12, 4)
-tile_left = Vector2i(6, 0)
-tile_right = Vector2i(6, 0)
-tile_bottom = Vector2i(6, 0)
-tile_top = Vector2i(6, 0)
-tile_back = Vector2i(6, 0)
-tile_front = Vector2i(6, 0)
-culls_neighbors = false
-material_override_0 = ExtResource("2_tyu8p")
-collision_enabled_0 = false
-
-[sub_resource type="VoxelBlockyType" id="VoxelBlockyType_pwkao"]
-unique_name = &"leaf_oak"
-base_model = SubResource("VoxelBlockyModelCube_j6y2v")
-resource_name = "leaf_oak"
-
-[sub_resource type="VoxelBlockyModelCube" id="VoxelBlockyModelCube_il7i2"]
-atlas_size_in_tiles = Vector2i(12, 4)
-tile_left = Vector2i(6, 1)
-tile_right = Vector2i(6, 1)
-tile_bottom = Vector2i(6, 1)
-tile_top = Vector2i(6, 1)
-tile_back = Vector2i(6, 1)
-tile_front = Vector2i(6, 1)
-culls_neighbors = false
-material_override_0 = ExtResource("2_tyu8p")
-collision_enabled_0 = false
-
-[sub_resource type="VoxelBlockyType" id="VoxelBlockyType_pgid7"]
-unique_name = &"leaf_parm"
-base_model = SubResource("VoxelBlockyModelCube_il7i2")
-resource_name = "leaf_parm"
-
-[sub_resource type="VoxelBlockyModelCube" id="VoxelBlockyModelCube_61l6h"]
-atlas_size_in_tiles = Vector2i(12, 4)
-tile_left = Vector2i(0, 1)
-tile_right = Vector2i(0, 1)
-tile_bottom = Vector2i(0, 1)
-tile_top = Vector2i(0, 1)
-tile_back = Vector2i(0, 1)
-tile_front = Vector2i(0, 1)
-material_override_0 = ExtResource("1_8hqtx")
-
-[sub_resource type="VoxelBlockyType" id="VoxelBlockyType_i06l5"]
-unique_name = &"sand"
-base_model = SubResource("VoxelBlockyModelCube_61l6h")
-resource_name = "sand"
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_xr8t2"]
-render_priority = 0
-shader = ExtResource("7_ssghj")
-shader_parameter/trans = true
-shader_parameter/distance_fade_min = 60.0
-shader_parameter/distance_fade_max = 50.0
-shader_parameter/grass_texture = ExtResource("4_q5um5")
-
-[sub_resource type="VoxelBlockyModelMesh" id="VoxelBlockyModelMesh_ot456"]
-mesh = ExtResource("4_vwypi")
-culls_neighbors = false
-lod_skirts_enabled = false
-collision_aabbs = Array[AABB]([AABB(1.45519e-11, -0.4, 1.45519e-11, 1, 0.2, 1)])
-material_override_0 = SubResource("ShaderMaterial_xr8t2")
-collision_enabled_0 = false
-
-[sub_resource type="VoxelBlockyType" id="VoxelBlockyType_uiln0"]
-unique_name = &"tall_grass"
-base_model = SubResource("VoxelBlockyModelMesh_ot456")
-resource_name = "tall_grass"
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_li3q6"]
-transparency = 2
-alpha_scissor_threshold = 0.909
-alpha_antialiasing_mode = 0
-cull_mode = 2
-albedo_texture = ExtResource("3_isu6s")
-metallic_specular = 0.2
-emission_enabled = true
-emission_energy_multiplier = 3.0
-emission_texture = ExtResource("3_isu6s")
-texture_filter = 0
-distance_fade_max_distance = 0.0
-
-[sub_resource type="VoxelBlockyModelCube" id="VoxelBlockyModelCube_hjums"]
-atlas_size_in_tiles = Vector2i(12, 4)
-tile_left = Vector2i(9, 0)
-tile_right = Vector2i(9, 0)
-tile_bottom = Vector2i(9, 0)
-tile_top = Vector2i(9, 0)
-tile_back = Vector2i(9, 0)
-tile_front = Vector2i(9, 0)
-material_override_0 = SubResource("StandardMaterial3D_li3q6")
-
-[sub_resource type="VoxelBlockyType" id="VoxelBlockyType_nug11"]
-unique_name = &"glowstone"
-base_model = SubResource("VoxelBlockyModelCube_hjums")
-resource_name = "glowstone"
-
-[sub_resource type="VoxelBlockyModelCube" id="VoxelBlockyModelCube_ncbmk"]
-atlas_size_in_tiles = Vector2i(12, 4)
-tile_left = Vector2i(10, 0)
-tile_right = Vector2i(10, 0)
-tile_bottom = Vector2i(10, 0)
-tile_top = Vector2i(10, 0)
-tile_back = Vector2i(10, 0)
-tile_front = Vector2i(10, 0)
-material_override_0 = ExtResource("1_8hqtx")
-
-[sub_resource type="VoxelBlockyType" id="VoxelBlockyType_t5wsu"]
-unique_name = &"iron"
-base_model = SubResource("VoxelBlockyModelCube_ncbmk")
-resource_name = "iron"
-
-[sub_resource type="VoxelBlockyModelCube" id="VoxelBlockyModelCube_eawla"]
-atlas_size_in_tiles = Vector2i(12, 4)
-tile_left = Vector2i(10, 1)
-tile_right = Vector2i(10, 1)
-tile_bottom = Vector2i(10, 1)
-tile_top = Vector2i(10, 1)
-tile_back = Vector2i(10, 1)
-tile_front = Vector2i(10, 1)
-material_override_0 = ExtResource("1_8hqtx")
-
-[sub_resource type="VoxelBlockyType" id="VoxelBlockyType_5xsqa"]
-unique_name = &"diamond"
-base_model = SubResource("VoxelBlockyModelCube_eawla")
-resource_name = "diamond"
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lwlxh"]
-resource_name = "palette"
-albedo_color = Color(0.8, 0.8, 0.8, 1)
-albedo_texture = ExtResource("6_c8n1j")
-metallic = 0.5
-
-[sub_resource type="VoxelBlockyModelMesh" id="VoxelBlockyModelMesh_s7cku"]
-mesh = ExtResource("7_0r18u")
-collision_aabbs = Array[AABB]([AABB(1.45519e-11, 1.45519e-11, 1.45519e-11, 1, 0.5, 2)])
-material_override_0 = SubResource("StandardMaterial3D_lwlxh")
-collision_enabled_0 = true
-
-[sub_resource type="VoxelBlockyType" id="VoxelBlockyType_lyyh7"]
-unique_name = &"bed"
-base_model = SubResource("VoxelBlockyModelMesh_s7cku")
-resource_name = "bed"
-
-[sub_resource type="VoxelBlockyAttributeDirection" id="VoxelBlockyAttributeDirection_oxmji"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h102j"]
-transparency = 2
-alpha_scissor_threshold = 0.115
-alpha_antialiasing_mode = 0
-cull_mode = 2
-albedo_texture = ExtResource("8_lg5pj")
-emission_enabled = true
-emission_texture = ExtResource("8_lg5pj")
-texture_filter = 0
-
-[sub_resource type="ArrayMesh" id="ArrayMesh_hk2le"]
-_surfaces = [{
-"aabb": AABB(0.146447, -0.1, 0.146447, 0.707106, 1, 0.707106),
-"attribute_data": PackedByteArray("AAD//wAAAAD///////8AAAAA//8AAAAA////////AAA="),
-"format": 34896613399,
-"index_count": 12,
-"index_data": PackedByteArray("AAABAAIAAgABAAMABAAFAAYABgAFAAcA"),
-"material": SubResource("StandardMaterial3D_h102j"),
-"name": "Material",
-"primitive": 3,
-"uv_scale": Vector4(0, 0, 0, 0),
-"vertex_count": 8,
-"vertex_data": PackedByteArray("//8AAP///9//////////3wAAAAAAAP/fAAD//wAA/98AAAAA////nwAA//////+f//8AAAAA/5//////AAD/n/9/AAD/fwAA/38AAP9/AAD/fwAA/38AAP9/AAD/fwAA")
-}]
-blend_shape_mode = 0
-
-[sub_resource type="VoxelBlockyModelMesh" id="VoxelBlockyModelMesh_dclci"]
-mesh = SubResource("ArrayMesh_hk2le")
-culls_neighbors = false
-collision_aabbs = Array[AABB]([AABB(1.45519e-11, 1.45519e-11, 1.45519e-11, 1, 1, 1)])
-collision_enabled_0 = false
-
-[sub_resource type="VoxelBlockyType" id="VoxelBlockyType_8i1qp"]
-unique_name = &"cooker"
-base_model = SubResource("VoxelBlockyModelMesh_dclci")
-attributes = Array[VoxelBlockyAttribute]([SubResource("VoxelBlockyAttributeDirection_oxmji")])
-resource_name = "cooker"
-
-[sub_resource type="VoxelBlockyModelCube" id="VoxelBlockyModelCube_xh23b"]
-atlas_size_in_tiles = Vector2i(12, 4)
-tile_left = Vector2i(2, 2)
-tile_right = Vector2i(2, 2)
-tile_bottom = Vector2i(2, 2)
-tile_top = Vector2i(2, 2)
-tile_back = Vector2i(2, 2)
-tile_front = Vector2i(2, 2)
-material_override_0 = ExtResource("1_8hqtx")
-
-[sub_resource type="VoxelBlockyType" id="VoxelBlockyType_4tqua"]
-unique_name = &"lava"
-base_model = SubResource("VoxelBlockyModelCube_xh23b")
-resource_name = "lava"
-
-[sub_resource type="VoxelBlockyAttributeDirection" id="VoxelBlockyAttributeDirection_ics12"]
-
-[sub_resource type="VoxelBlockyModelCube" id="VoxelBlockyModelCube_p3ml1"]
-atlas_size_in_tiles = Vector2i(12, 4)
-tile_left = Vector2i(9, 1)
-tile_right = Vector2i(9, 1)
-tile_bottom = Vector2i(8, 0)
-tile_top = Vector2i(8, 0)
-tile_back = Vector2i(9, 1)
-tile_front = Vector2i(8, 1)
-material_override_0 = ExtResource("1_8hqtx")
-
-[sub_resource type="VoxelBlockyType" id="VoxelBlockyType_l4xyh"]
-unique_name = &"chest"
-base_model = SubResource("VoxelBlockyModelCube_p3ml1")
-attributes = Array[VoxelBlockyAttribute]([SubResource("VoxelBlockyAttributeDirection_ics12")])
-resource_name = "chest"
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_2snh6"]
-render_priority = 0
-shader = ExtResource("7_ssghj")
-shader_parameter/trans = true
-shader_parameter/distance_fade_min = null
-shader_parameter/distance_fade_max = null
-shader_parameter/grass_texture = ExtResource("8_es8ej")
-
-[sub_resource type="VoxelBlockyModelMesh" id="VoxelBlockyModelMesh_lt0yd"]
-mesh = ExtResource("4_vwypi")
-culls_neighbors = false
-material_override_0 = SubResource("ShaderMaterial_2snh6")
-collision_enabled_0 = false
-
-[sub_resource type="VoxelBlockyType" id="VoxelBlockyType_jqf1y"]
-unique_name = &"flower"
-base_model = SubResource("VoxelBlockyModelMesh_lt0yd")
-resource_name = "flower"
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_2m5i5"]
-render_priority = 0
-shader = ExtResource("12_rl3je")
-shader_parameter/color1 = Color(0, 0.9, 1, 1)
-shader_parameter/color2 = Color(0, 1, 1, 1)
-shader_parameter/color3 = Color(0, 0, 0, 1)
-shader_parameter/x_amount = 384.0
-shader_parameter/y_amount = 384.0
-shader_parameter/e_amount = 0.2
-
-[sub_resource type="VoxelBlockyModelCube" id="VoxelBlockyModelCube_jvmn8"]
-material_override_0 = SubResource("ShaderMaterial_2m5i5")
-
-[sub_resource type="VoxelBlockyType" id="VoxelBlockyType_3bomk"]
-unique_name = &"portal"
-base_model = SubResource("VoxelBlockyModelCube_jvmn8")
-resource_name = "portal"
+[ext_resource type="VoxelBlockyType" uid="uid://bsp64sjaww3om" path="res://resources/voxels/bed.tres" id="19_swu0h"]
+[ext_resource type="VoxelBlockyType" uid="uid://b1bepxe8ljnb3" path="res://resources/voxels/cooker.tres" id="20_jjs3u"]
+[ext_resource type="VoxelBlockyType" uid="uid://baihyi14m4h2c" path="res://resources/voxels/portal.tres" id="21_ibxcc"]
+[ext_resource type="VoxelBlockyType" uid="uid://dnldhptqsoij8" path="res://resources/voxels/fire.tres" id="22_6771x"]
+[ext_resource type="VoxelBlockyType" uid="uid://dm8x7f35vfvbx" path="res://resources/voxels/wheat_seed.tres" id="23_a4tsr"]
+[ext_resource type="VoxelBlockyType" uid="uid://cvprjut1ltsp4" path="res://resources/voxels/wheat.tres" id="24_jmgii"]
+[ext_resource type="VoxelBlockyType" uid="uid://dyuq1pveihdyr" path="res://resources/voxels/blueprint_station.tres" id="25_m1pgg"]
+[ext_resource type="VoxelBlockyType" uid="uid://bnh6ftd7voeax" path="res://resources/voxels/grass.tres" id="26_2vjse"]
+[ext_resource type="VoxelBlockyType" uid="uid://coyaqrbhykitr" path="res://resources/voxels/sand.tres" id="27_kxy1i"]
 
 [sub_resource type="Gradient" id="Gradient_w176c"]
 
@@ -440,7 +76,7 @@ collision_aabbs = Array[AABB]([AABB(1.45519e-11, 1.45519e-11, 1.45519e-11, 1, 1,
 collision_mask = 2
 collision_enabled_0 = false
 
-[sub_resource type="VoxelBlockyType" id="VoxelBlockyType_ksnuf"]
+[sub_resource type="VoxelBlockyType" id="VoxelBlockyType_pk8ty"]
 unique_name = &"water_top"
 base_model = SubResource("VoxelBlockyModelMesh_ntd22")
 resource_name = "water_top"
@@ -457,18 +93,6 @@ collision_enabled_0 = false
 unique_name = &"water_full"
 base_model = SubResource("VoxelBlockyModelCube_ndvd3")
 resource_name = "water_full"
-
-[sub_resource type="VoxelBlockyModelMesh" id="VoxelBlockyModelMesh_7fnfm"]
-mesh = ExtResource("4_vwypi")
-culls_neighbors = false
-random_tickable = true
-material_override_0 = ExtResource("11_4llsq")
-collision_enabled_0 = false
-
-[sub_resource type="VoxelBlockyType" id="VoxelBlockyType_v5joj"]
-unique_name = &"fire"
-base_model = SubResource("VoxelBlockyModelMesh_7fnfm")
-resource_name = "fire"
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_huvcx"]
 render_priority = 0
@@ -489,28 +113,28 @@ shader_parameter/grass_texture = ExtResource("15_2yhxf")
 [sub_resource type="ArrayMesh" id="ArrayMesh_v8pyf"]
 _surfaces = [{
 "aabb": AABB(0, 0, 0.5, 1, 1, 1e-05),
-"attribute_data": PackedByteArray("AAD//wAAAAD///////8AAA=="),
+"attribute_data": PackedByteArray(0, 0, 255, 255, 0, 0, 0, 0, 255, 255, 255, 255, 255, 255, 0, 0),
 "format": 34896613399,
 "index_count": 6,
-"index_data": PackedByteArray("AAABAAIAAgABAAMA"),
+"index_data": PackedByteArray(0, 0, 1, 0, 2, 0, 2, 0, 1, 0, 3, 0),
 "material": SubResource("ShaderMaterial_pt7dp"),
 "name": "Material",
 "primitive": 3,
 "uv_scale": Vector4(0, 0, 0, 0),
 "vertex_count": 4,
-"vertex_data": PackedByteArray("AAAAAAAAAIAAAP//AAAAgP//AAAAAACA/////wAAAID/f////3////9/////f///")
+"vertex_data": PackedByteArray(0, 0, 0, 0, 0, 0, 0, 128, 0, 0, 255, 255, 0, 0, 0, 128, 255, 255, 0, 0, 0, 0, 0, 128, 255, 255, 255, 255, 0, 0, 0, 128, 255, 127, 255, 255, 255, 127, 255, 255, 255, 127, 255, 255, 255, 127, 255, 255)
 }, {
 "aabb": AABB(0.5, 0, 0, 1e-05, 1, 1),
-"attribute_data": PackedByteArray("AAAAAP//AAAAAP///////w=="),
+"attribute_data": PackedByteArray(0, 0, 0, 0, 255, 255, 0, 0, 0, 0, 255, 255, 255, 255, 255, 255),
 "format": 34896613399,
 "index_count": 6,
-"index_data": PackedByteArray("AAABAAIAAgABAAMA"),
+"index_data": PackedByteArray(0, 0, 1, 0, 2, 0, 2, 0, 1, 0, 3, 0),
 "material": SubResource("ShaderMaterial_pt7dp"),
 "name": "Material",
 "primitive": 3,
 "uv_scale": Vector4(0, 0, 0, 0),
 "vertex_count": 4,
-"vertex_data": PackedByteArray("AAD//////78AAP//AAD/vwAAAAD///+/AAAAAAAA/7//fwAA/38AAP9/AAD/fwAA")
+"vertex_data": PackedByteArray(0, 0, 255, 255, 255, 255, 255, 191, 0, 0, 255, 255, 0, 0, 255, 191, 0, 0, 0, 0, 255, 255, 255, 191, 0, 0, 0, 0, 0, 0, 255, 191, 255, 127, 0, 0, 255, 127, 0, 0, 255, 127, 0, 0, 255, 127, 0, 0)
 }]
 blend_shape_mode = 0
 
@@ -525,91 +149,6 @@ collision_enabled_1 = false
 unique_name = &"reeds"
 base_model = SubResource("VoxelBlockyModelMesh_xmpic")
 resource_name = "reeds"
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_234e5"]
-render_priority = 0
-shader = ExtResource("7_ssghj")
-shader_parameter/trans = true
-shader_parameter/distance_fade_min = null
-shader_parameter/distance_fade_max = null
-shader_parameter/grass_texture = ExtResource("15_neqns")
-
-[sub_resource type="VoxelBlockyModelMesh" id="VoxelBlockyModelMesh_qp5gf"]
-mesh = ExtResource("4_vwypi")
-random_tickable = true
-collision_aabbs = Array[AABB]([AABB(1.45519e-11, -0.4, 1.45519e-11, 1, 0.2, 1)])
-material_override_0 = SubResource("ShaderMaterial_234e5")
-collision_enabled_0 = false
-
-[sub_resource type="VoxelBlockyType" id="VoxelBlockyType_o5re0"]
-unique_name = &"wheat"
-base_model = SubResource("VoxelBlockyModelMesh_qp5gf")
-resource_name = "wheat"
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_pwm5b"]
-render_priority = 0
-shader = ExtResource("7_ssghj")
-shader_parameter/trans = true
-shader_parameter/distance_fade_min = null
-shader_parameter/distance_fade_max = null
-shader_parameter/grass_texture = ExtResource("16_gn5r2")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ebx1x"]
-render_priority = 0
-shader = ExtResource("7_ssghj")
-shader_parameter/trans = true
-shader_parameter/distance_fade_min = null
-shader_parameter/distance_fade_max = null
-
-[sub_resource type="ArrayMesh" id="ArrayMesh_ygas7"]
-_surfaces = [{
-"aabb": AABB(0.146447, -0.1, 0.146447, 0.707106, 1, 0.707106),
-"attribute_data": PackedByteArray("AAD//wAAAAD///////8AAAAA//8AAAAA////////AAA="),
-"format": 34896613399,
-"index_count": 12,
-"index_data": PackedByteArray("AAABAAIAAgABAAMABAAFAAYABgAFAAcA"),
-"material": SubResource("ShaderMaterial_ebx1x"),
-"name": "Material",
-"primitive": 3,
-"uv_scale": Vector4(0, 0, 0, 0),
-"vertex_count": 8,
-"vertex_data": PackedByteArray("//8AAP///9//////////3wAAAAAAAP/fAAD//wAA/98AAAAA////nwAA//////+f//8AAAAA/5//////AAD/n/9/AAD/fwAA/38AAP9/AAD/fwAA/38AAP9/AAD/fwAA")
-}]
-blend_shape_mode = 0
-
-[sub_resource type="VoxelBlockyModelMesh" id="VoxelBlockyModelMesh_iqsnf"]
-mesh = SubResource("ArrayMesh_ygas7")
-random_tickable = true
-collision_aabbs = Array[AABB]([AABB(1.45519e-11, -0.4, 1.45519e-11, 1, 0.2, 1)])
-material_override_0 = SubResource("ShaderMaterial_pwm5b")
-collision_enabled_0 = false
-
-[sub_resource type="VoxelBlockyType" id="VoxelBlockyType_xg2os"]
-unique_name = &"wheat_seed"
-base_model = SubResource("VoxelBlockyModelMesh_iqsnf")
-resource_name = "wheat_seed"
-
-[sub_resource type="VoxelBlockyModelCube" id="VoxelBlockyModelCube_w71jb"]
-atlas_size_in_tiles = Vector2i(12, 4)
-tile_left = Vector2i(9, 0)
-tile_right = Vector2i(9, 0)
-tile_bottom = Vector2i(9, 0)
-tile_top = Vector2i(9, 0)
-tile_back = Vector2i(9, 0)
-tile_front = Vector2i(9, 0)
-culls_neighbors = false
-
-[sub_resource type="VoxelBlockyType" id="VoxelBlockyType_ywefl"]
-unique_name = &"sandstone"
-base_model = SubResource("VoxelBlockyModelCube_w71jb")
-resource_name = "sandstone"
-
-[sub_resource type="VoxelBlockyModelEmpty" id="VoxelBlockyModelEmpty_b28sd"]
-
-[sub_resource type="VoxelBlockyType" id="VoxelBlockyType_3d0ox"]
-unique_name = &"cave_air"
-base_model = SubResource("VoxelBlockyModelEmpty_b28sd")
-resource_name = "cave_air"
 
 [sub_resource type="VoxelBlockyModelEmpty" id="VoxelBlockyModelEmpty_np7f4"]
 random_tickable = true
@@ -630,28 +169,28 @@ shader_parameter/grass_texture = ExtResource("18_2bxy0")
 [sub_resource type="ArrayMesh" id="ArrayMesh_xoyc5"]
 _surfaces = [{
 "aabb": AABB(0, 0, 0.5, 1, 1, 1e-05),
-"attribute_data": PackedByteArray("AAD//wAAAAD///////8AAA=="),
+"attribute_data": PackedByteArray(0, 0, 255, 255, 0, 0, 0, 0, 255, 255, 255, 255, 255, 255, 0, 0),
 "format": 34896613399,
 "index_count": 6,
-"index_data": PackedByteArray("AAABAAIAAgABAAMA"),
+"index_data": PackedByteArray(0, 0, 1, 0, 2, 0, 2, 0, 1, 0, 3, 0),
 "material": SubResource("ShaderMaterial_pt7dp"),
 "name": "Material",
 "primitive": 3,
 "uv_scale": Vector4(0, 0, 0, 0),
 "vertex_count": 4,
-"vertex_data": PackedByteArray("AAAAAAAAAIAAAP//AAAAgP//AAAAAACA/////wAAAID/f////3////9/////f///")
+"vertex_data": PackedByteArray(0, 0, 0, 0, 0, 0, 0, 128, 0, 0, 255, 255, 0, 0, 0, 128, 255, 255, 0, 0, 0, 0, 0, 128, 255, 255, 255, 255, 0, 0, 0, 128, 255, 127, 255, 255, 255, 127, 255, 255, 255, 127, 255, 255, 255, 127, 255, 255)
 }, {
 "aabb": AABB(0.5, 0, 0, 1e-05, 1, 1),
-"attribute_data": PackedByteArray("AAAAAP//AAAAAP///////w=="),
+"attribute_data": PackedByteArray(0, 0, 0, 0, 255, 255, 0, 0, 0, 0, 255, 255, 255, 255, 255, 255),
 "format": 34896613399,
 "index_count": 6,
-"index_data": PackedByteArray("AAABAAIAAgABAAMA"),
+"index_data": PackedByteArray(0, 0, 1, 0, 2, 0, 2, 0, 1, 0, 3, 0),
 "material": SubResource("ShaderMaterial_pt7dp"),
 "name": "Material",
 "primitive": 3,
 "uv_scale": Vector4(0, 0, 0, 0),
 "vertex_count": 4,
-"vertex_data": PackedByteArray("AAD//////78AAP//AAD/vwAAAAD///+/AAAAAAAA/7//fwAA/38AAP9/AAD/fwAA")
+"vertex_data": PackedByteArray(0, 0, 255, 255, 255, 255, 255, 191, 0, 0, 255, 255, 0, 0, 255, 191, 0, 0, 0, 0, 255, 255, 255, 191, 0, 0, 0, 0, 0, 0, 255, 191, 255, 127, 0, 0, 255, 127, 0, 0, 255, 127, 0, 0, 255, 127, 0, 0)
 }]
 blend_shape_mode = 0
 
@@ -666,21 +205,6 @@ collision_enabled_1 = false
 unique_name = &"tall_flower"
 base_model = SubResource("VoxelBlockyModelMesh_w7ys5")
 resource_name = "tall_flower"
-
-[sub_resource type="VoxelBlockyModelCube" id="VoxelBlockyModelCube_lf26l"]
-atlas_size_in_tiles = Vector2i(12, 4)
-tile_left = Vector2i(1, 1)
-tile_right = Vector2i(1, 1)
-tile_bottom = Vector2i(1, 1)
-tile_top = Vector2i(1, 1)
-tile_back = Vector2i(1, 1)
-tile_front = Vector2i(1, 1)
-material_override_0 = ExtResource("1_8hqtx")
-
-[sub_resource type="VoxelBlockyType" id="VoxelBlockyType_ygmhy"]
-unique_name = &"cactus"
-base_model = SubResource("VoxelBlockyModelCube_lf26l")
-resource_name = "cactus"
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3qpsq"]
 transparency = 2
@@ -711,16 +235,6 @@ unique_name = &"bedrock"
 base_model = SubResource("VoxelBlockyModelCube_y4e0k")
 resource_name = "bedrock"
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pg5pm"]
-
-[sub_resource type="VoxelBlockyModelCube" id="VoxelBlockyModelCube_sg625"]
-material_override_0 = SubResource("StandardMaterial3D_pg5pm")
-
-[sub_resource type="VoxelBlockyType" id="VoxelBlockyType_mxeht"]
-unique_name = &"blueprint_station"
-base_model = SubResource("VoxelBlockyModelCube_sg625")
-resource_name = "blueprint_station"
-
 [resource]
-types = Array[VoxelBlockyType]([SubResource("VoxelBlockyType_kekrh"), SubResource("VoxelBlockyType_kgnva"), SubResource("VoxelBlockyType_4ubr4"), SubResource("VoxelBlockyType_k4bih"), SubResource("VoxelBlockyType_yomcl"), SubResource("VoxelBlockyType_7argj"), SubResource("VoxelBlockyType_fu35l"), SubResource("VoxelBlockyType_bbxuy"), SubResource("VoxelBlockyType_pwkao"), SubResource("VoxelBlockyType_pgid7"), SubResource("VoxelBlockyType_i06l5"), SubResource("VoxelBlockyType_uiln0"), SubResource("VoxelBlockyType_nug11"), SubResource("VoxelBlockyType_t5wsu"), SubResource("VoxelBlockyType_5xsqa"), SubResource("VoxelBlockyType_lyyh7"), SubResource("VoxelBlockyType_8i1qp"), SubResource("VoxelBlockyType_4tqua"), SubResource("VoxelBlockyType_l4xyh"), SubResource("VoxelBlockyType_jqf1y"), SubResource("VoxelBlockyType_3bomk"), SubResource("VoxelBlockyType_ksnuf"), SubResource("VoxelBlockyType_bef3u"), SubResource("VoxelBlockyType_v5joj"), SubResource("VoxelBlockyType_p7luq"), SubResource("VoxelBlockyType_o5re0"), SubResource("VoxelBlockyType_xg2os"), SubResource("VoxelBlockyType_ywefl"), SubResource("VoxelBlockyType_3d0ox"), SubResource("VoxelBlockyType_5w55q"), SubResource("VoxelBlockyType_55pfu"), SubResource("VoxelBlockyType_ygmhy"), SubResource("VoxelBlockyType_uvhfn"), SubResource("VoxelBlockyType_mxeht")])
+types = Array[VoxelBlockyType]([ExtResource("1_e7isu"), ExtResource("11_lyexn"), ExtResource("17_vrrgl"), SubResource("VoxelBlockyType_pk8ty"), SubResource("VoxelBlockyType_bef3u"), SubResource("VoxelBlockyType_p7luq"), SubResource("VoxelBlockyType_5w55q"), SubResource("VoxelBlockyType_55pfu"), SubResource("VoxelBlockyType_uvhfn"), ExtResource("9_k8g2d"), ExtResource("10_bq2hr"), ExtResource("11_3kaqq"), ExtResource("12_124rm"), ExtResource("13_g4ji8"), ExtResource("14_tllg1"), ExtResource("15_l61wi"), ExtResource("16_nk0w4"), ExtResource("17_bnowl"), ExtResource("18_as10g"), ExtResource("19_swu0h"), ExtResource("20_jjs3u"), ExtResource("21_ibxcc"), ExtResource("22_6771x"), ExtResource("23_a4tsr"), ExtResource("24_jmgii"), ExtResource("25_m1pgg"), ExtResource("26_2vjse"), ExtResource("27_kxy1i")])
 _id_map_data = PackedStringArray("air", "dirt", "grass", "stone", "log_oak", "log_birch", "wood_oak", "wood_birch", "leaf_oak", "leaf_birch", "sand", "portal", "tall_grass", "chest", "test", "glowstone", "iron", "diamond", "bed", "forge", "flower", "fern", "test_ore", "water_top", "water_full", "gravestone", "chest[direction=0]", "chest[direction=1]", "chest[direction=2]", "chest[direction=3]", "chest[direction=4]", "chest[direction=5]", "forge[direction=0]", "forge[direction=1]", "forge[direction=2]", "forge[direction=3]", "forge[direction=4]", "forge[direction=5]", "water", "fire", "hell_ore", "creature_spawner", "reeds", "cactus", "lava", "hell_stone", "creature", "creature_spawner", "portal", "fire_pit[direction=0]", "fire_pit[direction=1]", "fire_pit[direction=2]", "fire_pit[direction=3]", "fire_pit[direction=4]", "fire_pit[direction=5]", "wheat", "wheat_seed", "sandstone", "cave_air", "cooker[direction=0]", "cooker[direction=1]", "cooker[direction=2]", "cooker[direction=3]", "cooker[direction=4]", "cooker[direction=5]", "spawner", "tall_flower", "wood_parm", "leaf_parm", "bedrock", "blueprint_station")

@@ -1,0 +1,25 @@
+[gd_resource type="VoxelBlockyType" load_steps=6 format=3 uid="uid://cvprjut1ltsp4"]
+
+[ext_resource type="Shader" path="res://scripts/shaders/wind.gdshader" id="1_weg42"]
+[ext_resource type="Texture2D" uid="uid://c3pdydgbmeasd" path="res://assets/textures/blocks/wheatpng.png" id="2_iurn1"]
+[ext_resource type="ArrayMesh" uid="uid://bj6dxjaih1d51" path="res://assets/models/grass.obj" id="3_d2ap2"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_234e5"]
+render_priority = 0
+shader = ExtResource("1_weg42")
+shader_parameter/trans = true
+shader_parameter/distance_fade_min = null
+shader_parameter/distance_fade_max = null
+shader_parameter/grass_texture = ExtResource("2_iurn1")
+
+[sub_resource type="VoxelBlockyModelMesh" id="VoxelBlockyModelMesh_qp5gf"]
+mesh = ExtResource("3_d2ap2")
+random_tickable = true
+collision_aabbs = Array[AABB]([AABB(1.45519e-11, -0.4, 1.45519e-11, 1, 0.2, 1)])
+material_override_0 = SubResource("ShaderMaterial_234e5")
+collision_enabled_0 = false
+
+[resource]
+unique_name = &"wheat"
+base_model = SubResource("VoxelBlockyModelMesh_qp5gf")
+resource_name = "wheat"

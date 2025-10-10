@@ -1,8 +1,9 @@
-[gd_resource type="Resource" script_class="ItemBlock" load_steps=5 format=3 uid="uid://dn2s8tsdl4rca"]
+[gd_resource type="Resource" script_class="ItemBlock" load_steps=6 format=3 uid="uid://dn2s8tsdl4rca"]
 
 [ext_resource type="Script" path="res://scripts/items/item_block.gd" id="1_b1c5b"]
 [ext_resource type="Script" path="res://scripts/items/utilities.gd" id="2_8pium"]
 [ext_resource type="Texture2D" uid="uid://cu30002wogui3" path="res://assets/textures/items/new_placeholder_texture_2d.tres" id="2_grjyq"]
+[ext_resource type="VoxelBlockyType" uid="uid://dyuq1pveihdyr" path="res://resources/voxels/blueprint_station.tres" id="4_h5sm8"]
 
 [sub_resource type="Resource" id="Resource_et5lg"]
 script = ExtResource("2_8pium")
@@ -15,6 +16,7 @@ needs_metadata = false
 [resource]
 script = ExtResource("1_b1c5b")
 break_time = 0.4
+voxel = ExtResource("4_h5sm8")
 light = false
 light_colour = Color(0, 0, 0, 1)
 light_energy = 1.0

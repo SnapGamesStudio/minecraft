@@ -1,12 +1,14 @@
-[gd_resource type="Resource" script_class="ItemBlock" load_steps=4 format=3 uid="uid://w67gfj5ynnx3"]
+[gd_resource type="Resource" script_class="ItemBlock" load_steps=5 format=3 uid="uid://b3hmmef8anxdq"]
 
 [ext_resource type="Script" path="res://scripts/items/item_block.gd" id="1_sukvu"]
 [ext_resource type="AudioStream" uid="uid://bsfaiu4i7r46u" path="res://assets/sounds/streams/sand_break.tres" id="1_tbbjb"]
 [ext_resource type="Texture2D" uid="uid://c38jlnq2eub2t" path="res://assets/textures/items/Sand.png" id="2_deun3"]
+[ext_resource type="VoxelBlockyType" uid="uid://coyaqrbhykitr" path="res://resources/voxels/sand.tres" id="4_wlmr0"]
 
 [resource]
 script = ExtResource("1_sukvu")
 break_time = 0.6
+voxel = ExtResource("4_wlmr0")
 light = false
 light_colour = Color(0, 0, 0, 1)
 light_energy = 1.0

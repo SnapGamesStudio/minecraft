@@ -1,0 +1,8 @@
+[gd_resource type="VoxelBlockyType" load_steps=2 format=3 uid="uid://dqi3xynqrujqn"]
+
+[sub_resource type="VoxelBlockyModelEmpty" id="VoxelBlockyModelEmpty_54jvr"]
+
+[resource]
+unique_name = &"air"
+base_model = SubResource("VoxelBlockyModelEmpty_54jvr")
+resource_name = "air"

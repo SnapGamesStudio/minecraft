@@ -1,8 +1,9 @@
-[gd_resource type="Resource" script_class="ItemBlock" load_steps=5 format=3 uid="uid://b1r2gkiv3wqnm"]
+[gd_resource type="Resource" script_class="ItemBlock" load_steps=6 format=3 uid="uid://b1r2gkiv3wqnm"]
 
 [ext_resource type="Script" path="res://scripts/items/item_block.gd" id="1_mmwns"]
 [ext_resource type="Texture2D" uid="uid://b7ihfj3ynsmyg" path="res://assets/textures/blocks/fire.png" id="2_vwgrf"]
 [ext_resource type="Script" path="res://scripts/items/utilities.gd" id="3_kbcmo"]
+[ext_resource type="VoxelBlockyType" uid="uid://b1bepxe8ljnb3" path="res://resources/voxels/cooker.tres" id="4_wab8s"]
 
 [sub_resource type="Resource" id="Resource_xr3qy"]
 script = ExtResource("3_kbcmo")
@@ -15,6 +16,7 @@ needs_metadata = false
 [resource]
 script = ExtResource("1_mmwns")
 break_time = 0.4
+voxel = ExtResource("4_wab8s")
 light = true
 light_colour = Color(1, 0.583333, 0, 1)
 light_energy = 1.0

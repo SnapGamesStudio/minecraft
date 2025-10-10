@@ -1,9 +1,10 @@
-[gd_resource type="Resource" script_class="ItemBlock" load_steps=6 format=3 uid="uid://lxq2aq82pa5e"]
+[gd_resource type="Resource" script_class="ItemBlock" load_steps=7 format=3 uid="uid://lxq2aq82pa5e"]
 
 [ext_resource type="Script" path="res://scripts/items/item_block.gd" id="1_25f0t"]
 [ext_resource type="AudioStream" uid="uid://dj0fyae7mbrip" path="res://assets/sounds/streams/wood_break.tres" id="1_mqg2g"]
 [ext_resource type="Texture2D" uid="uid://lpt6ruyflrwh" path="res://assets/textures/items/Chest.png" id="2_xvkfi"]
 [ext_resource type="Script" path="res://scripts/items/utilities.gd" id="3_fpplg"]
+[ext_resource type="VoxelBlockyType" uid="uid://d1jgou7q0ho8d" path="res://resources/voxels/chest.tres" id="5_bxoc0"]
 
 [sub_resource type="Resource" id="Resource_v7ur5"]
 script = ExtResource("3_fpplg")
@@ -16,6 +17,7 @@ needs_metadata = true
 [resource]
 script = ExtResource("1_25f0t")
 break_time = 0.4
+voxel = ExtResource("5_bxoc0")
 light = false
 light_colour = Color(0, 0, 0, 1)
 light_energy = 1.0

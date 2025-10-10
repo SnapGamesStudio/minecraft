@@ -1,14 +1,16 @@
-[gd_resource type="Resource" script_class="ItemBlock" load_steps=6 format=3 uid="uid://cogc5ac14y0ad"]
+[gd_resource type="Resource" script_class="ItemBlock" load_steps=7 format=3 uid="uid://cogc5ac14y0ad"]
 
 [ext_resource type="AudioStream" uid="uid://dgeo6uweprlm3" path="res://assets/sounds/streams/log_break.tres" id="1_ewg1p"]
 [ext_resource type="Script" path="res://scripts/items/item_block.gd" id="1_n4faw"]
 [ext_resource type="Resource" uid="uid://c8jpafhd3cmxl" path="res://resources/items/charcoal.tres" id="1_toy7d"]
 [ext_resource type="Texture2D" uid="uid://d0t78qw5lnofb" path="res://assets/textures/items/Birch Log.png" id="3_pwafl"]
 [ext_resource type="AudioStream" uid="uid://cm0n8ittxs87c" path="res://assets/sounds/streams/log_walk.tres" id="5_av016"]
+[ext_resource type="VoxelBlockyType" uid="uid://dytnr321ew43t" path="res://resources/voxels/log_birch.tres" id="5_xdjvj"]
 
 [resource]
 script = ExtResource("1_n4faw")
 break_time = 1.1
+voxel = ExtResource("5_xdjvj")
 light = false
 light_colour = Color(0, 0, 0, 1)
 light_energy = 1.0

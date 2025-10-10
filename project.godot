@@ -55,6 +55,16 @@ run/main_run_args="client"
 
 enabled=PackedStringArray("res://addons/CameraShake3D/plugin.cfg", "res://addons/fps_counter/plugin.cfg", "res://addons/freecam_3D/plugin.cfg", "res://addons/godot-console/console/plugin.cfg", "res://addons/godot-sqlite/plugin.cfg", "res://addons/sdg-print/plugin.cfg", "res://addons/setup_multiple_instances/plugin.cfg", "res://addons/thegates_export/plugin.cfg")
 
+[file_customization]
+
+folder_colors={
+"res://addons/": "gray",
+"res://assets/": "red",
+"res://resources/": "green",
+"res://scenes/": "blue",
+"res://scripts/": "purple"
+}
+
 [global_group]
 
 Player=""

@@ -1,13 +1,15 @@
-[gd_resource type="Resource" script_class="ItemBlock" load_steps=5 format=3 uid="uid://c5ahbt0pwj3hk"]
+[gd_resource type="Resource" script_class="ItemBlock" load_steps=6 format=3 uid="uid://c5ahbt0pwj3hk"]
 
 [ext_resource type="Script" path="res://scripts/items/item_block.gd" id="1_3b7hd"]
 [ext_resource type="AudioStream" uid="uid://coh6whc422sx" path="res://assets/sounds/streams/dirt_break.tres" id="1_xpgml"]
 [ext_resource type="Texture2D" uid="uid://fm8g1pcdvcnu" path="res://assets/textures/items/Dirt.png" id="2_afhqg"]
 [ext_resource type="AudioStream" uid="uid://cmhb113oyniv6" path="res://assets/sounds/streams/dirt_walk.tres" id="4_3pfgy"]
+[ext_resource type="VoxelBlockyType" uid="uid://5cd4wyt5s80c" path="res://resources/voxels/dirt.tres" id="4_7gdrf"]
 
 [resource]
 script = ExtResource("1_3b7hd")
 break_time = 0.9
+voxel = ExtResource("4_7gdrf")
 light = false
 light_colour = Color(0, 0, 0, 1)
 light_energy = 1.0
