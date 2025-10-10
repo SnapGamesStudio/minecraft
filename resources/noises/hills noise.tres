@@ -2,7 +2,14 @@
 
 [resource]
 noise_type = 3
-seed = 640
-frequency = 0.0059
+seed = 35
+fractal_type = 0
 fractal_weighted_strength = 1.0
-domain_warp_fractal_type = 0
+fractal_ping_pong_strength = 2.3215
+cellular_distance_function = 1
+domain_warp_type = 1
+domain_warp_frequency = 0.0069
+domain_warp_fractal_type = 2
+domain_warp_fractal_octaves = 1
+domain_warp_fractal_lacunarity = 1.45519e-11
+domain_warp_fractal_gain = 1.45519e-11

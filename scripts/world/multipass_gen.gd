@@ -1,11 +1,11 @@
 extends VoxelGeneratorMultipassCB
 
 const voxels:VoxelBlockyTypeLibrary = preload("res://resources/voxel_block_library.tres")
-const curve:Curve = preload("res://resources/heightmap_curve.tres")
+const base_curve:Curve = preload("res://resources/heightmap_curve.tres")
+const hill_curve:Curve = preload("res://resources/noises/hill.tres")
 const temp_curve:Curve = preload("res://resources/HeatCurve.tres")
 
 const cavenoise:FastNoiseLite = preload("res://resources/noises/cave_noise.tres")
-const river_noise:FastNoiseLite = preload("res://resources/noises/river noise.tres")
 const hill_noise:FastNoiseLite = preload("res://resources/noises/hills noise.tres")
 
 var last_biome:String = ""
@@ -26,7 +26,11 @@ var biomes : Dictionary = {
 			},
 		"plants": [voxels.get_model_index_default("tall_grass"),voxels.get_model_index_default("tall_flower")],
 		"biome_curve": preload("res://resources/heightmap_curve forest.tres"),
-		"trees": ["res://pine_tree 1.txt","res://pine_tree 2.txt","res://pine_tree 3.txt"],
+		"trees": {
+			"res://pine_tree 1.txt": {"offset":"res://pine_tree 1 offset.txt"},
+			"res://pine_tree 2.txt": {"offset":"res://pine_tree 2 offset.txt"},
+			"res://pine_tree 3.txt": {"offset":"res://pine_tree 3 offset.txt"},
+		},
 		"_custom_structures": {"res://chest_island.txt": {"spawn_chance":0.1,}},
 		"creatures": ["res://resources/creatures/fox.tres"],
 		"creature_spawn_chance": 0.006
@@ -42,7 +46,7 @@ var biomes : Dictionary = {
 			},
 		"plants": [voxels.get_model_index_default("reeds")],
 		"biome_curve": preload("res://resources/heightmap_curve desert.tres"),
-		"trees": [],
+		"trees": {},
 		"_custom_structures": {"res://chest_island.txt": {"spawn_chance":0.1,}},
 		"creatures": [],
 		"creature_spawn_chance": 0.006
@@ -54,10 +58,6 @@ const CHANNEL = VoxelBuffer.CHANNEL_TYPE
 
 var heightmap_noise: FastNoiseLite = FastNoiseLite.new()
 var temperature_noise: FastNoiseLite = FastNoiseLite.new()
-var moisture_noise: FastNoiseLite = FastNoiseLite.new()
-
-var max_heightmap:int = (curve.max_value)
-var min_heightmap:int = (curve.min_value)
 
 var rng: RandomNumberGenerator = RandomNumberGenerator.new()
 
@@ -82,7 +82,8 @@ func _init() -> void:
 	temperature_noise.seed = 123453
 
 	temp_curve.bake()
-	curve.bake()
+	base_curve.bake()
+	hill_curve.bake()
 
 func _generate_pass(voxel_tool: VoxelToolMultipassGenerator, pass_index: int):
 	var min_pos := voxel_tool.get_main_area_min()
@@ -134,7 +135,7 @@ func _generate_pass(voxel_tool: VoxelToolMultipassGenerator, pass_index: int):
 								pass
 							elif rng.randf() <= 0.5:
 								
-								if !cave(x,y+1,z):
+								if !cave(x,y-1,z):
 									var i = rng.randi() % len(biomes[biome_name].plants)
 									var plant = biomes[biome_name].plants[i]
 									voxel_tool.set_voxel(Vector3i(x, y, z), plant)
@@ -188,30 +189,12 @@ func _generate_pass(voxel_tool: VoxelToolMultipassGenerator, pass_index: int):
 					
 								 
 func _get_height_at(x: int, z: int) -> int:
-	var river_noise_value:float =  0.5 + 0.5 * river_noise.get_noise_2d(x, z)
 	var hill_noise_value:float =  0.5 + 0.5 * hill_noise.get_noise_2d(x, z)
-	var base_noise_value:float =  0.5 + 0.5 * heightmap_noise.get_noise_2d(x, z) * 100
-
-	if hill_noise_value > 0.5:
-		hill_noise_value = hill_noise_value * 50
-	else:
-		hill_noise_value = 0.0
-
-	if river_noise_value > 0.9:
-		river_noise_value = river_noise_value * -50
-	else:
-		river_noise_value = 0.0
-
+	var base_noise_value:float =  0.5 + 0.5 * heightmap_noise.get_noise_2d(x, z)
 	
 	
+	return int(base_curve.sample_baked(base_noise_value) + hill_curve.sample_baked(hill_noise_value))
 
-
-	var height:float = base_noise_value + (river_noise_value + hill_noise_value)
-
-	if last_biome == "desert":
-			return int(lerpf(height,0,.2))
-	else:
-		return int(lerpf(base_noise_value,height,.7))
 
 func cave(x:int,y:int,z:int) -> bool:
 	var t = cavenoise.get_noise_3d(x, y, z)
@@ -235,38 +218,59 @@ func try_plant_tree(voxel_tool: VoxelToolMultipassGenerator, rng: RandomNumberGe
 #	print("Trying to plant a tree at ", tree_rpos)
 	
 	var tree_pos := min_pos + tree_rpos
-	tree_pos.y = max_pos.y - 1
 	
-	var found_ground := false
-	while tree_pos.y >= min_pos.y:
-		var v := voxel_tool.get_voxel(tree_pos)
-		# Note, we could also find tree blocks that were placed earlier!
-		if v == voxels.get_model_index_default("grass"):
-			found_ground = true
-			break
-		tree_pos.y -= 1
+	tree_pos.y = _get_height_at(tree_pos.x,tree_pos.z)
 	
-	if not found_ground:
-#		print("Ground not found")
-		return
+	if cave(tree_pos.x,tree_pos.y - 1,tree_pos.z): return
+
 	
-	if voxel_tool.get_voxel(tree_pos - Vector3i(0,1,0)) == AIR: return
-	
-	var paste_buffer := VoxelBuffer.new()
+	if voxel_tool.get_voxel(tree_pos - Vector3i(0,1,0)) != voxels.get_model_index_default("grass"): return
 	
 	var biome_name = get_biome(get_temp(tree_pos.x,tree_pos.z))
-	#print("biome ", biomes[biome_name])
-	if biomes[biome_name].trees.is_empty(): return # returns if no trees in that biome
+	
+	var trees:Dictionary = biomes[biome_name].trees
+	
+	if trees.is_empty(): return
+	
+	var keys_array = trees.keys()
+	var random_index = randi() % keys_array.size()
+	var random_key = keys_array[random_index]
 
-	var tree = biomes[biome_name].trees.pick_random()
+	
+	var tree_offset = trees[random_key].offset
+	
+	var offset:Vector3i
+	var offset_file = FileAccess.open(tree_offset,FileAccess.READ)
+	while offset_file.get_position() < offset_file.get_length():
+		var json_string = offset_file.get_line()
 
-	var file = FileAccess.open(tree,FileAccess.READ)
-	#print("file ",file)
+		# Creates the helper class to interact with JSON.
+		var json = JSON.new()
+
+		# Check if there is any error while parsing the JSON string, skip in case of failure.
+		var parse_result = json.parse(json_string)
+		
+		if not parse_result == OK:
+			print("JSON Parse Error: ", json.get_error_message(), " in ", json_string, " at line ", json.get_error_line())
+			continue
+
+		# Get the data from the JSON object.
+		var data = json.data
+		
+		offset.x = data["offset_x"]
+		offset.y = data["offset_y"]
+		offset.z = data["offset_z"]
+	
+	tree_pos -= offset
+	
+	var paste_buffer := VoxelBuffer.new()
+	var file = FileAccess.open(random_key,FileAccess.READ)
 	var size := file.get_32()
 	var data := file.get_buffer(size)
+	
 	VoxelBlockSerializer.deserialize_from_byte_array(data, paste_buffer, true)
-
 	voxel_tool.paste_masked(tree_pos, paste_buffer, 1 << VoxelBuffer.CHANNEL_TYPE,VoxelBuffer.CHANNEL_TYPE,voxels.get_model_index_default("air"))
+
 
 
 func try_place_structure(voxel_tool: VoxelToolMultipassGenerator, rng: RandomNumberGenerator):
