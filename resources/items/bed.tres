@@ -1,12 +1,14 @@
-[gd_resource type="Resource" script_class="ItemBlock" load_steps=4 format=3 uid="uid://2cgpe8xf3dkh"]
+[gd_resource type="Resource" script_class="ItemBlock" load_steps=5 format=3 uid="uid://2cgpe8xf3dkh"]
 
 [ext_resource type="Script" path="res://scripts/items/item_block.gd" id="1_kvhy5"]
 [ext_resource type="Texture2D" uid="uid://d100dr2itcy2u" path="res://assets/textures/items/bed.png" id="2_gwas6"]
 [ext_resource type="Resource" uid="uid://dcf1w76l2etm8" path="res://resources/items/utilities/bed_utilities.tres" id="3_o5ng5"]
+[ext_resource type="VoxelBlockyType" uid="uid://bsp64sjaww3om" path="res://resources/voxels/bed.tres" id="4_gvgj0"]
 
 [resource]
 script = ExtResource("1_kvhy5")
 break_time = 0.4
+voxel = ExtResource("4_gvgj0")
 light = false
 light_colour = Color(0, 0, 0, 1)
 light_energy = 1.0

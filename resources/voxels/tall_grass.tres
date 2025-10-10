@@ -1,0 +1,26 @@
+[gd_resource type="VoxelBlockyType" load_steps=6 format=3 uid="uid://b63358rtdm32j"]
+
+[ext_resource type="Shader" path="res://scripts/shaders/wind.gdshader" id="1_m0tmu"]
+[ext_resource type="Texture2D" uid="uid://djxr6uhl80usp" path="res://assets/textures/blocks/tallgrass.png" id="2_fvild"]
+[ext_resource type="ArrayMesh" uid="uid://bj6dxjaih1d51" path="res://assets/models/grass.obj" id="3_scg2w"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xr8t2"]
+render_priority = 0
+shader = ExtResource("1_m0tmu")
+shader_parameter/trans = true
+shader_parameter/distance_fade_min = 60.0
+shader_parameter/distance_fade_max = 50.0
+shader_parameter/grass_texture = ExtResource("2_fvild")
+
+[sub_resource type="VoxelBlockyModelMesh" id="VoxelBlockyModelMesh_ot456"]
+mesh = ExtResource("3_scg2w")
+culls_neighbors = false
+lod_skirts_enabled = false
+collision_aabbs = Array[AABB]([AABB(1.45519e-11, -0.4, 1.45519e-11, 1, 0.2, 1)])
+material_override_0 = SubResource("ShaderMaterial_xr8t2")
+collision_enabled_0 = false
+
+[resource]
+unique_name = &"tall_grass"
+base_model = SubResource("VoxelBlockyModelMesh_ot456")
+resource_name = "tall_grass"

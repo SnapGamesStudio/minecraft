@@ -1,9 +1,9 @@
 extends VoxelGeneratorMultipassCB
 
-const voxels:VoxelBlockyTypeLibrary = preload("res://resources/voxel_block_library.tres")
-const base_curve:Curve = preload("res://resources/heightmap_curve.tres")
+var voxels:VoxelBlockyTypeLibrary = load("res://resources/voxel_block_library.tres")
+const base_curve:Curve = preload("res://resources/noises/heightmap_curve.tres")
 const hill_curve:Curve = preload("res://resources/noises/hill.tres")
-const temp_curve:Curve = preload("res://resources/HeatCurve.tres")
+const temp_curve:Curve = preload("res://resources/noises/temp_curve.tres")
 
 const cavenoise:FastNoiseLite = preload("res://resources/noises/cave_noise.tres")
 const hill_noise:FastNoiseLite = preload("res://resources/noises/hills noise.tres")
@@ -25,7 +25,6 @@ var biomes : Dictionary = {
 			voxels.get_model_index_default("diamond"): {"spawn_chance":0.0001},
 			},
 		"plants": [voxels.get_model_index_default("tall_grass"),voxels.get_model_index_default("tall_flower")],
-		"biome_curve": preload("res://resources/heightmap_curve forest.tres"),
 		"trees": {
 			"res://pine_tree 1.txt": {"offset":"res://pine_tree 1 offset.txt"},
 			"res://pine_tree 2.txt": {"offset":"res://pine_tree 2 offset.txt"},
@@ -45,7 +44,6 @@ var biomes : Dictionary = {
 			voxels.get_model_index_default("diamond"): {"spawn_chance":0.0001},
 			},
 		"plants": [voxels.get_model_index_default("reeds")],
-		"biome_curve": preload("res://resources/heightmap_curve desert.tres"),
 		"trees": {},
 		"_custom_structures": {"res://chest_island.txt": {"spawn_chance":0.1,}},
 		"creatures": [],
@@ -233,7 +231,7 @@ func try_plant_tree(voxel_tool: VoxelToolMultipassGenerator, rng: RandomNumberGe
 	if trees.is_empty(): return
 	
 	var keys_array = trees.keys()
-	var random_index = randi() % keys_array.size()
+	var random_index = rng.randi() % keys_array.size()
 	var random_key = keys_array[random_index]
 
 	

@@ -1,0 +1,18 @@
+[gd_resource type="VoxelBlockyType" load_steps=3 format=3 uid="uid://cyjm2mjmdkheb"]
+
+[ext_resource type="Material" uid="uid://csq7hapgiaegg" path="res://assets/materials/terrain.material" id="1_o3817"]
+
+[sub_resource type="VoxelBlockyModelCube" id="VoxelBlockyModelCube_dcwgv"]
+atlas_size_in_tiles = Vector2i(12, 4)
+tile_left = Vector2i(4, 0)
+tile_right = Vector2i(4, 0)
+tile_bottom = Vector2i(5, 0)
+tile_top = Vector2i(5, 0)
+tile_back = Vector2i(4, 0)
+tile_front = Vector2i(4, 0)
+material_override_0 = ExtResource("1_o3817")
+
+[resource]
+unique_name = &"log_oak"
+base_model = SubResource("VoxelBlockyModelCube_dcwgv")
+resource_name = "log_oak"

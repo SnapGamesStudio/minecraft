@@ -1,13 +1,15 @@
-[gd_resource type="Resource" script_class="ItemBlock" load_steps=5 format=3 uid="uid://bgful1da4rkm2"]
+[gd_resource type="Resource" script_class="ItemBlock" load_steps=6 format=3 uid="uid://bgful1da4rkm2"]
 
 [ext_resource type="AudioStream" uid="uid://cnnb3xqcs2wia" path="res://assets/sounds/streams/grass_break.tres" id="1_67uxp"]
 [ext_resource type="Script" path="res://scripts/items/item_block.gd" id="1_xvy7c"]
-[ext_resource type="Texture2D" uid="uid://dwsqysjbij6nt" path="res://assets/textures/items/Grass - Copy.png" id="3_0y8vh"]
+[ext_resource type="Texture2D" uid="uid://dwsqysjbij6nt" path="res://assets/textures/items/Grass.png" id="3_0bsqj"]
 [ext_resource type="AudioStream" uid="uid://bklcunwamqd80" path="res://assets/sounds/streams/grass_walk.tres" id="4_e7adb"]
+[ext_resource type="VoxelBlockyType" uid="uid://bnh6ftd7voeax" path="res://resources/voxels/grass.tres" id="4_eakai"]
 
 [resource]
 script = ExtResource("1_xvy7c")
 break_time = 0.9
+voxel = ExtResource("4_eakai")
 light = false
 light_colour = Color(0, 0, 0, 1)
 light_energy = 1.0
@@ -26,7 +28,7 @@ walk_pitch = 3.1
 walk_max_distance = 10
 walk_panning_strength = 3
 unique_name = &"grass"
-texture = ExtResource("3_0y8vh")
+texture = ExtResource("3_0bsqj")
 max_stack = 64
 rotatable = false
 drop_items = Array[StringName]([&"grass"])

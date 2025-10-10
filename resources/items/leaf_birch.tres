@@ -1,12 +1,14 @@
-[gd_resource type="Resource" script_class="ItemBlock" load_steps=4 format=3 uid="uid://bk4meuo0rs246"]
+[gd_resource type="Resource" script_class="ItemBlock" load_steps=5 format=3 uid="uid://bk4meuo0rs246"]
 
 [ext_resource type="AudioStream" uid="uid://c8qmawwdr84rt" path="res://assets/sounds/streams/leaf_break.tres" id="1_wcq5k"]
 [ext_resource type="Script" path="res://scripts/items/item_block.gd" id="1_wkt6y"]
 [ext_resource type="Texture2D" uid="uid://bs3c50kbfm68w" path="res://assets/textures/items/Leaf.png" id="2_a4e8x"]
+[ext_resource type="VoxelBlockyType" uid="uid://d02bs6ckk2vxv" path="res://resources/voxels/leaf_parm.tres" id="4_morj3"]
 
 [resource]
 script = ExtResource("1_wkt6y")
 break_time = 0.4
+voxel = ExtResource("4_morj3")
 light = false
 light_colour = Color(0, 0, 0, 1)
 light_energy = 1.0

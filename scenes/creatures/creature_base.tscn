@@ -4,7 +4,7 @@
 [ext_resource type="AudioStream" uid="uid://dpjq0v4ih2wn6" path="res://assets/sounds/other/Fox_idle1.ogg" id="3_yg616"]
 [ext_resource type="AudioStream" uid="uid://0hib4sdr5vnx" path="res://assets/sounds/other/Fox_idle6.ogg" id="4_4tu1u"]
 [ext_resource type="PackedScene" uid="uid://dq2adlui7agaw" path="res://scenes/other/nav_viewer.tscn" id="5_4wykx"]
-[ext_resource type="Script" path="res://scripts/creatures/3D_random_sound.gd" id="5_ayjnj"]
+[ext_resource type="Script" path="res://scripts/other/3D_random_sound.gd" id="5_ayjnj"]
 [ext_resource type="PackedScene" uid="uid://dteaa4qc2s1sd" path="res://scenes/other/gen_waiter.tscn" id="6_corsq"]
 [ext_resource type="Script" path="res://scripts/creatures/state_manager.gd" id="7_npuiu"]
 [ext_resource type="Script" path="res://scripts/creatures/creature_idle.gd" id="8_kff4x"]

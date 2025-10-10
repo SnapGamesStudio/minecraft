@@ -1,0 +1,18 @@
+[gd_resource type="VoxelBlockyType" load_steps=3 format=3 uid="uid://eqnm7lxdi7vu"]
+
+[ext_resource type="Material" uid="uid://csq7hapgiaegg" path="res://assets/materials/terrain.material" id="1_gnois"]
+
+[sub_resource type="VoxelBlockyModelCube" id="VoxelBlockyModelCube_xuk0k"]
+atlas_size_in_tiles = Vector2i(12, 4)
+tile_left = Vector2i(7, 0)
+tile_right = Vector2i(7, 0)
+tile_bottom = Vector2i(7, 0)
+tile_top = Vector2i(7, 0)
+tile_back = Vector2i(7, 0)
+tile_front = Vector2i(7, 0)
+material_override_0 = ExtResource("1_gnois")
+
+[resource]
+unique_name = &"wood_oak"
+base_model = SubResource("VoxelBlockyModelCube_xuk0k")
+resource_name = "wood_oak"

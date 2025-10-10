@@ -1,9 +1,11 @@
 extends Control
 
+@export var itemLIB: ItemsLibrary
 @export var scene: PackedScene
 @export var loading_bar: ProgressBar
 
 func _ready() -> void:
+	itemLIB.init_items()
 	#ItemDownloader.completed_download.connect(start_scene)
 	Backend.playerdata_updated.connect(start_scene)
 
@@ -20,3 +22,24 @@ func start_scene() -> void:
 func download_items():
 	ItemDownloader.fetch_all_jsons()
 	
+func construct_voxelLib():
+	var voxel_lib:VoxelBlockyTypeLibrary = load("res://resources/voxel_block_library.tres")
+	
+	var types = voxel_lib.get_types()
+	#print(types.size())
+	for item in itemLIB.block_items:
+		var voxel:VoxelBlockyType = item.voxel
+		if voxel:
+			if not types.has(voxel):
+				types.append(voxel)
+				print("added ",voxel.unique_name," to the voxel LIB")
+				
+	#print(types.size())
+	voxel_lib.set_types(types)
+	ResourceSaver.save(voxel_lib,"res://resources/voxel_block_library.tres")
+	await get_tree().create_timer(2.0).timeout
+	start_scene()
+	#print(voxel_lib.get_types().size())
+		#if not types.has(voxel.unique_name):
+			#v#oxel_lib.set()
+		

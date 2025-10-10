@@ -3,11 +3,15 @@ class_name ItemsLibrary
 
 @export var items_array: Array[ItemBase]
 
+var block_items:Array[ItemBlock]
 var items: Dictionary = {}
 var types:Array = []
 
 func init_items():
 	for item in items_array:
+		if item is ItemBlock:
+			block_items.append(item)
+		
 		items[item.unique_name] = item
 		types.append(item.unique_name)
 

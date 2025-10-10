@@ -1,13 +1,15 @@
-[gd_resource type="Resource" script_class="ItemBlock" load_steps=5 format=3 uid="uid://dxnjkyrqoqbq4"]
+[gd_resource type="Resource" script_class="ItemBlock" load_steps=6 format=3 uid="uid://dxnjkyrqoqbq4"]
 
 [ext_resource type="AudioStream" uid="uid://dgtt13oe1bmm4" path="res://assets/sounds/streams/stone_break.tres" id="1_82x3m"]
 [ext_resource type="Script" path="res://scripts/items/item_block.gd" id="1_lqmys"]
 [ext_resource type="Texture2D" uid="uid://b1fb5ogupbs2s" path="res://assets/textures/items/Stone.png" id="2_v1j3i"]
+[ext_resource type="VoxelBlockyType" uid="uid://cofv8c6nv4ugm" path="res://resources/voxels/stone.tres" id="4_7iu2d"]
 [ext_resource type="AudioStream" uid="uid://cuqq4qt178ibr" path="res://assets/sounds/streams/stone_walk.tres" id="4_hv88s"]
 
 [resource]
 script = ExtResource("1_lqmys")
 break_time = 2.0
+voxel = ExtResource("4_7iu2d")
 light = false
 light_colour = Color(0, 0, 0, 1)
 light_energy = 1.0

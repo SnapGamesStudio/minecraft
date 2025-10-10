@@ -1,0 +1,21 @@
+[gd_resource type="VoxelBlockyType" load_steps=5 format=3 uid="uid://bsp64sjaww3om"]
+
+[ext_resource type="Texture2D" uid="uid://cjnpnhygkgq2m" path="res://assets/models/bed_Image_0.png" id="1_c1ad5"]
+[ext_resource type="ArrayMesh" uid="uid://c0esj2hmhatg5" path="res://assets/models/bed.obj" id="2_w5c0t"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lwlxh"]
+resource_name = "palette"
+albedo_color = Color(0.8, 0.8, 0.8, 1)
+albedo_texture = ExtResource("1_c1ad5")
+metallic = 0.5
+
+[sub_resource type="VoxelBlockyModelMesh" id="VoxelBlockyModelMesh_s7cku"]
+mesh = ExtResource("2_w5c0t")
+collision_aabbs = Array[AABB]([AABB(1.45519e-11, 1.45519e-11, 1.45519e-11, 1, 0.5, 2)])
+material_override_0 = SubResource("StandardMaterial3D_lwlxh")
+collision_enabled_0 = true
+
+[resource]
+unique_name = &"bed"
+base_model = SubResource("VoxelBlockyModelMesh_s7cku")
+resource_name = "bed"

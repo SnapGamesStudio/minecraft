@@ -1,0 +1,43 @@
+[gd_resource type="VoxelBlockyType" load_steps=6 format=4 uid="uid://b1bepxe8ljnb3"]
+
+[ext_resource type="Texture2D" uid="uid://b7ihfj3ynsmyg" path="res://assets/textures/blocks/fire.png" id="1_dgjec"]
+
+[sub_resource type="VoxelBlockyAttributeDirection" id="VoxelBlockyAttributeDirection_oxmji"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h102j"]
+transparency = 2
+alpha_scissor_threshold = 0.115
+alpha_antialiasing_mode = 0
+cull_mode = 2
+albedo_texture = ExtResource("1_dgjec")
+emission_enabled = true
+emission_texture = ExtResource("1_dgjec")
+texture_filter = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_hk2le"]
+_surfaces = [{
+"aabb": AABB(0.146447, -0.1, 0.146447, 0.707106, 1, 0.707106),
+"attribute_data": PackedByteArray("AAD//wAAAAD///////8AAAAA//8AAAAA////////AAA="),
+"format": 34896613399,
+"index_count": 12,
+"index_data": PackedByteArray("AAABAAIAAgABAAMABAAFAAYABgAFAAcA"),
+"material": SubResource("StandardMaterial3D_h102j"),
+"name": "Material",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 8,
+"vertex_data": PackedByteArray("//8AAP///9//////////3wAAAAAAAP/fAAD//wAA/98AAAAA////nwAA//////+f//8AAAAA/5//////AAD/n/9/AAD/fwAA/38AAP9/AAD/fwAA/38AAP9/AAD/fwAA")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="VoxelBlockyModelMesh" id="VoxelBlockyModelMesh_dclci"]
+mesh = SubResource("ArrayMesh_hk2le")
+culls_neighbors = false
+collision_aabbs = Array[AABB]([AABB(1.45519e-11, 1.45519e-11, 1.45519e-11, 1, 1, 1)])
+collision_enabled_0 = false
+
+[resource]
+unique_name = &"cooker"
+base_model = SubResource("VoxelBlockyModelMesh_dclci")
+attributes = Array[VoxelBlockyAttribute]([SubResource("VoxelBlockyAttributeDirection_oxmji")])
+resource_name = "cooker"

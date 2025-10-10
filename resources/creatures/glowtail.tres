@@ -1,11 +1,10 @@
-[gd_resource type="Resource" script_class="Creature" load_steps=14 format=3 uid="uid://cylxg4ja44lhh"]
+[gd_resource type="Resource" script_class="Creature" load_steps=13 format=3 uid="uid://cylxg4ja44lhh"]
 
 [ext_resource type="PackedScene" uid="uid://ghab13gk0ro1" path="res://assets/models/creatures/glowtail.tscn" id="1_qd1kd"]
 [ext_resource type="Script" path="res://scripts/items/item_base.gd" id="2_25jlh"]
 [ext_resource type="AudioStream" uid="uid://b2kddj78qu34s" path="res://assets/sounds/other/Fox_death1.ogg" id="2_yf1rt"]
 [ext_resource type="AudioStream" uid="uid://dbr3jim8fdk0q" path="res://assets/sounds/other/Fox_death2.ogg" id="3_jisxu"]
 [ext_resource type="Script" path="res://scripts/creatures/creature.gd" id="3_ub3wt"]
-[ext_resource type="Resource" uid="uid://dlboikqlvjswi" path="res://resources/items/glowstone.tres" id="5_7xh10"]
 [ext_resource type="AudioStream" uid="uid://bgscst0xbrr5f" path="res://assets/sounds/other/Fox_hurt1.ogg" id="5_s4hjm"]
 [ext_resource type="Resource" uid="uid://c4e134x487d6g" path="res://resources/items/meat.tres" id="6_oudns"]
 [ext_resource type="AudioStream" uid="uid://bvw3dv5xk1sm2" path="res://assets/sounds/other/Fox_hurt2.ogg" id="6_oyhmh"]
@@ -33,7 +32,7 @@ damage = 0
 speed = 5.0
 max_health = 10
 mesh_name = "Cube"
-drop_items = Array[ExtResource("2_25jlh")]([ExtResource("5_7xh10"), ExtResource("6_oudns")])
+drop_items = Array[ExtResource("2_25jlh")]([ExtResource("6_oudns")])
 hurt_sound = SubResource("AudioStreamRandomizer_q6oy4")
 death_sound = SubResource("AudioStreamRandomizer_bdycu")
 flyies = false
