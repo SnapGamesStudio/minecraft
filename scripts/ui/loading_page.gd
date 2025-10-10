@@ -4,8 +4,8 @@ extends Control
 @export var loading_bar: ProgressBar
 
 func _ready() -> void:
-	ItemDownloader.completed_download.connect(start_scene)
-	Backend.playerdata_updated.connect(download_items)
+	#ItemDownloader.completed_download.connect(start_scene)
+	Backend.playerdata_updated.connect(start_scene)
 
 func _process(delta):
 	if loading_bar.value < 100:
