@@ -1,0 +1,13 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://csr4ypve7eknk"]
+
+[ext_resource type="Shader" path="res://scripts/shaders/wind.gdshader" id="1_xn2rj"]
+[ext_resource type="Texture2D" uid="uid://c4qc2xe8j6hkv" path="res://assets/textures/blocks/reeds.png" id="2_0rdur"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_xn2rj")
+shader_parameter/character_position = null
+shader_parameter/dither_grain = 1.0
+shader_parameter/fade_start = 40.0
+shader_parameter/fade_end = 50.0
+shader_parameter/grass_texture = ExtResource("2_0rdur")

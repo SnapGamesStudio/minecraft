@@ -23,7 +23,7 @@ var playerdata:Dictionary = {}
 
 func _ready():
 	if OS.is_debug_build():
-		address = "ws://188.245.188.59:8819" 
+		address = exported_address
 		#address = "ws://127.0.0.1:8819"
 	else:
 		address = exported_address

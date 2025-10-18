@@ -6,11 +6,11 @@
 
 [resource]
 script = ExtResource("2_cqyaj")
-suitable_objects = Array[StringName]([])
-breaking_efficiency = 0.75
+suitable_blocks = Array[StringName]([&"log_oak", &"planks_oak", &"planks_birch"])
+breaking_efficiency = 4.0
 damage = 2
-max_health = 10.0
-degrade_rate = 0.1
+max_health = 45.0
+degrade_rate = 1
 projectable = false
 amount_needed = 0
 throws_self = false

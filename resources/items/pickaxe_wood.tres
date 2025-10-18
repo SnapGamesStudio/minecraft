@@ -1,23 +1,25 @@
-[gd_resource type="Resource" script_class="ItemTool" load_steps=6 format=3 uid="uid://djg543gibfvro"]
+[gd_resource type="Resource" script_class="ItemTool" load_steps=4 format=3 uid="uid://djg543gibfvro"]
 
 [ext_resource type="PackedScene" uid="uid://bwt4rh27es1y1" path="res://assets/models/tools/Wood/pickaxe_wood.tscn" id="1_gvchh"]
 [ext_resource type="Script" path="res://scripts/items/item_tool.gd" id="1_vhxk3"]
-[ext_resource type="Script" path="res://scripts/items/item_block.gd" id="2_oevvb"]
-[ext_resource type="Resource" uid="uid://dxnjkyrqoqbq4" path="res://resources/items/stone.tres" id="3_h2yhv"]
 [ext_resource type="Texture2D" uid="uid://bvoubdcucsbel" path="res://assets/textures/items/wood_pick.png" id="5_bwsir"]
 
 [resource]
 script = ExtResource("1_vhxk3")
-suitable_objects = Array[ExtResource("2_oevvb")]([ExtResource("3_h2yhv")])
-breaking_efficiency = 0.7
+suitable_blocks = Array[StringName]([&"stone", &"iron", &"diamond"])
+breaking_efficiency = 5.0
 damage = 2
-max_health = 5.0
-degrade_rate = 0.1
+max_health = 30.0
+degrade_rate = 1
+projectable = false
+amount_needed = 0
+throws_self = false
 unique_name = &""
 texture = ExtResource("5_bwsir")
 max_stack = 1
 holdable_mesh = ExtResource("1_gvchh")
 rotatable = false
+drop_items = Array[StringName]([])
 forgable = false
 forge_time = 2.0
 value = 10

@@ -1,49 +1,16 @@
-[gd_resource type="Resource" script_class="ItemTool" load_steps=10 format=3 uid="uid://cmku2fpockw70"]
+[gd_resource type="Resource" script_class="ItemTool" load_steps=4 format=3 uid="uid://cmku2fpockw70"]
 
 [ext_resource type="PackedScene" uid="uid://dgo6163ram0c2" path="res://assets/models/tools/Stone/shovel_stone.tscn" id="1_naicv"]
 [ext_resource type="Script" path="res://scripts/items/item_tool.gd" id="2_va8yg"]
-[ext_resource type="Script" path="res://scripts/items/item_block.gd" id="3_fkbal"]
-[ext_resource type="Resource" uid="uid://c5ahbt0pwj3hk" path="res://resources/items/dirt.tres" id="4_qswqj"]
-[ext_resource type="Resource" uid="uid://bgful1da4rkm2" path="res://resources/items/grass.tres" id="5_v0lvd"]
-[ext_resource type="AudioStream" uid="uid://bsfaiu4i7r46u" path="res://assets/sounds/streams/sand_break.tres" id="6_o4h31"]
 [ext_resource type="Texture2D" uid="uid://b4qi83eor6cgq" path="res://assets/textures/items/stone_shovel.png" id="7_dv6wl"]
-[ext_resource type="Texture2D" uid="uid://c38jlnq2eub2t" path="res://assets/textures/items/Sand.png" id="7_eurd4"]
-
-[sub_resource type="Resource" id="Resource_pil5u"]
-script = ExtResource("3_fkbal")
-break_time = 0.6
-light = false
-light_colour = Color(0, 0, 0, 1)
-light_energy = 1.0
-light_size = 5.0
-has_sound = false
-sound_distance = 10.0
-panning = 1.0
-block_sound = ExtResource("6_o4h31")
-volume = -13.0
-pitch = 1.0
-max_distance = 20
-panning_strength = 3
-walk_volume = 0.0
-walk_pitch = 1.0
-walk_max_distance = 20
-walk_panning_strength = 3
-unique_name = &"sand"
-texture = ExtResource("7_eurd4")
-max_stack = 64
-rotatable = false
-drop_items = Array[StringName]([&"sand"])
-forgable = false
-forge_time = 2.0
-value = 10
 
 [resource]
 script = ExtResource("2_va8yg")
-suitable_objects = Array[ExtResource("3_fkbal")]([ExtResource("4_qswqj"), ExtResource("5_v0lvd"), SubResource("Resource_pil5u")])
+suitable_blocks = Array[StringName]([&"dirt", &"grass", &"sand"])
 breaking_efficiency = 0.4
 damage = 2
-max_health = 15.0
-degrade_rate = 0.1
+max_health = 50.0
+degrade_rate = 1
 projectable = false
 amount_needed = 0
 throws_self = false

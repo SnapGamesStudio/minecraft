@@ -1,9 +1,9 @@
-[gd_scene load_steps=71 format=4 uid="uid://bbet1xkqsp2wo"]
+[gd_scene load_steps=68 format=4 uid="uid://bbet1xkqsp2wo"]
 
 [ext_resource type="Script" path="res://scripts/player/player.gd" id="1"]
 [ext_resource type="Script" path="res://scripts/player/terrain_interaction.gd" id="2_5q13p"]
 [ext_resource type="Script" path="res://scripts/player/player_hands.gd" id="4_064gd"]
-[ext_resource type="VoxelBlockyTypeLibrary" uid="uid://csna43pkcr65d" path="res://resources/voxel_block_library.tres" id="5_5801w"]
+[ext_resource type="VoxelBlockyTypeLibrary" uid="uid://c7aemhrd4kvsy" path="res://resources/voxel_block_library.tres" id="5_5801w"]
 [ext_resource type="Resource" uid="uid://bh4f3xyyxfdql" path="res://resources/items_library.tres" id="5_qnsii"]
 [ext_resource type="PackedScene" uid="uid://clt86wlubencc" path="res://scenes/items/dropped_item.tscn" id="6_6kxdw"]
 [ext_resource type="Theme" uid="uid://c1tenirmy1xiy" path="res://assets/menu/main_menu_theme.tres" id="10_fsqbe"]
@@ -23,24 +23,9 @@
 [ext_resource type="Texture2D" uid="uid://bs4sptua4llsr" path="res://assets/textures/icons/drag_click_100dp_E3E3E3_FILL0_wght400_GRAD0_opsz48.png" id="21_pwwxa"]
 [ext_resource type="Shader" path="res://scripts/shaders/Vignette.gdshader" id="22_nolos"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yh4pn"]
-albedo_color = Color(0.571657, 0.425236, 0.351799, 1)
-
-[sub_resource type="BoxMesh" id="BoxMesh_e3igk"]
-size = Vector3(1, 0.2011, 0.2011)
-
-[sub_resource type="PackedScene" id="PackedScene_3vfln"]
-_bundled = {
-"conn_count": 0,
-"conns": PackedInt32Array(),
-"editable_instances": [],
-"names": PackedStringArray("Hand", "MeshInstance3D", "transform", "material_override", "mesh"),
-"node_count": 1,
-"node_paths": [],
-"nodes": PackedInt32Array(-1, -1, 1, 0, -1, 3, 2, 0, 3, 1, 4, 2, 0),
-"variants": [Transform3D(0.963812, -0.257415, -0.0693081, 0.248771, 0.961924, -0.113203, 0.0958093, 0.0918648, 0.991152, -0.04, -0.02, -0.175), SubResource("StandardMaterial3D_yh4pn"), SubResource("BoxMesh_e3igk")],
-"version": 3
-}
+[sub_resource type="CylinderShape3D" id="10"]
+height = 1.8
+radius = 0.35
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lyiwi"]
 
@@ -642,10 +627,6 @@ stream_0/stream = ExtResource("13_y6cgu")
 stream_1/stream = ExtResource("14_322f3")
 stream_2/stream = ExtResource("15_qijyr")
 
-[sub_resource type="CylinderShape3D" id="10"]
-height = 1.8
-radius = 0.35
-
 [sub_resource type="BoxShape3D" id="6"]
 size = Vector3(0.8, 1.8, 1.5)
 
@@ -692,7 +673,7 @@ properties/2/replication_mode = 1
 properties/3/path = NodePath(".:_rotation")
 properties/3/spawn = true
 properties/3/replication_mode = 1
-properties/4/path = NodePath(".:camera_transform")
+properties/4/path = NodePath(".:_camera_transform")
 properties/4/spawn = true
 properties/4/replication_mode = 1
 
@@ -703,9 +684,9 @@ stream_0/stream = ExtResource("19_mt6y7")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_3hrvx"]
 shader = ExtResource("22_nolos")
-shader_parameter/inner_radius = 1.0
-shader_parameter/outer_radius = 1.0
-shader_parameter/vignette_strength = 1.0
+shader_parameter/inner_radius = 0.9
+shader_parameter/outer_radius = 0.9
+shader_parameter/vignette_strength = 0.4
 shader_parameter/dither_strength = 1.45519e-11
 shader_parameter/vignette_color = Color(1, 0, 0, 1)
 
@@ -721,27 +702,18 @@ shader_parameter/square_border = false
 shader_parameter/offset = Vector2(-5, 1.45519e-11)
 shader_parameter/max_or_add = false
 
-[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("hit_shader", "rotation_root", "ANI", "hit_sfx", "pos_label", "ping_label", "collision", "hand_ani", "terrain_interation", "camera_shake", "floor_ray", "skeleton_3d") groups=["Player"]]
+[node name="Player" type="CharacterBody3D" groups=["Player"]]
+collision_layer = 2
+collision_mask = 3
 script = ExtResource("1")
-defualt_hand_model = SubResource("PackedScene_3vfln")
-max_flying_margin = 1.0
-min_flying_margin = -1.0
-hit_shader = NodePath("hit shader")
-rotation_root = NodePath("RotationRoot")
-ANI = NodePath("RotationRoot/Model/AnimationPlayer")
-hit_sfx = NodePath("hit")
-pos_label = NodePath("Pos")
-ping_label = NodePath("Ping")
-collision = NodePath("CollisionShape3D")
-hand_ani = NodePath("RotationRoot/Head/HandAni")
-terrain_interation = NodePath("Hands/TerrainInteraction")
-camera_shake = NodePath("RotationRoot/Head/CameraShake3DNode")
-floor_ray = NodePath("floor")
-skeleton_3d = NodePath("RotationRoot/Model/Player/Skeleton3D")
+max_health = 50
 fall_hurt_height = 3.0
 hunger_update_time = 15.0
 hunger_step = 0.05
-max_health = 50
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+shape = SubResource("10")
 
 [node name="RotationRoot" type="Node3D" parent="."]
 
@@ -956,8 +928,8 @@ pitch_scale = 1.13
 [node name="CameraShake3DNode" type="Node" parent="RotationRoot/Head" node_paths=PackedStringArray("camera")]
 script = ExtResource("11_8ntd3")
 camera = NodePath("../Camera3D")
-decay = 3.0
-magnitude = 0.7
+decay = 2.0
+magnitude = 0.1
 
 [node name="AutoJump" type="RayCast3D" parent="RotationRoot"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
@@ -971,11 +943,7 @@ visible = false
 target_position = Vector3(0, 0, -1)
 debug_shape_custom_color = Color(1, 0, 0, 1)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
-shape = SubResource("10")
-
-[node name="Hands" type="Node" parent="." node_paths=PackedStringArray("terrain_interaction", "floor_ray", "hand_ani", "interactable_icon", "break_block", "camera")]
+[node name="Hands" type="Node" parent="." node_paths=PackedStringArray("terrain_interaction", "floor_ray", "hand_ani", "interactable_icon", "break_block")]
 script = ExtResource("4_064gd")
 terrain_interaction = NodePath("TerrainInteraction")
 items_library = ExtResource("5_qnsii")
@@ -984,7 +952,6 @@ drop_item_scene = ExtResource("6_6kxdw")
 hand_ani = NodePath("../RotationRoot/Head/HandAni")
 interactable_icon = NodePath("../interactable")
 break_block = NodePath("TerrainInteraction/BlockOutline/BlockBreak")
-camera = NodePath("../RotationRoot/Head/Camera3D")
 
 [node name="TerrainInteraction" type="Node" parent="Hands" node_paths=PackedStringArray("camera", "block", "ping_label")]
 script = ExtResource("2_5q13p")

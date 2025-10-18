@@ -10,7 +10,9 @@ func _ready() -> void:
 
 ## the node has to the same as the type else wont work
 func play_sound(type: StringName, pos: Vector3,sound_type:String = "break") -> void:
-	var item = item_lib.get_item(type)
+	if not item_lib.items.has(type): return
+		
+	var item = item_lib.items[type]
 	
 	if item:
 		if item is ItemBlock:

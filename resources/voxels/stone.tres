@@ -1,6 +1,6 @@
 [gd_resource type="VoxelBlockyType" load_steps=3 format=3 uid="uid://cofv8c6nv4ugm"]
 
-[ext_resource type="Material" uid="uid://csq7hapgiaegg" path="res://assets/materials/terrain.material" id="1_r28fh"]
+[ext_resource type="Material" uid="uid://byptmty7r1diw" path="res://assets/materials/block_shader.tres" id="1_3u2ov"]
 
 [sub_resource type="VoxelBlockyModelCube" id="VoxelBlockyModelCube_rqnpp"]
 atlas_size_in_tiles = Vector2i(12, 4)
@@ -10,7 +10,7 @@ tile_bottom = Vector2i(3, 0)
 tile_top = Vector2i(3, 0)
 tile_back = Vector2i(3, 0)
 tile_front = Vector2i(3, 0)
-material_override_0 = ExtResource("1_r28fh")
+material_override_0 = ExtResource("1_3u2ov")
 
 [resource]
 unique_name = &"stone"

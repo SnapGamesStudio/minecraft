@@ -14,7 +14,6 @@ var slots = [] ## List of slots in the inventory
 var full:bool = false
 var inventory = [] ## List of ItemBase unique names in the inventory
 
-
 func _ready() -> void:
 	slots = slot_container.get_children()
 
@@ -230,21 +229,19 @@ func update_client(data):
 
 	pass
 
-#func pack_items(items:Array[String]):
-	#for item in items:
-		#var Inventory_ = owner as Inventory
-		#Inventory_.spawn_item(load(item))
 
-func drop_all():
+func get_all() -> Dictionary:
+	var items : Dictionary
+	
 	for slot in slot_container.get_children():
 		var item = slot.item as ItemBase
 		if item != null:
-			Globals.drop_item.emit(multiplayer.get_unique_id(),item,slot.amount)
-					
-			remove_item(item.unique_name,slot.amount)
-
-func _on_drop_all_pressed() -> void:
-	drop_all()
+			items[item.unique_name] = {
+				"amount":slot.amount,
+				"item_path":item.resource_path
+			}
+			
+	return items
 
 func save() -> Dictionary:
 	var save_data:Dictionary = {}

@@ -15,7 +15,7 @@ func _ready() -> void:
 	slot_manager = get_node("/root/Main").find_child("SlotManager")
 
 	Globals.spawn_item_hotbar.connect(spawn_item_hotbar)
-	Globals.remove_item_from_hotbar.connect(remove)
+	Globals.remove_item_from_hotbar.connect(remove_item)
 	
 	slots = slot_container.get_children()
 	
@@ -109,7 +109,7 @@ func _press_key(i: int) -> void:
 	current_key = i
 
 
-func remove(unique_name: String = "", amount: int = 1) -> void:
+func remove_item(unique_name: String = "", amount: int = 1) -> void:
 	#print("remove from hotbar ",unique_name,amount)
 	if unique_name == "":
 		var slot: Slot = get_current()
@@ -128,15 +128,21 @@ func remove(unique_name: String = "", amount: int = 1) -> void:
 					slot.update_slot()
 
 
-func drop_all() -> void:
+func get_all() -> Dictionary:
+	var items : Dictionary
+	
 	for slot in slots:
 		var item = slot.item as ItemBase
 		if item != null:
-			Globals.drop_item.emit(item,slot.amount)
-			remove(item.unique_name,slot.amount)
+			items[item.unique_name] = {
+				"amount":slot.amount,
+				"item_path":item.resource_path
+			}
+			
+	return items
 
 func _on_dropall_pressed() -> void:
-	drop_all()
+	pass
 
 func save() -> Dictionary:
 	var save_data:Dictionary = {}
@@ -195,6 +201,14 @@ func slot_updated(index: int, item_path: String, amount: int,parent:String,healt
 		else:
 			Globals.save_slot.emit(index,item_path,amount,parent,health,rot)
 	
+func check_spawn(item:ItemBase) -> bool:
+	for slot in slots:
+		if slot.item == null:
+			return true
+		elif slot.item.unique_name == item.unique_name:
+			if slot.item.max_stack >= slot.amount:
+				return true
+	return false
 
 func spawn_item_hotbar(item:ItemBase) -> void:
 	#print("spawn item hotbar ",item.unique_name)
@@ -209,6 +223,7 @@ func spawn_item_hotbar(item:ItemBase) -> void:
 				slot.amount += 1
 				slot.update_slot()
 				break
+				
 				
 func hotbar_full() -> bool:
 	var full:bool = true

@@ -6,7 +6,7 @@ extends Control
 
 func _ready() -> void:
 	itemLIB.init_items()
-	#ItemDownloader.completed_download.connect(start_scene)
+	ItemDownloader.completed_download.connect(construct_voxelLib)
 	Backend.playerdata_updated.connect(start_scene)
 
 func _process(delta):
@@ -36,7 +36,7 @@ func construct_voxelLib():
 				
 	#print(types.size())
 	voxel_lib.set_types(types)
-	ResourceSaver.save(voxel_lib,"res://resources/voxel_block_library.tres")
+	
 	await get_tree().create_timer(2.0).timeout
 	start_scene()
 	#print(voxel_lib.get_types().size())

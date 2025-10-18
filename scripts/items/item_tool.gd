@@ -2,13 +2,13 @@ extends ItemBase
 class_name ItemTool
 
 @export var use_animation: Animation
-@export var suitable_objects: Array[StringName]
+@export var suitable_blocks: Array[StringName]
 @export var breaking_efficiency: float
 @export var damage: int = 2
 
 
-@export var max_health : float = 5
-@export var degrade_rate: float = .1
+@export var max_health : float = 20
+@export var degrade_rate: int = 1
 
 @export_group("uses")
 @export var projectable : bool = false

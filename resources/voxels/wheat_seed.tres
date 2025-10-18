@@ -1,22 +1,15 @@
-[gd_resource type="VoxelBlockyType" load_steps=7 format=4 uid="uid://dm8x7f35vfvbx"]
+[gd_resource type="VoxelBlockyType" load_steps=6 format=4 uid="uid://dm8x7f35vfvbx"]
 
 [ext_resource type="Shader" path="res://scripts/shaders/wind.gdshader" id="1_6inf6"]
-[ext_resource type="Texture2D" uid="uid://cp3y4uihouojd" path="res://assets/textures/blocks/wheat_seeds.png" id="2_gmv12"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_pwm5b"]
-render_priority = 0
-shader = ExtResource("1_6inf6")
-shader_parameter/trans = true
-shader_parameter/distance_fade_min = null
-shader_parameter/distance_fade_max = null
-shader_parameter/grass_texture = ExtResource("2_gmv12")
+[ext_resource type="Material" uid="uid://b7mo3r8ux33rq" path="res://assets/materials/wheat_seed.tres" id="1_n0g1u"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ebx1x"]
 render_priority = 0
 shader = ExtResource("1_6inf6")
-shader_parameter/trans = true
-shader_parameter/distance_fade_min = null
-shader_parameter/distance_fade_max = null
+shader_parameter/character_position = null
+shader_parameter/dither_grain = 1.0
+shader_parameter/fade_start = 5.0
+shader_parameter/fade_end = 15.0
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_ygas7"]
 _surfaces = [{
@@ -38,7 +31,7 @@ blend_shape_mode = 0
 mesh = SubResource("ArrayMesh_ygas7")
 random_tickable = true
 collision_aabbs = Array[AABB]([AABB(1.45519e-11, -0.4, 1.45519e-11, 1, 0.2, 1)])
-material_override_0 = SubResource("ShaderMaterial_pwm5b")
+material_override_0 = ExtResource("1_n0g1u")
 collision_enabled_0 = false
 
 [resource]

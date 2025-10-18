@@ -60,11 +60,6 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 13
 text = "SORT"
 
-[node name="Drop All" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 13
-text = "DROP ALL"
-
 [node name="AddRandomItem" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer"]
 visible = false
 layout_mode = 2
@@ -76,6 +71,9 @@ layout_mode = 2
 
 [node name="Items" type="GridContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/h_separation = 8
+theme_override_constants/v_separation = 9
 columns = 6
 
 [node name="Slot" parent="PanelContainer/MarginContainer/VBoxContainer/Items" instance=ExtResource("3_v400e")]
@@ -135,6 +133,5 @@ layout_mode = 2
 [node name="Update Tick" type="Timer" parent="."]
 
 [connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/Sort" to="." method="_on_sort_pressed"]
-[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/Drop All" to="." method="_on_drop_all_pressed"]
 [connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/AddRandomItem" to="." method="_on_add_random_item_pressed"]
 [connection signal="timeout" from="Update Tick" to="." method="_on_update_tick_timeout"]

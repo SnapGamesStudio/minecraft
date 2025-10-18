@@ -1,12 +1,13 @@
-[gd_resource type="VoxelBlockyTypeLibrary" load_steps=53 format=3 uid="uid://c7aemhrd4kvsy"]
+[gd_resource type="VoxelBlockyTypeLibrary" load_steps=52 format=3 uid="uid://c7aemhrd4kvsy"]
 
 [ext_resource type="VoxelBlockyType" uid="uid://dqi3xynqrujqn" path="res://resources/voxels/air.tres" id="1_e7isu"]
+[ext_resource type="Material" uid="uid://csr4ypve7eknk" path="res://assets/materials/reeds.tres" id="4_twaa1"]
+[ext_resource type="Material" uid="uid://b86bjcjlcgwcg" path="res://assets/materials/tall_flower.tres" id="7_44tjc"]
 [ext_resource type="Shader" path="res://scripts/shaders/wind.gdshader" id="7_ssghj"]
 [ext_resource type="VoxelBlockyType" uid="uid://5cd4wyt5s80c" path="res://resources/voxels/dirt.tres" id="9_k8g2d"]
 [ext_resource type="VoxelBlockyType" uid="uid://cofv8c6nv4ugm" path="res://resources/voxels/stone.tres" id="10_bq2hr"]
-[ext_resource type="VoxelBlockyType" uid="uid://dxu62wr8ruf37" path="res://resources/voxels/wood_parm.tres" id="11_3kaqq"]
 [ext_resource type="VoxelBlockyType" uid="uid://b63358rtdm32j" path="res://resources/voxels/tall_grass.tres" id="11_lyexn"]
-[ext_resource type="VoxelBlockyType" uid="uid://eqnm7lxdi7vu" path="res://resources/voxels/wood_oak.tres" id="12_124rm"]
+[ext_resource type="VoxelBlockyType" uid="uid://eqnm7lxdi7vu" path="res://resources/voxels/planks_oak.tres" id="12_124rm"]
 [ext_resource type="Shader" path="res://scripts/shaders/water.gdshader" id="12_tb762"]
 [ext_resource type="VoxelBlockyType" uid="uid://cy7nyt7qnw8ek" path="res://resources/voxels/leaf_oak.tres" id="13_g4ji8"]
 [ext_resource type="VoxelBlockyType" uid="uid://d02bs6ckk2vxv" path="res://resources/voxels/leaf_parm.tres" id="14_tllg1"]
@@ -14,8 +15,6 @@
 [ext_resource type="VoxelBlockyType" uid="uid://cyjm2mjmdkheb" path="res://resources/voxels/log_oak.tres" id="15_l61wi"]
 [ext_resource type="VoxelBlockyType" uid="uid://dytnr321ew43t" path="res://resources/voxels/log_birch.tres" id="16_nk0w4"]
 [ext_resource type="VoxelBlockyType" uid="uid://d1jgou7q0ho8d" path="res://resources/voxels/chest.tres" id="17_bnowl"]
-[ext_resource type="VoxelBlockyType" uid="uid://dvbv5jeaclc80" path="res://resources/voxels/flower.tres" id="17_vrrgl"]
-[ext_resource type="Texture2D" uid="uid://d3tymthu4wkvb" path="res://assets/textures/blocks/flower tall.png" id="18_2bxy0"]
 [ext_resource type="VoxelBlockyType" uid="uid://iap8kftx6bq8" path="res://resources/voxels/iron.tres" id="18_as10g"]
 [ext_resource type="Texture2D" uid="uid://dw1chy4alyqj2" path="res://assets/textures/blocks/test textures.png" id="19_baq5y"]
 [ext_resource type="VoxelBlockyType" uid="uid://bsp64sjaww3om" path="res://resources/voxels/bed.tres" id="19_swu0h"]
@@ -25,8 +24,9 @@
 [ext_resource type="VoxelBlockyType" uid="uid://dm8x7f35vfvbx" path="res://resources/voxels/wheat_seed.tres" id="23_a4tsr"]
 [ext_resource type="VoxelBlockyType" uid="uid://cvprjut1ltsp4" path="res://resources/voxels/wheat.tres" id="24_jmgii"]
 [ext_resource type="VoxelBlockyType" uid="uid://dyuq1pveihdyr" path="res://resources/voxels/blueprint_station.tres" id="25_m1pgg"]
-[ext_resource type="VoxelBlockyType" uid="uid://bnh6ftd7voeax" path="res://resources/voxels/grass.tres" id="26_2vjse"]
+[ext_resource type="VoxelBlockyType" uid="uid://dvbv5jeaclc80" path="res://resources/voxels/flower.tres" id="27_3gy8j"]
 [ext_resource type="VoxelBlockyType" uid="uid://coyaqrbhykitr" path="res://resources/voxels/sand.tres" id="27_kxy1i"]
+[ext_resource type="VoxelBlockyType" uid="uid://bnh6ftd7voeax" path="res://resources/voxels/grass.tres" id="28_ojpq2"]
 
 [sub_resource type="Gradient" id="Gradient_w176c"]
 
@@ -94,20 +94,13 @@ unique_name = &"water_full"
 base_model = SubResource("VoxelBlockyModelCube_ndvd3")
 resource_name = "water_full"
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_huvcx"]
-render_priority = 0
-shader = ExtResource("7_ssghj")
-shader_parameter/trans = true
-shader_parameter/distance_fade_min = 60.0
-shader_parameter/distance_fade_max = 50.0
-shader_parameter/grass_texture = ExtResource("15_2yhxf")
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_pt7dp"]
 render_priority = 0
 shader = ExtResource("7_ssghj")
-shader_parameter/trans = true
-shader_parameter/distance_fade_min = 50.0
-shader_parameter/distance_fade_max = 60.0
+shader_parameter/character_position = null
+shader_parameter/dither_grain = 1.0
+shader_parameter/fade_start = 5.0
+shader_parameter/fade_end = 15.0
 shader_parameter/grass_texture = ExtResource("15_2yhxf")
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_v8pyf"]
@@ -140,8 +133,8 @@ blend_shape_mode = 0
 
 [sub_resource type="VoxelBlockyModelMesh" id="VoxelBlockyModelMesh_xmpic"]
 mesh = SubResource("ArrayMesh_v8pyf")
-material_override_0 = SubResource("ShaderMaterial_huvcx")
-material_override_1 = SubResource("ShaderMaterial_huvcx")
+material_override_0 = ExtResource("4_twaa1")
+material_override_1 = ExtResource("4_twaa1")
 collision_enabled_0 = false
 collision_enabled_1 = false
 
@@ -157,14 +150,6 @@ random_tickable = true
 unique_name = &"spawner"
 base_model = SubResource("VoxelBlockyModelEmpty_np7f4")
 resource_name = "spawner"
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ovc8u"]
-render_priority = 0
-shader = ExtResource("7_ssghj")
-shader_parameter/trans = true
-shader_parameter/distance_fade_min = 60.0
-shader_parameter/distance_fade_max = 50.0
-shader_parameter/grass_texture = ExtResource("18_2bxy0")
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_xoyc5"]
 _surfaces = [{
@@ -196,8 +181,8 @@ blend_shape_mode = 0
 
 [sub_resource type="VoxelBlockyModelMesh" id="VoxelBlockyModelMesh_w7ys5"]
 mesh = SubResource("ArrayMesh_xoyc5")
-material_override_0 = SubResource("ShaderMaterial_ovc8u")
-material_override_1 = SubResource("ShaderMaterial_ovc8u")
+material_override_0 = ExtResource("7_44tjc")
+material_override_1 = ExtResource("7_44tjc")
 collision_enabled_0 = false
 collision_enabled_1 = false
 
@@ -206,18 +191,114 @@ unique_name = &"tall_flower"
 base_model = SubResource("VoxelBlockyModelMesh_w7ys5")
 resource_name = "tall_flower"
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3qpsq"]
-transparency = 2
-alpha_scissor_threshold = 0.909
-alpha_antialiasing_mode = 0
-cull_mode = 2
-vertex_color_use_as_albedo = true
-albedo_color = Color(0.321728, 0.321728, 0.321728, 1)
-albedo_texture = ExtResource("19_baq5y")
-metallic_specular = 0.2
-emission_energy_multiplier = 2.0
-texture_filter = 0
-distance_fade_max_distance = 0.0
+[sub_resource type="Shader" id="Shader_bnn5h"]
+code = "shader_type spatial;
+render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_burley, specular_schlick_ggx;
+
+// Character position in world space
+uniform vec3 character_position;
+
+// Distance fade settings
+uniform float fade_start : hint_range(0.0,50.0) = 5.0;   // fade starts at this distance
+uniform float fade_end   : hint_range(0.0,50.0) = 15.0;  // fade fully at this distance
+
+// Base color
+uniform vec4 albedo : source_color;
+uniform sampler2D texture_albedo : source_color, filter_nearest, repeat_enable;
+
+// Dither grain intensity (0.0 = no dither, 1.0 = full dither)
+uniform float dither_grain : hint_range(0.0,1.0) = 1.0;
+
+// Pass world-space vertex position
+varying vec3 world_vertex;
+
+// NOTE: Shader automatically converted from Godot Engine 4.3.stable's StandardMaterial3D.
+
+uniform float distance_fade_min : hint_range(0.0, 4096.0, 0.01);
+uniform float distance_fade_max : hint_range(0.0, 4096.0, 0.01);
+uniform float point_size : hint_range(0.1, 128.0, 0.1);
+
+uniform float roughness : hint_range(0.0, 1.0);
+uniform sampler2D texture_metallic : hint_default_white, filter_linear_mipmap, repeat_enable;
+uniform vec4 metallic_texture_channel;
+uniform sampler2D texture_roughness : hint_roughness_r, filter_linear_mipmap, repeat_enable;
+
+uniform float specular : hint_range(0.0, 1.0, 0.01);
+uniform float metallic : hint_range(0.0, 1.0, 0.01);
+
+uniform vec3 uv1_scale;
+uniform vec3 uv1_offset;
+uniform vec3 uv2_scale;
+uniform vec3 uv2_offset;
+
+void vertex() {
+	world_vertex = (MODEL_MATRIX * vec4(VERTEX,1.0)).xyz;
+	UV = UV * uv1_scale.xy + uv1_offset.xy;
+}
+
+void fragment() {
+	vec2 base_uv = UV;
+
+	
+
+	float metallic_tex = dot(texture(texture_metallic, base_uv), metallic_texture_channel);
+	METALLIC = metallic_tex * metallic;
+	SPECULAR = specular;
+
+	vec4 roughness_texture_channel = vec4(1.0, 0.0, 0.0, 0.0);
+	float roughness_tex = dot(texture(texture_roughness, base_uv), roughness_texture_channel);
+	ROUGHNESS = roughness_tex * roughness;
+
+	
+    // Distance from fragment to character
+    float dist = length(world_vertex - character_position);
+
+    // Fade factor: 0 = solid (near), 1 = far → fades out
+    float fade = clamp((dist - fade_start) / max(0.0001, fade_end - fade_start), 0.0, 1.0);
+
+    // Interleaved gradient noise for dithering
+    const vec3 magic = vec3(0.06711056,0.00583715,52.9829189);
+    float noise = fract(magic.z * fract(dot(FRAGCOORD.xy * dither_grain, magic.xy)));
+
+    // Apply dither + smooth fade
+    float alpha = fade > noise ? 0.0 : 1.0;
+
+    // Apply color and alpha
+	vec4 albedo_tex = texture(texture_albedo, base_uv);
+	ALBEDO = albedo.rgb * albedo_tex.rgb;
+    ALPHA = mix(alpha,albedo_tex.a,alpha);
+
+    // Alpha scissor threshold preserves shadows
+    ALPHA_SCISSOR_THRESHOLD = 0.5;
+	
+}
+
+
+
+
+
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ao0f2"]
+render_priority = 0
+shader = SubResource("Shader_bnn5h")
+shader_parameter/character_position = null
+shader_parameter/fade_start = 45.0
+shader_parameter/fade_end = 50.0
+shader_parameter/albedo = Color(0.165656, 0.165656, 0.165656, 0)
+shader_parameter/dither_grain = 1.0
+shader_parameter/distance_fade_min = 10.0
+shader_parameter/distance_fade_max = 2.0
+shader_parameter/point_size = 1.0
+shader_parameter/roughness = 1.0
+shader_parameter/metallic_texture_channel = null
+shader_parameter/specular = 0.2
+shader_parameter/metallic = 0.0
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/uv2_scale = Vector3(1, 1, 1)
+shader_parameter/uv2_offset = Vector3(0, 0, 0)
+shader_parameter/texture_albedo = ExtResource("19_baq5y")
 
 [sub_resource type="VoxelBlockyModelCube" id="VoxelBlockyModelCube_y4e0k"]
 atlas_size_in_tiles = Vector2i(12, 4)
@@ -228,7 +309,7 @@ tile_top = Vector2i(3, 0)
 tile_back = Vector2i(3, 0)
 tile_front = Vector2i(3, 0)
 collision_aabbs = Array[AABB]([])
-material_override_0 = SubResource("StandardMaterial3D_3qpsq")
+material_override_0 = SubResource("ShaderMaterial_ao0f2")
 
 [sub_resource type="VoxelBlockyType" id="VoxelBlockyType_uvhfn"]
 unique_name = &"bedrock"
@@ -236,5 +317,5 @@ base_model = SubResource("VoxelBlockyModelCube_y4e0k")
 resource_name = "bedrock"
 
 [resource]
-types = Array[VoxelBlockyType]([ExtResource("1_e7isu"), ExtResource("11_lyexn"), ExtResource("17_vrrgl"), SubResource("VoxelBlockyType_pk8ty"), SubResource("VoxelBlockyType_bef3u"), SubResource("VoxelBlockyType_p7luq"), SubResource("VoxelBlockyType_5w55q"), SubResource("VoxelBlockyType_55pfu"), SubResource("VoxelBlockyType_uvhfn"), ExtResource("9_k8g2d"), ExtResource("10_bq2hr"), ExtResource("11_3kaqq"), ExtResource("12_124rm"), ExtResource("13_g4ji8"), ExtResource("14_tllg1"), ExtResource("15_l61wi"), ExtResource("16_nk0w4"), ExtResource("17_bnowl"), ExtResource("18_as10g"), ExtResource("19_swu0h"), ExtResource("20_jjs3u"), ExtResource("21_ibxcc"), ExtResource("22_6771x"), ExtResource("23_a4tsr"), ExtResource("24_jmgii"), ExtResource("25_m1pgg"), ExtResource("26_2vjse"), ExtResource("27_kxy1i")])
+types = Array[VoxelBlockyType]([ExtResource("1_e7isu"), ExtResource("11_lyexn"), SubResource("VoxelBlockyType_pk8ty"), SubResource("VoxelBlockyType_bef3u"), SubResource("VoxelBlockyType_p7luq"), SubResource("VoxelBlockyType_5w55q"), SubResource("VoxelBlockyType_55pfu"), SubResource("VoxelBlockyType_uvhfn"), ExtResource("9_k8g2d"), ExtResource("10_bq2hr"), ExtResource("12_124rm"), ExtResource("13_g4ji8"), ExtResource("14_tllg1"), ExtResource("15_l61wi"), ExtResource("16_nk0w4"), ExtResource("17_bnowl"), ExtResource("18_as10g"), ExtResource("19_swu0h"), ExtResource("20_jjs3u"), ExtResource("21_ibxcc"), ExtResource("22_6771x"), ExtResource("23_a4tsr"), ExtResource("24_jmgii"), ExtResource("25_m1pgg"), ExtResource("27_kxy1i"), ExtResource("27_3gy8j"), ExtResource("28_ojpq2")])
 _id_map_data = PackedStringArray("air", "dirt", "grass", "stone", "log_oak", "log_birch", "wood_oak", "wood_birch", "leaf_oak", "leaf_birch", "sand", "portal", "tall_grass", "chest", "test", "glowstone", "iron", "diamond", "bed", "forge", "flower", "fern", "test_ore", "water_top", "water_full", "gravestone", "chest[direction=0]", "chest[direction=1]", "chest[direction=2]", "chest[direction=3]", "chest[direction=4]", "chest[direction=5]", "forge[direction=0]", "forge[direction=1]", "forge[direction=2]", "forge[direction=3]", "forge[direction=4]", "forge[direction=5]", "water", "fire", "hell_ore", "creature_spawner", "reeds", "cactus", "lava", "hell_stone", "creature", "creature_spawner", "portal", "fire_pit[direction=0]", "fire_pit[direction=1]", "fire_pit[direction=2]", "fire_pit[direction=3]", "fire_pit[direction=4]", "fire_pit[direction=5]", "wheat", "wheat_seed", "sandstone", "cave_air", "cooker[direction=0]", "cooker[direction=1]", "cooker[direction=2]", "cooker[direction=3]", "cooker[direction=4]", "cooker[direction=5]", "spawner", "tall_flower", "wood_parm", "leaf_parm", "bedrock", "blueprint_station")

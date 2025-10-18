@@ -1,6 +1,6 @@
 [gd_resource type="VoxelBlockyType" load_steps=3 format=3 uid="uid://d02bs6ckk2vxv"]
 
-[ext_resource type="Material" uid="uid://6a7s1y7xwrh8" path="res://assets/materials/terrain_material_foliage.material" id="1_1wcyv"]
+[ext_resource type="Material" uid="uid://byptmty7r1diw" path="res://assets/materials/block_shader.tres" id="1_gcvul"]
 
 [sub_resource type="VoxelBlockyModelCube" id="VoxelBlockyModelCube_il7i2"]
 atlas_size_in_tiles = Vector2i(12, 4)
@@ -11,7 +11,7 @@ tile_top = Vector2i(6, 1)
 tile_back = Vector2i(6, 1)
 tile_front = Vector2i(6, 1)
 culls_neighbors = false
-material_override_0 = ExtResource("1_1wcyv")
+material_override_0 = ExtResource("1_gcvul")
 collision_enabled_0 = false
 
 [resource]
