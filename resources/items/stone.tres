@@ -8,7 +8,7 @@
 
 [resource]
 script = ExtResource("1_lqmys")
-break_time = 2.0
+break_time = 9.0
 voxel = ExtResource("4_7iu2d")
 light = false
 light_colour = Color(0, 0, 0, 1)

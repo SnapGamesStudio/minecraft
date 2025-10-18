@@ -6,7 +6,7 @@ const VOXEL_BLOCK_LIBRARY = preload("res://resources/voxel_block_library.tres")
 
 var last_pos_check:Vector3
 
-var nav_path:PackedVector3Array
+var nav_path:Array
 
 @export var update_time:float
 
@@ -37,23 +37,22 @@ func Physics_Update(delta:float):
 	
 			
 	if nav_path:
-		if nav_path.size() >= 2:
+		if not nav_path.is_empty():
 			creature.stopped = false
 			
 			
-			var point:Vector3 = nav_path[1] + Vector3(0.5,0,0.5)
-			var point_id = nav_path.find(point - Vector3(0.5,0,0.5))
+			var point:Vector3 = nav_path.front()
 			
 			var distance_to_point = current_pos.distance_to(point)
 			
 			if distance_to_point <= 1:
 				#print("on top of point")
-				nav_path.remove_at(point_id)
+				nav_path.erase(point)
 
 			var direction = creature.global_position.direction_to(point)
 
-			creature.velocity.x = direction.x * creature.creature_resource.speed
-			creature.velocity.z = direction.z * creature.creature_resource.speed
+			creature.velocity.x = lerpf(creature.velocity.x,direction.x * creature.creature_resource.speed,.5)
+			creature.velocity.z = lerpf(creature.velocity.z,direction.z * creature.creature_resource.speed,.5)
 
 			creature.guide.global_position = point
 
@@ -61,15 +60,13 @@ func Physics_Update(delta:float):
 		else:
 			#print("cant move too close")
 			creature.stopped = true
-			creature.velocity.x = 0
-			creature.velocity.z = 0 
+			creature.velocity.x = lerpf(creature.velocity.x,0,0.5)
+			creature.velocity.z = lerpf(creature.velocity.x,0,0.5)
 	else:
-		creature.velocity.x = 0
-		creature.velocity.z = 0 
+		creature.velocity.x = lerpf(creature.velocity.x,0,0.5)
+		creature.velocity.z = lerpf(creature.velocity.x,0,0.5)
 #
-	if distance < 1:
-		return
-		await get_tree().create_timer(2.0).timeout
+	if distance <= 2:
 		Transitioned.emit(self,"Attack",{"player":player})
 	#
 	if distance > 20:
@@ -93,15 +90,19 @@ func get_closest_player():
 	return closest_player
 
 func update_nav_path():
+	nav_path.clear()
 	var player = get_closest_player()
 	var current_pos = creature.global_position
 	
-	var OK = Nav.find_path(current_pos,player.global_position)
+	if player:
+		var OK = Nav.find_path(current_pos,player.global_position)
 
 	
-	if OK:
-		nav_path = OK
-		
+		if OK:
+			for point in OK:
+				nav_path.append(point)
+			print(nav_path)
+		#nav_path = OK
 		#for i in nav_path:
 			#Nav.create_visual_debug(i)
 	

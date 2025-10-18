@@ -1,21 +1,18 @@
 extends Control
 class_name Inventory_Holder
 
-@onready var container: HBoxContainer= $"Panel/MarginContainer/VBoxContainer/Inventory Holder"
-
 var spawned:Array = []
 
 func _ready() -> void:
-	pass
-
 	#Globals.sync_change_open.connect(ui_change)
 	#Globals.open_inventory.connect(open_inventory)
+	pass
 
 func ui_change(pos,data,id):
 	print("id ",id, "your ",multiplayer.get_unique_id())
 	if multiplayer.get_unique_id() == id: return
 	
-	for child in container.get_children():
+	for child in Helper.inventory_array.get_children():
 		if "id" in child:
 			if child.id == pos:
 				child.open_with_meta(JSON.parse_string(data))

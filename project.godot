@@ -31,6 +31,7 @@ Backend="*res://scenes/backend.tscn"
 Nav="*res://scripts/common/nav.gd"
 MouseMode="*res://scripts/common/mouse_mode.gd"
 ItemDownloader="*res://scenes/other/item_downloader.tscn"
+Helper="*res://scripts/common/helper.gd"
 
 [debug]
 
@@ -304,3 +305,7 @@ anti_aliasing/quality/msaa_2d=1
 lights_and_shadows/positional_shadow/atlas_size=1000
 vram_compression/import_etc=true
 environment/default_environment="res://Assets/default_env.tres"
+
+[voxel]
+
+threads/count/minimum=3

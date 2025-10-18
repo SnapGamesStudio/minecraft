@@ -1,4 +1,4 @@
-extends Node
+extends Node3D
 
 var debug:bool = false
 
@@ -62,50 +62,44 @@ func create_point(pos):
 
 	points[pos] = {
 		"point_id":point_id,
-		"mesh":null
 	}
 
 	if debug:
-		create_visual_debug(pos + Vector3(0.5,0,0.5))  # Create a visual debug sphere at the point position's center
+		create_visual_debug(pos)  # Create a visual debug sphere at the point position's center
    
 	#print("Point created at: ", Vector3(x, y, z))
 	#print("Total points: ", astar.get_point_count())
 
-func create_visual_debug(pos:Vector3, path:bool = false):
+func create_visual_debug(pos:Vector3, point_scale:Vector3 = Vector3(0.4,.4,.4),material:StandardMaterial3D = null):
 	var sphere := BoxMesh.new()
 	
 	var instance := MeshInstance3D.new()
 	instance.mesh = sphere
 	instance.position = pos
+	instance.name = str(pos)
 	
-	get_tree().root.add_child(instance)
+	add_child(instance)
 	
-	
-		
-	instance.scale = Vector3(0.4,.4,.4)
+	instance.scale = point_scale
 
-	if path:
-		instance.material_override = load("res://assets/materials/debug.tres")
-	else:
-		points[pos - Vector3(0.5,0,0.5)].mesh = instance
+	instance.material_override = material
 
 func clear_points():
 
 	## Debug Clear
-
+	for mesh in get_children():
+		if mesh is MeshInstance3D:
+			mesh.queue_free()
+			
 	## Point Clear
 	
 	for i in points:
 		if multiplayer.is_server():
 			var point_id = points[i].point_id
-			astar.remove_point(point_id)
-
-		var mesh = points[i].mesh
-		if mesh:
-			points[i].mesh = null
-			mesh.queue_free()
-
+			if astar.has_point(point_id):
+				astar.remove_point(point_id)
 	points.clear()
+	#print(points)
 
 func connect_points():
 	if not multiplayer.is_server(): return
@@ -129,27 +123,28 @@ func find_path(from:Vector3,to:Vector3):
 	if start_id == -1 or end_id == -1: return
 
 	var path = astar.get_point_path(start_id,end_id,true)
-
-	debug_path.rpc(path)
 	
 	return path
+	
+	debug_path.rpc(path,start_id,end_id)
+	
+	
 
 @rpc("any_peer")
-func debug_path(path:PackedVector3Array):
+func debug_path(path:PackedVector3Array, start_id:int, end_id:int):
 	if multiplayer.is_server(): return # client debug
 	if not debug: return
-
-	for point in points:
-		if path.has(point):
-			if points[point].mesh:
-				points[point].mesh.material_override = load("res://assets/materials/debug.tres")
-			else:
-				pass
-				#print("no mesh")
+	
+	var start := astar.get_point_position(start_id)
+	var end := astar.get_point_position(end_id)
+	
+	for point in path:
+		if point == start:
+			create_visual_debug(point,Vector3(0.41,0.41,0.41),load("res://assets/materials/start_debug.tres"))
+		elif point == end:
+			create_visual_debug(point,Vector3(0.41,0.41,0.41),load("res://assets/materials/end_debug.tres"))
 		else:
-			if points[point].mesh:
-				points[point].mesh.material_override = null
-
+			create_visual_debug(point,Vector3(0.41,0.41,0.41),load("res://assets/materials/debug.tres"))
 
 func update_nav_pool():
 	nav_viewers = get_tree().get_nodes_in_group("NavViewer")
@@ -161,7 +156,7 @@ func update_navs():
 		if nav_viewer != null:
 			var surroundings = nav_viewer.grab_surrounds()
 			for pos in surroundings:
-				create_point(pos)
+				create_point(pos + Vector3(0.5,0,0.5))
 				
 	connect_points()
 

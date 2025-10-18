@@ -1,16 +1,9 @@
 extends Node
 
-var ui_holder:HBoxContainer
-var inventory:Control
-
 var registered_ui_info:Dictionary = {}
 var opened_ui:Vector3 ## tells the server which ui is opened
 
 func _ready() -> void:
-	if not multiplayer.is_server():
-		ui_holder = get_node("/root/Main").find_child("Inventory Holder")
-		inventory = get_node("/root/Main").find_child("Inventory")
-
 	Globals.register_ui.connect(register_ui)
 	Globals.sync_add_metadata.connect(add_metadata)
 	Globals.open_ui.connect(create_ui)
@@ -62,18 +55,17 @@ func server_query_open_ui(id:Vector3):
 
 @rpc("any_peer","reliable")
 func create_ui(ui_scene:String, id:Vector3, containments , metadata := true):
-	var inventory = get_node("/root/Main").find_child("Inventory")
-
+	
 	var ui = load(ui_scene).instantiate()
 	if "id" in ui:
 		ui.id = id
 	if "metadata" in ui:
 		ui.metadata = metadata
-	ui_holder.add_child(ui)
+	Helper.inventory_array.add_child(ui)
 
 	if containments != null:
 		if not containments.is_empty():
 			ui.update_client(JSON.parse_string(containments))
 			
-	inventory.spawned.append(ui)
-	inventory.open_inventory(id)
+	Helper.inventory_holder.spawned.append(ui)
+	Helper.inventory_holder.open_inventory(id)

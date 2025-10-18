@@ -6,11 +6,11 @@
 
 [resource]
 script = ExtResource("2_u4dta")
-suitable_objects = Array[StringName]([])
+suitable_blocks = Array[StringName]([&"dirt", &"grass", &"sand"])
 breaking_efficiency = 0.2
 damage = 2
-max_health = 5.0
-degrade_rate = 0.1
+max_health = 30.0
+degrade_rate = 1
 projectable = false
 amount_needed = 0
 throws_self = false

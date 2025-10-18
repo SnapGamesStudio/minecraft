@@ -75,13 +75,6 @@ func _ready() -> void:
 	#despawn_timer.timeout.connect(try_despawn)
 	
 func _process(delta: float) -> void:
-	if ani:
-		if stopped:
-			if ani.current_animation != creature_resource.idle_ani_name:
-				ani.play(creature_resource.idle_ani_name)
-		else:
-			if ani.current_animation != creature_resource.walk_ani_name:
-				ani.play(creature_resource.walk_ani_name)
 				
 	if not multiplayer.is_server(): return
 	

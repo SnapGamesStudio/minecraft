@@ -1,6 +1,6 @@
 [gd_resource type="VoxelBlockyType" load_steps=3 format=3 uid="uid://bnh6ftd7voeax"]
 
-[ext_resource type="Material" uid="uid://csq7hapgiaegg" path="res://assets/materials/terrain.material" id="1_cx3b0"]
+[ext_resource type="Material" uid="uid://byptmty7r1diw" path="res://assets/materials/block_shader.tres" id="1_p885t"]
 
 [sub_resource type="VoxelBlockyModelCube" id="VoxelBlockyModelCube_55323"]
 atlas_size_in_tiles = Vector2i(12, 4)
@@ -12,7 +12,7 @@ tile_front = Vector2i(1, 0)
 random_tickable = true
 collision_aabbs = Array[AABB]([AABB(1.45519e-11, 1.45519e-11, 1.45519e-11, 1, 1, 1)])
 collision_mask = 5
-material_override_0 = ExtResource("1_cx3b0")
+material_override_0 = ExtResource("1_p885t")
 
 [resource]
 unique_name = &"grass"

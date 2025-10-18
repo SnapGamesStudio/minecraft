@@ -177,8 +177,7 @@ func _generate_pass(voxel_tool: VoxelToolMultipassGenerator, pass_index: int):
 		var tree_count := 7
 		var _rng := RandomNumberGenerator.new()
 		for tree_index in tree_count:
-			rng.seed = tree_index + _get_chunk_seed_2d(voxel_tool.get_main_area_min())
-			try_plant_tree(voxel_tool,_rng)
+			try_plant_tree(voxel_tool,tree_index)
 			
 
 	elif pass_index == 2:
@@ -204,10 +203,12 @@ func cave(x:int,y:int,z:int) -> bool:
 static func _get_chunk_seed_2d(cpos: Vector3) -> int:
 	return int(cpos.x) ^ (31 * int(cpos.z))
 
-func try_plant_tree(voxel_tool: VoxelToolMultipassGenerator, rng: RandomNumberGenerator):
+func try_plant_tree(voxel_tool: VoxelToolMultipassGenerator, tree_id:int):
 	var min_pos := voxel_tool.get_main_area_min()
 	var max_pos := voxel_tool.get_main_area_max()
+	var rng = RandomNumberGenerator.new()
 	var chunk_size = max_pos - min_pos
+	rng.seed = tree_id + _get_chunk_seed_2d(chunk_size)
 	
 	var tree_rpos := Vector3i(
 		rng.randi_range(0, chunk_size.x), 0,

@@ -52,23 +52,27 @@ func slot_clicked(slot:Slot):
 			last_clicked_slot.focused = false
 			last_clicked_slot = null
 			
-			
-	elif slot.item.unique_name == last_clicked_slot.item.unique_name:
-		print("stack")
-		_stack_items(slot)
-	else:
-		if last_clicked_slot.item.unique_name != "blueprint_station_craftable":
-			if slot.item.unique_name != "blueprint_station_craftable":
-				_swap_items(slot)
-		else:
-			last_clicked_slot.focused = false
-			last_clicked_slot = null
+	
+	if slot != null and last_clicked_slot != null:
+		if slot.item != null and last_clicked_slot.item != null:
+			if slot.item.unique_name == last_clicked_slot.item.unique_name:
+				print("stack")
+				_stack_items(slot)
+	if slot != null and last_clicked_slot != null:
+		if slot.item != null and last_clicked_slot.item != null:
+			if last_clicked_slot.item.unique_name != "blueprint_station_craftable":
+				if slot.item.unique_name != "blueprint_station_craftable":
+					_swap_items(slot)
+	
+	if last_clicked_slot != null:
+		last_clicked_slot.focused = false
+		last_clicked_slot = null
 			
 				
 func add_item_to_hotbar_or_inventory(item:ItemBase):
-	if hotbar_full: Globals.spawn_item_inventory.emit(item)
+	if !Helper.hotbar.check_spawn(item): Globals.spawn_item_inventory.emit(item)
 	else:
-		Globals.spawn_item_hotbar.emit(item)
+		Helper.hotbar.spawn_item_hotbar(item)
 
 func _move_item_to_slot(slot: Slot) -> void:
 	if not _can_equip(slot, last_clicked_slot.item):
@@ -83,7 +87,7 @@ func _move_item_to_slot(slot: Slot) -> void:
 	last_clicked_slot.item = null
 	slot.update_slot()
 	last_clicked_slot.update_slot()
-	last_clicked_slot.focused = false	
+	last_clicked_slot.focused = false
 	last_clicked_slot = null
 
 func _stack_items(slot: Slot) -> void:

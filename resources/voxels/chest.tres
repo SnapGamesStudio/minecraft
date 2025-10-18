@@ -1,6 +1,6 @@
 [gd_resource type="VoxelBlockyType" load_steps=4 format=3 uid="uid://d1jgou7q0ho8d"]
 
-[ext_resource type="Material" uid="uid://csq7hapgiaegg" path="res://assets/materials/terrain.material" id="1_6ecfb"]
+[ext_resource type="Material" uid="uid://byptmty7r1diw" path="res://assets/materials/block_shader.tres" id="1_xln4w"]
 
 [sub_resource type="VoxelBlockyAttributeDirection" id="VoxelBlockyAttributeDirection_ics12"]
 
@@ -12,7 +12,7 @@ tile_bottom = Vector2i(8, 0)
 tile_top = Vector2i(8, 0)
 tile_back = Vector2i(9, 1)
 tile_front = Vector2i(8, 1)
-material_override_0 = ExtResource("1_6ecfb")
+material_override_0 = ExtResource("1_xln4w")
 
 [resource]
 unique_name = &"chest"

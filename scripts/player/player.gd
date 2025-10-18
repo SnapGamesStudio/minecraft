@@ -4,55 +4,6 @@ class_name Player
 signal hunger_updated(hunger)
 signal health_updated(health)
 
-var speed_mode = false
-var start_position:Vector3
-var spawn_position: Vector3
-var protection:int
-
-@export var defualt_hand_model:PackedScene
-
-@export_group("MOVEMENT")
-@export_range(0.1, 1.1, 0.1) var max_flying_margin = 0.2
-@export_range(-1.1, -0.1, 0.1) var min_flying_margin = -0.2
-
-var SWIMMING_SPEED = 4.0
-var WALK_SPEED = 5.0
-var SPRINT_SPEED = 8.0
-var JUMP_VELOCITY = 7.0
-var CROUCH_SPEED = 3.0
-
-@export var can_autojump: bool = true
-
-var set_fall_height:bool = false
-var start_fall_height:float 
-var end_fall_height:float
-
-var fall_time:float = 0.0
-
-# Player model rotation speed
-@export var rotation_speed := 12.0
-
-@export_subgroup("MULTIPLAYER")
-# Clamp sync delta for faster interpolation
-@export var sync_delta_max := 0.2
-@export var sync_delta := 0.0
-@export var start_interpolate := false
-
-@export_group("NODES")
-@export var hit_shader:ColorRect
-@export var rotation_root: Node3D
-@export var ANI: AnimationPlayer
-@export var hit_sfx: AudioStreamPlayer3D
-@export var pos_label: Label
-@export var ping_label: Label
-@export var collision: CollisionShape3D
-@export var hand_ani: AnimationPlayer
-@export var terrain_interation:TerrainInteraction
-@export var camera_shake:Node
-@export var fall_timer:Timer
-@export var floor_ray:RayCast3D
-@export var skeleton_3d: Skeleton3D
-
 const SENSITIVITY = 0.004
 
 # Bob variables
@@ -64,50 +15,80 @@ var t_bob = 0.0
 const BASE_FOV = 90.0
 const FOV_CHANGE = 1.5
 
+var start_position:Vector3
+var spawn_position: Vector3
+
+const SWIMMING_SPEED = 4.0
+const WALK_SPEED = 5.0
+const SPRINT_SPEED = 8.0
+const JUMP_VELOCITY = 7.0
+const CROUCH_SPEED = 3.0
+const gravity = 22.5
+var speed: float
+
+var is_flying: bool = false
+var speed_mode = false
 var found_ground:bool = false
 var swimming:bool = false
 var crouching:bool = false
-var speed: float
-var gravity = 22.5
+
+var set_fall_height:bool = false
+var start_fall_height:float 
+var end_fall_height:float
+var fall_time:float = 0.0
+
+@export var can_autojump: bool = true
+
+# Clamp sync delta for faster interpolation
+var sync_delta_max := 0.2
+var sync_delta := 0.0
+var start_interpolate := false
 var position_before_sync: Vector3 = Vector3.ZERO
 var last_sync_time_ms: int = 0
-var is_flying: bool
 
-@export var camera_transform:Transform3D
+var _camera_transform:Transform3D
+var _position: Vector3
+var _velocity: Vector3
+var _rotation: Vector3 = Vector3.ZERO
+var _direction: Vector3 = Vector3.ZERO
 
+var health
+var protection:int
+var hunger: float = 0
+
+var spawn_point_set := {}
+var check_terrian_timer:Timer
+
+@export_group("STATS")
+@export var max_health: int = 3
+@export var fall_hurt_height:float = 4.0
+@export_subgroup("HUNGER")
+@export var base_hunger: float = 5.0
+@export var hunger_update_time := 10.0
+@export var moving_hunger_times_debuff := 2.0
+@export var hunger_step: float = 0.1
+
+@onready var hit_shader:ColorRect = $"hit shader"
+@onready var rotation_root: Node3D = $RotationRoot
+@onready var ANI: AnimationPlayer = $RotationRoot/Model/AnimationPlayer
+@onready var hit_sfx: AudioStreamPlayer3D = $hit
+@onready var ping_label: Label = $Ping
+@onready var pos_label: Label = $Pos
+@onready var collision: CollisionShape3D = $CollisionShape3D
+@onready var hand_ani: AnimationPlayer = $RotationRoot/Head/HandAni
+@onready var floor_ray: RayCast3D = $floor
+@onready var camera_shake: CameraShake3DNode = $RotationRoot/Head/CameraShake3DNode
+@onready var terrain_interation:TerrainInteraction = $Hands/TerrainInteraction
 @onready var drop_node: Node3D = $RotationRoot/Head/Camera3D/Drop_node
-
 @onready var camera = $RotationRoot/Head/Camera3D
 @onready var ray = $RotationRoot/Head/Camera3D/RayCast3D
 @onready var auto_jump: RayCast3D = $RotationRoot/AutoJump
 @onready var can_auto_jump_check: RayCast3D = $RotationRoot/AutoJump2
 @onready var _synchronizer: MultiplayerSynchronizer = $MultiplayerSynchronizer
 @onready var _move_direction := Vector3.ZERO
-
 @onready var hand = $RotationRoot/Head/Camera3D/Hand
+@onready var third_person_model: Node3D = $"RotationRoot/Model" # TP
 
-@export_group("SYNC PROPERTIES")
-@export var _position: Vector3
-@export var _velocity: Vector3
-@export var _rotation: Vector3 = Vector3.ZERO
-@export var _direction: Vector3 = Vector3.ZERO
-
-@export_group("STATS")
-@export var fall_hurt_height:float = 4.0
-@export var base_hunger: float = 5.0
-var hunger: float = 0
-@export var hunger_update_time := 10.0
-@export var moving_hunger_times_debuff := 2.0
-@export var hunger_step: float = 0.1
-
-@export var max_health: int = 3
-var health
-
-@onready var minecraft_player: Node3D = $"RotationRoot/Model" # TP
-#@onready var fp: Node3D = $RotationRoot/Head/Camera3D/fp # FP
-
-var check_terrian_timer:Timer
-var spawn_point_set := {}
 
 func _ready() -> void:
 	Globals.add_item_to_hand.connect(add_item_to_hand)
@@ -138,17 +119,21 @@ func _ready() -> void:
 		camera.current = true
 		
 	_update_tp_fp_visibility()
-	
+	_add_keybindings()
 	
 
-
+func _exit_tree():
+	save_data()
+	Console.remove_command("player_flying")
+	Console.remove_command("player_clipping")
+	
 func _update_tp_fp_visibility() -> void:
 	if is_multiplayer_authority():
 		hand.show()
-		minecraft_player.hide()
+		third_person_model.hide()
 	else:
 		hand.hide()
-		minecraft_player.show()
+		third_person_model.show()
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -161,26 +146,47 @@ func _unhandled_input(event: InputEvent) -> void:
 		camera.rotate_x(-event.relative.y * SENSITIVITY)
 		camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-90), deg_to_rad(90))
 	
-	var bone_rot = camera.rotation.x / 100
-	var head = skeleton_3d.find_bone("head")
-	var t = skeleton_3d.get_bone_pose(head)
-	t = t.rotated(Vector3(0.0, 1.0, 0.0),bone_rot)
-	skeleton_3d.set_bone_pose(head,t)
 
+func update_shaders():
+	var blocks_shader:ShaderMaterial = load("res://assets/materials/block_shader.tres")
+	blocks_shader.set_shader_parameter("character_position", global_position)
+	var grass_shader:ShaderMaterial = load("res://assets/materials/tall_grass.tres")
+	grass_shader.set_shader_parameter("character_position", global_position)
+	var flower_shader:ShaderMaterial = load("res://assets/materials/tall_flower.tres")
+	flower_shader.set_shader_parameter("character_position", global_position)
+	var reed_shader:ShaderMaterial = load("res://assets/materials/reeds.tres")
+	reed_shader.set_shader_parameter("character_position", global_position)
+	var wheat_shader:ShaderMaterial = load("res://assets/materials/wheat.tres")
+	wheat_shader.set_shader_parameter("character_position", global_position)
+	var wheat_seed_shader:ShaderMaterial = load("res://assets/materials/wheat_seed.tres")
+	wheat_seed_shader.set_shader_parameter("character_position", global_position)
 
 func _process(_delta: float) -> void:
 	if not is_multiplayer_authority(): return
 	
-	camera_transform = camera.global_transform
+	update_shaders()
+	hunger_update(_delta)
+
+	
+	_camera_transform = camera.global_transform
 		
 	pos_label.text = str("pos   ", global_position)
 	camera.far = Globals.view_range
-		
-	hunger_update(_delta)
-
+	
 func _physics_process(delta: float) -> void:
 	if not is_multiplayer_authority() and Connection.is_peer_connected:
 		interpolate_client(delta); return
+
+	if !Globals.paused and Input.mouse_mode != Input.MOUSE_MODE_VISIBLE:
+		mine_and_place(delta)
+	if !is_flying and !Globals.paused and !swimming and Input.mouse_mode != Input.MOUSE_MODE_VISIBLE:
+		normal_movement(delta)
+	if is_flying and !Globals.paused and !swimming and Input.mouse_mode != Input.MOUSE_MODE_VISIBLE:
+		flying_movement(delta)
+		
+	if Globals.paused and Input.mouse_mode == Input.MOUSE_MODE_VISIBLE:
+		velocity.x = lerp(velocity.x,0.0,.1)
+		velocity.z = lerp(velocity.x,0.0,.1)
 
 	# Head bob
 	if SettingsManager.headbob:
@@ -205,9 +211,7 @@ func _physics_process(delta: float) -> void:
 			# Gravity
 			velocity.y -= gravity * delta
 		else:
-
 			# Fall Damage
-			
 			end_fall_height = global_position.y
 			
 			if !swimming:
@@ -217,22 +221,8 @@ func _physics_process(delta: float) -> void:
 
 			set_fall_height = false
 
-	if !Globals.paused and Input.mouse_mode != Input.MOUSE_MODE_VISIBLE:
-		mine_and_place(delta)
-	if !is_flying and !Globals.paused and !swimming and Input.mouse_mode != Input.MOUSE_MODE_VISIBLE:
-		normal_movement(delta)
-	if is_flying and !Globals.paused and !swimming and Input.mouse_mode != Input.MOUSE_MODE_VISIBLE:
-		flying_movement(delta)
-	if !is_flying and !Globals.paused and swimming and Input.mouse_mode != Input.MOUSE_MODE_VISIBLE:
-		swimming_movement(delta)
-		
-	if Globals.paused and Input.mouse_mode == Input.MOUSE_MODE_VISIBLE:
-		velocity.x = lerp(velocity.x,0.0,.1)
-		velocity.z = lerp(velocity.x,0.0,.1)
-		
 	move_and_slide()
 	set_sync_properties()
-
 
 func set_sync_properties() -> void:
 	_position = position
@@ -240,7 +230,7 @@ func set_sync_properties() -> void:
 	_rotation = rotation_root.rotation
 	_direction = _move_direction
 
-func save_data():
+func save_data() -> void:
 	#Position
 	Globals.send_to_server.emit({"client_id": Globals.client_id,"change_name": "Position_x", "change": position.x})
 	Globals.send_to_server.emit({"client_id": Globals.client_id,"change_name": "Position_y", "change": position.y})
@@ -265,7 +255,6 @@ func on_synchronized() -> void:
 	
 	if Connection.is_server():
 		position = _position
-
 
 func interpolate_client(delta: float) -> void:
 	if not start_interpolate: return
@@ -294,19 +283,14 @@ func interpolate_client(delta: float) -> void:
 	velocity.y -= gravity * delta
 	move_and_slide()
 
-
 func toggle_flying() -> void:
 	is_flying = !is_flying
-
 
 func toggle_clipping() -> void:
 	collision.disabled = !collision.disabled
 	if collision.disabled:
-		WALK_SPEED = 20.0
 		is_flying = true
-	else:
-		WALK_SPEED = 5.0
-
+		
 func show_pos() -> void:
 	pos_label.visible = !pos_label.visible
 
@@ -326,12 +310,6 @@ func is_print_logs() -> bool:
 	var args = OS.get_cmdline_args() + OS.get_cmdline_user_args()
 	return "--print_logs" in args
 
-
-func _exit_tree():
-	save_data()
-	Console.remove_command("player_flying")
-	Console.remove_command("player_clipping")
-
 func add_item_to_hand(scene:PackedScene) -> void:
 		
 	remove_item_in_hand()
@@ -343,16 +321,12 @@ func remove_item_in_hand() -> void:
 	for i in hand.get_children():
 		i.queue_free()
 	
-		
-
-
 @rpc("any_peer","call_local")
 func hit(damage: int = 1) -> void:
 	
 	#cant get damage that is neg
 	if damage - protection < 0:
 		damage = 0
-	
 	
 	health -= (damage - protection)
 	
@@ -366,8 +340,8 @@ func hit(damage: int = 1) -> void:
 	if damage != 0:
 		var mat = hit_shader.get_material() as ShaderMaterial
 		var tween = create_tween()
-		tween.tween_property(mat,"shader_parameter/inner_radius",.2,.4)
-		tween.tween_property(mat,"shader_parameter/inner_radius", 1,1)
+		tween.tween_property(mat,"shader_parameter/inner_radius",0.4,.4)
+		tween.tween_property(mat,"shader_parameter/inner_radius", 0.9,0.4)
 		
 
 func hunger_update(_delta: float) -> void:
@@ -400,13 +374,15 @@ func hunger_update(_delta: float) -> void:
 
 
 func death() -> void:
-	#terrain_interation.place_block(&"gravestone")
 	health = max_health
 	hunger = base_hunger
-	respawn.rpc(spawn_position)
+	
+	drop_items(global_position)
+	
 	camera_shake._shake()
-	drop_items()
+	
 	global_position = spawn_position
+	respawn.rpc(spawn_position)
 	print("death")
 
 
@@ -417,19 +393,29 @@ func respawn(pos: Vector3) -> void:
 	velocity = Vector3.ZERO
 	found_ground = false
 	var aabb:AABB = AABB(pos,Vector3(40,60,40))
-	if TerrainHelper.get_terrain_tool().is_area_meshed(aabb):
+	if Helper.terrian.is_area_meshed(aabb):
 		found_ground = true
 	else:
+		## creates a timer to know when the terrian does get meshed
 		check_terrian_timer = Timer.new()
 		check_terrian_timer.wait_time = 1.0
 		add_child(check_terrian_timer)
 		check_terrian_timer.start()
 		check_terrian_timer.timeout.connect(_check_terrian_timer)
-func drop_items():
-	var inventory = get_tree().get_first_node_in_group("Main Inventory")
-	var hotbar = get_tree().get_first_node_in_group("Hotbar")
-	inventory.drop_all()
-	hotbar.drop_all()
+		
+func drop_items(drop_position:Vector3):
+	var object_spawner:MultiplayerSpawner
+	
+	var inventory_items = Helper.player_inventory.get_all()
+	var hotbar_items = Helper.hotbar.get_all()
+	
+	for item_name in hotbar_items:
+		Helper.hotbar.remove_item(item_name,hotbar_items[item_name].amount)
+		Helper.object_spawner.spawn_object.rpc_id(1,[1,global_position,"res://scenes/items/dropped_item.tscn",hotbar_items[item_name].item_path,hotbar_items[item_name].amount])
+	
+	for item_name in inventory_items:
+		Helper.player_inventory.remove_item(item_name,inventory_items[item_name].amount)
+		Helper.object_spawner.spawn_object.rpc_id(1,[1,global_position,"res://scenes/items/dropped_item.tscn",inventory_items[item_name].item_path,inventory_items[item_name].amount])
 
 func hunger_points_gained(amount: int) -> void:
 	if hunger + amount < base_hunger:
@@ -491,37 +477,21 @@ func normal_movement(delta:float):
 		if auto_jump.is_colliding() and !can_auto_jump_check.is_colliding():
 			velocity.y = JUMP_VELOCITY
 			
-			
-			
 func flying_movement(delta:float):
-	var input_dir = Input.get_vector("Left", "Right", "Forward", "Backward")
-	_move_direction = (rotation_root.transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
-	if camera.rotation.x > max_flying_margin:
-			velocity.y = camera.rotation.x * speed * 2
-	else:
-		velocity.y = lerp(velocity.y,0.0,.1)
-		
-	if  camera.rotation.x < min_flying_margin:
-		velocity.y = camera.rotation.x * speed * 2
-		
-	else:
-		velocity.y = lerp(velocity.y,0.0,.1)
-		
-	if _move_direction:
-		if ANI.current_animation != "waling":
-				ANI.play("waling")
-		velocity.x = _move_direction.x * speed
-		velocity.z = _move_direction.z * speed
-	else:
-		if ANI.current_animation != "idle":
-				ANI.play("idle")
-		velocity.x = lerp(velocity.x, _move_direction.x * speed, delta * 7.0)
-		velocity.z = lerp(velocity.z, _move_direction.z * speed, delta * 7.0)
-		
-		
+	var dir = Vector3.ZERO
+	if Input.is_action_pressed("__debug_camera_forward"): 	dir.z -= 1
+	if Input.is_action_pressed("__debug_camera_back"): 		dir.z += 1
+	if Input.is_action_pressed("__debug_camera_left"): 		dir.x -= 1
+	if Input.is_action_pressed("__debug_camera_right"): 	dir.x += 1
+	if Input.is_action_pressed("__debug_camera_up"): 		dir.y += 1
+	if Input.is_action_pressed("__debug_camera_down"): 		dir.y -= 1
+
+	_move_direction = (rotation_root.transform.basis * Vector3(dir.x, dir.y, dir.z)).normalized()
 	
+	velocity = lerp(velocity, _move_direction * SPRINT_SPEED, 0.1)
+		
 func mine_and_place(delta:float):
-	var hotbar = get_node("/root/Main").find_child("Hotbar") as HotBar
+	var hotbar = Helper.hotbar
 	var hotbar_item:ItemBase = hotbar.get_current().item
 
 	if Input.is_action_pressed("Mine"):
@@ -548,15 +518,13 @@ func mine_and_place(delta:float):
 						Globals.open_registered_ui.emit(coll.spawn_pos)
 		
 	if Input.is_action_just_pressed("Mine"):
-		#print(hotbar.get_current().item)
 		
 		if ray.is_colliding():
 			var coll = ray.get_collider()
 			
 			if coll is Dropped_Item:
 				coll.collect()
-				var soundmanager = get_node("/root/Main").find_child("SoundManager")
-				soundmanager.play_sound("pick_up",ray.get_collision_point())
+				Helper.sound_manager.play_sound("pick_up",ray.get_collision_point())
 			
 			if coll is CreatureBase:
 				if hotbar_item != null:
@@ -582,7 +550,7 @@ func mine_and_place(delta:float):
 				if hotbar_item.throws_self:
 					var current_slot = hotbar.get_current() as Slot
 					current_slot.amount -= 1
-					spawn_throwable.rpc_id(1,[get_multiplayer_authority(),camera_transform,"res://scenes/items/weapons/projectile.tscn",hotbar_item.projectile_resource.get_path()])
+					Helper.object_spawner.spawn_object.rpc_id(1,[get_multiplayer_authority(),_camera_transform,"res://scenes/items/weapons/projectile.tscn",hotbar_item.projectile_resource.get_path()])
 				else:
 					var find_item = hotbar_item.projectile_item
 					var item_slot = Globals.find_item(find_item)
@@ -590,83 +558,15 @@ func mine_and_place(delta:float):
 						if item_slot.amount - hotbar_item.amount_needed:
 							if item_slot.amount >= 0:
 								item_slot.amount -= hotbar_item.amount_needed
-								spawn_throwable.rpc_id(1,[get_multiplayer_authority(),camera_transform,"res://scenes/items/weapons/projectile.tscn",hotbar_item.projectile_resource.get_path()])
+								Helper.object_spawner.spawn_object.rpc_id(1,[get_multiplayer_authority(),_camera_transform,"res://scenes/items/weapons/projectile.tscn",hotbar_item.projectile_resource.get_path()])
 					
-func swimming_movement(delta:float) -> void:
-
-	var input_dir = Input.get_vector("Left", "Right", "Forward", "Backward")
-	_move_direction = (rotation_root.transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
-	if camera.rotation.x > max_flying_margin:
-		if !Input.is_action_pressed("Jump"):
-			velocity.y = camera.rotation.x * SWIMMING_SPEED * 2
-		else:
-			velocity.y = JUMP_VELOCITY
-	else:
-		if !Input.is_action_pressed("Jump"):
-			velocity.y = lerp(velocity.y,0.0,.1)
-		else:
-			velocity.y = JUMP_VELOCITY
-		
-	if  camera.rotation.x < min_flying_margin:
-		if !Input.is_action_pressed("Jump"):
-			velocity.y = camera.rotation.x * SWIMMING_SPEED * 2
-		else:
-			velocity.y = JUMP_VELOCITY
-	else:
-		if !Input.is_action_pressed("Jump"):
-			velocity.y = lerp(velocity.y,0.0,.1)
-		else:
-			velocity.y = JUMP_VELOCITY
-			
-	if _move_direction:
-		if hand_ani.current_animation != "pick up":
-			if ANI.current_animation != "waling":
-					ANI.play("waling")
-		velocity.x = _move_direction.x * SWIMMING_SPEED
-		velocity.z = _move_direction.z * SWIMMING_SPEED
-	else:
-		if hand_ani.current_animation != "pick up":
-			if ANI.current_animation != "idle":
-					ANI.play("idle")
-		
-		velocity.x = lerp(velocity.x, _move_direction.x * SWIMMING_SPEED, delta * 7.0)
-		velocity.z = lerp(velocity.z, _move_direction.z * SWIMMING_SPEED, delta * 7.0)
-	#if Input.is_action_pressed("Jump") and is_on_floor():
-			#velocity.y = JUMP_VELOCITY
-			
-		
-	## Auto jump
-	var moving_forward = input_dir.y < 0
-	if can_autojump and moving_forward and is_on_floor():
-		if auto_jump.is_colliding() and !can_auto_jump_check.is_colliding():
-			velocity.y = JUMP_VELOCITY
-			
 func _speed_mode():
 	speed_mode = !speed_mode
 	if speed_mode:
-		WALK_SPEED = 100
+		speed * 3
 	else:
-		WALK_SPEED = 5.0
+		speed * 1
 		
-@rpc("any_peer","call_local")
-func spawn_throwable(data):
-	Globals.add_object.emit(data)
-
-func _spawn_creature():
-	#if not multiplayer.is_server(): return
-	
-	var creature_resource = load("res://resources/creatures/fox.tres") as Creature
-	if creature_resource == null:
-		print("Creature resource not found")
-		return
-	
-	spawn_creature.rpc_id(1,global_position + Vector3(0,3,2),creature_resource.get_path())
-
-@rpc("any_peer")
-func spawn_creature(pos,creature):
-	print("creature")
-	Globals.spawn_creature.emit(pos,load(creature))
-
 # after loading lets the player move
 func free_player():
 	MouseMode.set_captured(true)
@@ -674,6 +574,23 @@ func free_player():
 
 func _check_terrian_timer():
 	var aabb:AABB = AABB(global_position,Vector3(40,60,40))
-	if TerrainHelper.get_terrain_tool().is_area_meshed(aabb):
+	if Helper.terrian.is_area_meshed(aabb):
 		found_ground = true
 		check_terrian_timer.queue_free()
+		
+
+func _add_keybindings() -> void:
+	var actions = InputMap.get_actions()
+	if "__debug_camera_forward" not in actions: _add_key_input_action("__debug_camera_forward", KEY_W)
+	if "__debug_camera_back" 	not in actions: _add_key_input_action("__debug_camera_back", KEY_S)
+	if "__debug_camera_left" 	not in actions: _add_key_input_action("__debug_camera_left", KEY_A)
+	if "__debug_camera_right" 	not in actions: _add_key_input_action("__debug_camera_right", KEY_D)
+	if "__debug_camera_up" 		not in actions: _add_key_input_action("__debug_camera_up", KEY_SPACE)
+	if "__debug_camera_down" 	not in actions: _add_key_input_action("__debug_camera_down", KEY_SHIFT)
+
+func _add_key_input_action(name: String, key: Key) -> void:
+	var ev = InputEventKey.new()
+	ev.physical_keycode = key
+	
+	InputMap.add_action(name)
+	InputMap.action_add_event(name, ev)

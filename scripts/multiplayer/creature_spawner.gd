@@ -72,21 +72,21 @@ func create_viewer(_id: int, creature: CreatureBase) -> void:
 		var viewer: VoxelViewer = VoxelViewer.new()
 
 		viewer.view_distance = view_distance
-		viewer.requires_visuals = true
+		viewer.requires_visuals = false
 		viewer.requires_collisions = true
 		viewer.set_network_peer_id(1)
 
 		creature.add_child(viewer)
 
 func create_creature_spawner(spawner_pos:Vector3i,creature:String):
-	return
+	#return
 	creature_spawners[spawner_pos] = {"creature":creature}
-	print("created_spawner")
+	#print("created_spawner")
 	#print("spawners ",creature_spawners)
 	pass
 	
 func tick():
-	return
+	#return
 	if !multiplayer.is_server(): return
 	if creature_spawners.size() == 0: return
 		

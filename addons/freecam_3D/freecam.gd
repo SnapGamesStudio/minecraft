@@ -66,6 +66,8 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
+	var shader:ShaderMaterial = load("res://assets/materials/block_shader.tres")
+	shader.set_shader_parameter("character_position", global_position)
 	
 	if Input.is_action_just_released("__debug_camera_toggle"):
 		movement_active = not movement_active

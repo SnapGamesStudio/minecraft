@@ -10,18 +10,8 @@ extends Node
 const AIR_TYPE := 0
 
 var last_voxel_pos:Vector3
-var sound_manager
-var _terrian:VoxelTerrain
-var _terrian_tool:VoxelTool
-var _environment: WorldEnvironment
 var last_hit:VoxelRaycastResult
 var voxel_pos:Vector3
-
-func _ready() -> void:
-	_terrian = get_tree().get_first_node_in_group("VoxelTerrain")
-	_terrian_tool = _terrian.get_voxel_tool()
-	sound_manager = get_tree().get_first_node_in_group("SoundManager")
-	_environment = get_tree().get_first_node_in_group("Enviroment")
 
 
 func _process(delta: float) -> void:
@@ -36,7 +26,7 @@ func _process(delta: float) -> void:
 			last_voxel_pos = voxel_pos
 			
 			
-			var voxel:int = _terrian_tool.get_voxel(voxel_pos)
+			var voxel:int = Helper.terrian.get_voxel_tool().get_voxel(voxel_pos)
 			
 			if voxel != AIR_TYPE:
 				var array = voxel_blocky_type_library.get_type_name_and_attributes_from_model_index(voxel)
@@ -48,19 +38,19 @@ func _process(delta: float) -> void:
 		var origin = head_ray.global_position
 		var forward = Vector3.DOWN
 		
-		last_hit = _terrian_tool.raycast(origin, forward, 1 ,2)
+		last_hit = Helper.terrian.get_voxel_tool().raycast(origin, forward, 1 ,2)
 		
 		if last_hit != null:
 			sfx.rpc("water",last_hit.position)
 			player.swimming = true
-			_environment.environment.fog_enabled = true
+			Helper.enviroment.environment.fog_enabled = true
 			
 		else:
 			player.swimming = false
-			_environment.environment.fog_enabled = false
+			Helper.enviroment.environment.fog_enabled = false
 				
 
 @rpc("any_peer","call_local")
 func sfx(voxel_name:String,pos:Vector3) -> void:
 	var sound_effect = voxel_name
-	sound_manager.play_sound(sound_effect,pos,"walk")
+	Helper.sound_manager.play_sound(sound_effect,pos,"walk")

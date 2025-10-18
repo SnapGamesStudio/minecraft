@@ -1,0 +1,107 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://byptmty7r1diw"]
+
+[ext_resource type="Texture2D" uid="uid://dw1chy4alyqj2" path="res://assets/textures/blocks/test textures.png" id="1_h7r8i"]
+
+[sub_resource type="Shader" id="Shader_bnn5h"]
+code = "shader_type spatial;
+render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_burley, specular_schlick_ggx;
+
+// Character position in world space
+uniform vec3 character_position;
+
+// Distance fade settings
+uniform float fade_start : hint_range(0.0,120.0) = 5.0;   // fade starts at this distance
+uniform float fade_end   : hint_range(0.0,130.0) = 15.0;  // fade fully at this distance
+
+// Base color
+uniform vec4 albedo : source_color;
+uniform sampler2D texture_albedo : source_color, filter_nearest, repeat_enable;
+
+// Dither grain intensity (0.0 = no dither, 1.0 = full dither)
+uniform float dither_grain : hint_range(0.0,1.0) = 1.0;
+
+// Pass world-space vertex position
+varying vec3 world_vertex;
+
+// PBR properties
+uniform float distance_fade_min : hint_range(0.0, 4096.0, 0.01);
+uniform float distance_fade_max : hint_range(0.0, 4096.0, 0.01);
+uniform float point_size : hint_range(0.1, 128.0, 0.1);
+
+uniform float roughness : hint_range(0.0, 1.0);
+uniform sampler2D texture_metallic : hint_default_white, filter_linear_mipmap, repeat_enable;
+uniform vec4 metallic_texture_channel;
+uniform sampler2D texture_roughness : hint_roughness_r, filter_linear_mipmap, repeat_enable;
+
+uniform float specular : hint_range(0.0, 1.0, 0.01);
+uniform float metallic : hint_range(0.0, 1.0, 0.01);
+
+uniform vec3 uv1_scale;
+uniform vec3 uv1_offset;
+uniform vec3 uv2_scale;
+uniform vec3 uv2_offset;
+
+// NEW: toggle for texture transparency
+uniform bool use_texture_transparency = true;
+
+void vertex() {
+	world_vertex = (MODEL_MATRIX * vec4(VERTEX,1.0)).xyz;
+	UV = UV * uv1_scale.xy + uv1_offset.xy;
+}
+
+void fragment() {
+	vec2 base_uv = UV;
+
+	// Metallic & roughness
+	float metallic_tex = dot(texture(texture_metallic, base_uv), metallic_texture_channel);
+	METALLIC = metallic_tex * metallic;
+	SPECULAR = specular;
+
+	float roughness_tex = dot(texture(texture_roughness, base_uv), vec4(1.0, 0.0, 0.0, 0.0));
+	ROUGHNESS = roughness_tex * roughness;
+
+	// Distance fade
+	float dist = length(world_vertex - character_position);
+	float fade = clamp((dist - fade_start) / max(0.0001, fade_end - fade_start), 0.0, 1.0);
+
+	// Dither noise
+	const vec3 magic = vec3(0.06711056, 0.00583715, 52.9829189);
+	float noise = fract(magic.z * fract(dot(FRAGCOORD.xy * dither_grain, magic.xy)));
+
+	// Dithered alpha fade
+	float alpha_dither = fade > noise ? 0.0 : 1.0;
+
+	// Sample texture
+	vec4 albedo_tex = texture(texture_albedo, base_uv);
+	ALBEDO = albedo.rgb * albedo_tex.rgb;
+
+	// Choose alpha mode
+	float final_alpha = use_texture_transparency ? (albedo_tex.a * alpha_dither) : alpha_dither;
+	ALPHA = final_alpha;
+
+	// Alpha scissor for shadows
+	ALPHA_SCISSOR_THRESHOLD = 0.5;
+}
+"
+
+[resource]
+render_priority = 0
+shader = SubResource("Shader_bnn5h")
+shader_parameter/character_position = null
+shader_parameter/fade_start = 90.0
+shader_parameter/fade_end = 100.0
+shader_parameter/albedo = Color(1, 1, 1, 0)
+shader_parameter/dither_grain = 1.0
+shader_parameter/distance_fade_min = 10.0
+shader_parameter/distance_fade_max = 2.0
+shader_parameter/point_size = 1.0
+shader_parameter/roughness = 1.0
+shader_parameter/metallic_texture_channel = null
+shader_parameter/specular = 0.2
+shader_parameter/metallic = 0.0
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/uv2_scale = Vector3(1, 1, 1)
+shader_parameter/uv2_offset = Vector3(0, 0, 0)
+shader_parameter/use_texture_transparency = true
+shader_parameter/texture_albedo = ExtResource("1_h7r8i")

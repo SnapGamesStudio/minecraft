@@ -10,15 +10,13 @@ func _ready() -> void:
 	Globals.add_object.connect(spawn_object)
 	spawned_object.emit()
 	
-	
 func print_spawned_object(id:int,object):
 	print("spawned ",id,object)
 
-
+@rpc("authority")
 func spawn_object(data := []) -> void:
 	if not multiplayer.is_server(): return
 	spawn(data)
-
 
 func custom_spawn(data: Array) -> Node:
 	var id

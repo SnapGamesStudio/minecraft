@@ -1,7 +1,7 @@
 [gd_scene load_steps=16 format=3 uid="uid://cg2nx287bqtet"]
 
 [ext_resource type="VoxelGeneratorMultipassCB" uid="uid://bh1rbxjykhems" path="res://resources/multipass_gen.tres" id="1_ykh1m"]
-[ext_resource type="VoxelBlockyTypeLibrary" uid="uid://csna43pkcr65d" path="res://resources/voxel_block_library.tres" id="2_edc4x"]
+[ext_resource type="VoxelBlockyTypeLibrary" uid="uid://c7aemhrd4kvsy" path="res://resources/voxel_block_library.tres" id="2_edc4x"]
 [ext_resource type="Script" path="res://addons/freecam_3D/freecam.gd" id="3_7i0kk"]
 [ext_resource type="Shader" path="res://scripts/shaders/sky.gdshader" id="4_h7nv0"]
 
@@ -17,84 +17,86 @@ shadow_occluder_positive_z = true
 
 [sub_resource type="VoxelFormat" id="VoxelFormat_rhear"]
 
-[sub_resource type="Gradient" id="Gradient_o2yho"]
+[sub_resource type="Gradient" id="Gradient_pp0c6"]
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_mqbvn"]
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_j7uw2"]
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_2vduh"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_xxs0t"]
 seamless = true
 seamless_blend_skirt = 0.922
-color_ramp = SubResource("Gradient_o2yho")
-noise = SubResource("FastNoiseLite_mqbvn")
+color_ramp = SubResource("Gradient_pp0c6")
+noise = SubResource("FastNoiseLite_j7uw2")
 
-[sub_resource type="Gradient" id="Gradient_vdyn7"]
+[sub_resource type="Gradient" id="Gradient_8upia"]
 offsets = PackedFloat32Array(0.984436)
 colors = PackedColorArray(0, 0, 0, 1)
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_5i6mn"]
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_o7ch7"]
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_548s8"]
-color_ramp = SubResource("Gradient_vdyn7")
-noise = SubResource("FastNoiseLite_5i6mn")
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_bkkq0"]
+color_ramp = SubResource("Gradient_8upia")
+noise = SubResource("FastNoiseLite_o7ch7")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_8udel"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_y5tyr"]
 shader = ExtResource("4_h7nv0")
 shader_parameter/day_bottom_color = Color(0.78905, 1, 0.996848, 1)
 shader_parameter/day_top_color = Color(0.164706, 0.521569, 1, 1)
-shader_parameter/sunset_bottom_color = Color(0.866667, 0.462745, 0.337255, 1)
-shader_parameter/sunset_top_color = Color(0.372549, 0.454902, 1, 1)
+shader_parameter/sunset_bottom_color = Color(0, 0.583333, 1, 1)
+shader_parameter/sunset_top_color = Color(0, 0.583333, 1, 1)
 shader_parameter/night_bottom_color = Color(0, 0, 0, 1)
 shader_parameter/night_top_color = Color(0, 0, 0, 1)
 shader_parameter/horizon_color_day = Color(0.4, 1, 1, 1)
-shader_parameter/horizon_color_sunset = Color(0.866667, 0, 0.337255, 1)
+shader_parameter/horizon_color_sunset = Color(0, 0.583333, 1, 1)
 shader_parameter/horizon_color_night = Color(0, 0, 0, 1)
-shader_parameter/horizon_falloff = 0.3
+shader_parameter/horizon_falloff = 0.7
 shader_parameter/sun_col = Color(1, 1, 1, 1)
-shader_parameter/sun_size = 0.326
+shader_parameter/sun_size = 0.072
 shader_parameter/sun_blur = 0.01
 shader_parameter/moon_col = Color(1, 1, 1, 1)
-shader_parameter/moon_size = 0.259
-shader_parameter/moon_crescent_offset = 0.0880001
+shader_parameter/moon_size = 0.069
+shader_parameter/moon_crescent_offset = -0.015
 shader_parameter/clouds_main_color = Color(1, 1, 1, 1)
 shader_parameter/clouds_edge_color = Color(1, 1, 1, 1)
 shader_parameter/clouds_speed = 0.1
 shader_parameter/clouds_scale = 0.34
-shader_parameter/clouds_cutoff = 0.17
-shader_parameter/clouds_fuzziness = 0.36
-shader_parameter/stars_cutoff = 0.0581
-shader_parameter/stars_speed = 0.1
-shader_parameter/clouds_texture = SubResource("NoiseTexture2D_2vduh")
-shader_parameter/clouds_distort_texture = SubResource("NoiseTexture2D_2vduh")
-shader_parameter/clouds_noise_texture = SubResource("NoiseTexture2D_2vduh")
-shader_parameter/stars_texture = SubResource("NoiseTexture2D_548s8")
+shader_parameter/clouds_cutoff = 0.0
+shader_parameter/clouds_fuzziness = 1.0
+shader_parameter/stars_cutoff = 0.0768
+shader_parameter/stars_speed = 0.0
+shader_parameter/clouds_texture = SubResource("NoiseTexture2D_xxs0t")
+shader_parameter/clouds_distort_texture = SubResource("NoiseTexture2D_xxs0t")
+shader_parameter/clouds_noise_texture = SubResource("NoiseTexture2D_xxs0t")
+shader_parameter/stars_texture = SubResource("NoiseTexture2D_bkkq0")
 
-[sub_resource type="Sky" id="Sky_7b6bx"]
-sky_material = SubResource("ShaderMaterial_8udel")
+[sub_resource type="Sky" id="Sky_m4him"]
+sky_material = SubResource("ShaderMaterial_y5tyr")
 
-[sub_resource type="Environment" id="Environment_ox330"]
+[sub_resource type="Environment" id="Environment_cafrk"]
 background_mode = 2
-sky = SubResource("Sky_7b6bx")
-ambient_light_source = 3
-ambient_light_sky_contribution = 0.4
-reflected_light_source = 1
+sky = SubResource("Sky_m4him")
+ambient_light_source = 2
+ambient_light_color = Color(0.340339, 0.340339, 0.340339, 1)
+reflected_light_source = 2
 ssr_fade_in = 0.15529
 ssao_enabled = true
-ssao_radius = 1.83
-ssao_intensity = 2.55
 ssil_intensity = 2.68
 sdfgi_use_occlusion = true
-glow_intensity = 5.83
-glow_strength = 0.96
-glow_bloom = 0.06
+glow_enabled = true
+glow_intensity = 6.49
+glow_map_strength = 0.85
 fog_mode = 1
-fog_light_color = Color(1.1792e-06, 0.115185, 0.364538, 0.749)
-fog_density = 0.3
-fog_height_density = 0.06
-fog_depth_curve = 0.000178722
-fog_depth_begin = 0.0
-volumetric_fog_density = 0.0249
-volumetric_fog_albedo = Color(0.490196, 0.898039, 0.898039, 1)
-volumetric_fog_sky_affect = 0.508
+fog_density = 1.0
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.0265
+volumetric_fog_albedo = Color(0.345098, 0.921569, 0.968627, 1)
+volumetric_fog_emission_energy = 0.0
+volumetric_fog_anisotropy = -0.65
+volumetric_fog_detail_spread = 0.5
+volumetric_fog_ambient_inject = 0.5
+volumetric_fog_sky_affect = 0.737
+adjustment_enabled = true
+adjustment_contrast = 1.14
+adjustment_saturation = 1.14
 
 [node name="Node3D" type="Node3D"]
 
@@ -103,7 +105,6 @@ offset_right = 165.0
 offset_bottom = 116.0
 
 [node name="VoxelTerrain" type="VoxelTerrain" parent="."]
-max_view_distance = 60
 mesh_block_size = 32
 use_gpu_generation = true
 generator = ExtResource("1_ykh1m")
@@ -115,33 +116,23 @@ cast_shadow = 2
 script = ExtResource("3_7i0kk")
 
 [node name="VoxelViewer" type="VoxelViewer" parent="Freecam3D"]
-view_distance = 60
 requires_collisions = false
 
-[node name="WorldEnvironment2" type="WorldEnvironment" parent="." groups=["Enviroment"]]
-environment = SubResource("Environment_ox330")
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." groups=["Enviroment"]]
+environment = SubResource("Environment_cafrk")
 
-[node name="sun_rotation" type="Node3D" parent="WorldEnvironment2"]
-transform = Transform3D(0.707107, -0.707107, 0, 0.0283775, 0.0283775, 0.999195, -0.706537, -0.706537, 0.0401318, 0, 0, 0)
+[node name="sun_rotation" type="Node3D" parent="WorldEnvironment"]
+transform = Transform3D(1, 0, 0, 0, -0.778244, 0.627963, 0, -0.627963, -0.778244, 0, 0, 0)
 
-[node name="night" type="DirectionalLight3D" parent="WorldEnvironment2/sun_rotation"]
+[node name="day" type="DirectionalLight3D" parent="WorldEnvironment/sun_rotation"]
+light_volumetric_fog_energy = 0.316
+shadow_enabled = true
+
+[node name="night" type="DirectionalLight3D" parent="WorldEnvironment/sun_rotation"]
 visible = false
 light_energy = 0.0
+light_volumetric_fog_energy = 0.316
 shadow_enabled = true
-shadow_bias = 0.323
-shadow_normal_bias = 0.0
-shadow_reverse_cull_face = true
-shadow_transmittance_bias = 16.0
-shadow_blur = 0.242
-directional_shadow_mode = 0
-directional_shadow_max_distance = 500.0
+directional_shadow_max_distance = 30.0
 
-[node name="day" type="DirectionalLight3D" parent="WorldEnvironment2/sun_rotation"]
-light_volumetric_fog_energy = 1.903
-shadow_enabled = true
-shadow_bias = 0.323
-shadow_normal_bias = 0.0
-shadow_reverse_cull_face = true
-shadow_transmittance_bias = 16.0
-shadow_blur = 0.242
-directional_shadow_mode = 0
+[node name="Time" type="Node" parent="WorldEnvironment" groups=["MISC_SAVE", "TimeManager"]]

@@ -35,10 +35,11 @@ func _on_transparency_toggled(toggled_on: bool) -> void:
 		var mesh:VoxelBlockyType = voxel
 		#print(mesh.unique_name)
 		if mesh.base_model is VoxelBlockyModelCube:
-			if mesh.base_model.get_material_override(0) is StandardMaterial3D:
-				var mesh_material:StandardMaterial3D = mesh.base_model.get_material_override(0)
+			if mesh.base_model.get_material_override(0) == load("res://assets/materials/block_shader.tres"):
+				var mesh_material:ShaderMaterial = mesh.base_model.get_material_override(0)
 				if !toggled_on:
-					mesh_material.transparency = BaseMaterial3D.TRANSPARENCY_DISABLED
+					mesh_material.set("shader_parameter/use_texture_transparency", false)
+
 				else:
-					mesh_material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA_SCISSOR
+					mesh_material.set("shader_parameter/use_texture_transparency", true)
 			

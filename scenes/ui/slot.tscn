@@ -41,16 +41,14 @@ anti_aliasing = false
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e5lic"]
 bg_color = Color(1, 1, 1, 0)
-border_width_left = 7
-border_width_top = 7
-border_width_right = 7
-border_width_bottom = 7
+border_width_top = 55
+border_color = Color(1, 1, 1, 1)
 border_blend = true
 corner_radius_top_left = 25
 corner_radius_top_right = 25
 corner_radius_bottom_right = 25
 corner_radius_bottom_left = 25
-corner_detail = 20
+anti_aliasing = false
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bokx8"]
 bg_color = Color(1, 1, 1, 0)
@@ -133,12 +131,14 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_bottom = -41.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_e5lic")
 
 [node name="pressed" type="Panel" parent="."]
+visible = false
 show_behind_parent = true
 layout_mode = 1
 anchors_preset = 15
@@ -173,6 +173,15 @@ theme_override_constants/shadow_outline_size = 10
 theme_override_font_sizes/font_size = 20
 text = "64"
 horizontal_alignment = 2
+
+[node name="health" type="Label" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 1.0
+offset_right = 41.0
+offset_bottom = 23.0
+text = "1"
+horizontal_alignment = 1
 
 [connection signal="button_up" from="." to="." method="_on_button_up"]
 [connection signal="pressed" from="." to="." method="_on_pressed"]

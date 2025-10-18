@@ -1,0 +1,13 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://b7mo3r8ux33rq"]
+
+[ext_resource type="Shader" path="res://scripts/shaders/wind.gdshader" id="1_g1uet"]
+[ext_resource type="Texture2D" uid="uid://cp3y4uihouojd" path="res://assets/textures/blocks/wheat_seeds.png" id="2_85pqo"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_g1uet")
+shader_parameter/character_position = null
+shader_parameter/dither_grain = 1.0
+shader_parameter/fade_start = 40.0
+shader_parameter/fade_end = 50.0
+shader_parameter/grass_texture = ExtResource("2_85pqo")

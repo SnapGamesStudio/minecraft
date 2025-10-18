@@ -2,12 +2,10 @@ extends State
 
 var target:Player = null
 
+@export var attack_raycast: RayCast3D
 @export var creature : CreatureBase
 
-var attacked:bool = false
-
 func Enter(data:Dictionary):
-	attacked = false
 	if data.has("player"):
 		target = data.player
 		print(data.player.name)
@@ -17,18 +15,22 @@ func Physics_Update(delta:float):
 		Transitioned.emit(self,"Idle",{})
 		return
 	
-	creature.velocity = lerp(creature.velocity,Vector3.ZERO,.2)
+	var direction = creature.global_position.direction_to(target.global_position)
+
+	creature.velocity.x = lerpf(creature.velocity.x,direction.x * creature.creature_resource.speed,.5)
+	creature.velocity.z = lerpf(creature.velocity.z,direction.z * creature.creature_resource.speed,.5)
+	
+	creature.guide.global_position = target.global_position
+	
+	attack_raycast.look_at(target.global_position)
+	
 	var distance:float = creature.global_position.distance_to(target.global_position)
 	
-	if distance < 1:
-		if attacked == false:
-			attacked = true
-			await get_tree().create_timer(2.0).timeout
-			target.rpc_id(target.get_multiplayer_authority(),"hit",creature.creature_resource.damage)
-			
-		else:
+	if attack_raycast.is_colliding():
+		var coll = attack_raycast.get_collider()
+		if coll is Player:
+			coll.rpc_id(coll.get_multiplayer_authority(),"hit",creature.creature_resource.damage)
 			Transitioned.emit(self,"Idle",{})
-	else:
-		Transitioned.emit(self,"Idle",{})
-		
+			
 	print("distance ",distance)
+	Transitioned.emit(self,"Idle",{})

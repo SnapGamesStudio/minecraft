@@ -20,11 +20,14 @@ signal item_changed(index:int,item_path:String,amount:int,parent:String,health:f
 var max_rot:int = 0
 var rot:int = 0
 var index:int
-var health:float = 10001
+var health:int = 10001
 var played_ani:bool = false
 var focused:bool = false
 
 func _process(_delta: float) -> void: 
+	if item != null:
+		if item is ItemTool:
+			update_health()
 	if focused:
 		if !played_ani:
 			GlobalAnimation._tween(self,"bounce",.3)
@@ -70,7 +73,6 @@ func _on_pressed() -> void:
 func update_slot() -> void:
 	amount_label.text = str(amount)
 	
-
 	## destory item if amount is 0
 	if amount <= 0:
 		amount = 1
@@ -106,12 +108,13 @@ func update_slot() -> void:
 			
 		if not item is ItemTool:
 			health_panel.hide()
+			$health.text = str(health)
 		else:
-			health_panel.show()
+			$health.text = str(health, "/", item.max_health)
 			update_health()
 
 
-
+		
 		item_changed.emit(index,item.get_path(),amount,get_parent().name,health,rot)
 
 
@@ -123,6 +126,7 @@ func update_slot() -> void:
 		item_changed.emit(index,"",amount,get_parent().name,health,rot)
 		health_panel.hide()
 		amount_label.hide()
+		#update_health()
 		$Background_Image.hide()
 		
 
@@ -161,6 +165,7 @@ func rot_update() -> void:
 	update_slot()
 
 func update_health():
+		
 	var heath_range = range(0,item.max_health + 1)
 			
 	var half_health = heath_range.size() / 2
@@ -172,17 +177,18 @@ func update_health():
 	var health_pos = heath_range.find(roundi(health))
 
 	if health_pos in range(red_health,half_health + 1):
-		if health_panel.modulate == Color.GREEN:
-			var tween = create_tween()
-			tween.tween_property(health_panel,"modulate",Color.YELLOW,.2)
+		health_panel.modulate = Color.YELLOW
+		#print("YELLOW")
+
 
 	if health_pos >= green_health:
 		
 		health_panel.modulate = Color.GREEN
-
+		#print("GREEN")
+		
 	if health_pos <= red_health:
-		if health_panel.modulate == Color.YELLOW:
-			var tween = create_tween()
-			tween.tween_property(health_panel,"modulate",Color.RED,.2)
-
+		health_panel.modulate = Color.RED
+		#print("RED")
+	
+	health_panel.show()
 	

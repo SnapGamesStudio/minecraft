@@ -54,10 +54,10 @@ var _dirs: Array[Vector3] = [
 	Vector3(1, -1, 1)
 ]
 
-var slot_manager:SlotManager
+var slot_manager
 
 func _ready() -> void:
-	slot_manager = get_node("/root/Main").find_child("SlotManager")
+	slot_manager = Helper.sound_manager
 	
 	plants = [voxel_blocky_type_library.get_model_index_default("tall_grass"),voxel_blocky_type_library.get_model_index_default("fern"),voxel_blocky_type_library.get_model_index_default("flower"),voxel_blocky_type_library.get_model_index_default("reeds"),voxel_blocky_type_library.get_model_index_default("tall_flower"),voxel_blocky_type_library.get_model_index_default("wheat"),voxel_blocky_type_library.get_model_index_default("wheat_seed")]
 
@@ -116,11 +116,9 @@ func place_block(type: StringName, player_pos: Vector3 = Vector3.ZERO) -> void:
 	_place_block_server.rpc_id(1, type, last_hit.previous_position, player_pos)
 	
 	var item = item_library.get_item(type)
+	if item == null: return
 	
 	voxel_tool.channel = VoxelBuffer.CHANNEL_TYPE
-	
-	#if item is ItemPlant:
-		#plant_start_growth(item,last_hit.previous_position)
 	
 	if item.rotatable:
 		## make the block rotation towards the player when placed
@@ -130,10 +128,9 @@ func place_block(type: StringName, player_pos: Vector3 = Vector3.ZERO) -> void:
 	
 	voxel_tool.do_point(last_hit.previous_position)
 
-#func place_block_
 
-## Breaks the block and returns the type name
 func break_block() -> void:
+	if last_hit == null: return
 	
 	voxel_tool.channel = VoxelBuffer.CHANNEL_TYPE
 	voxel_tool.value = AIR_TYPE
@@ -147,7 +144,7 @@ func break_block() -> void:
 		
 	voxel_tool.do_point(last_hit.position)
 	
-	var soundmanager = get_node("/root/Main").find_child("SoundManager")
+	var soundmanager = Helper.sound_manager
 	
 	if last_hit != null:
 		soundmanager.play_sound(voxel_blocky_type_library.get_type_name_and_attributes_from_model_index(voxel)[0],last_hit.previous_position)
@@ -243,12 +240,6 @@ func _break_block_server(position: Vector3) -> void:
 
 @rpc("reliable", "any_peer")
 func _block_broken_local(type: StringName) -> void:
-	
-	#var soundmanager = get_node("/root/Main").find_child("SoundManager")
-	
-	#if last_hit != null:
-		#soundmanager.play_sound(type,last_hit.previous_position)
-		
 	block_broken.emit(type)
 
 
@@ -262,7 +253,7 @@ func _on_Area_body_exited(_body: Node3D) -> void:
 
 @rpc("any_peer","call_remote")
 func send_item(type: StringName) -> void:
-	var slot_manager = get_node("/root/Main").find_child("SlotManager")
+	var slot_manager = Helper.slot_manager
 	## if the player is holding a tool it will be damaged
 	if slot_manager.selected_slot != null:
 		if slot_manager.selected_slot.item != null:
@@ -271,8 +262,9 @@ func send_item(type: StringName) -> void:
 						
 	## gives the broken item to the player
 	var item = item_library.get_item(type)
+	if item:
 	#Globals.spawn_item_inventory.emit(item)
-	slot_manager.add_item_to_hotbar_or_inventory(item)
+		slot_manager.add_item_to_hotbar_or_inventory(item)
 
 
 @rpc("any_peer","call_local")
@@ -310,11 +302,6 @@ func get_direction(player_pos:Vector3, place_pos:Vector3):
 		else:
 			return VoxelBlockyAttributeDirection.DIR_POSITIVE_Z
 
-#func plant_start_growth(plant:ItemPlant,position:Vector3):
-	#var growth_timer = get_tree().create_timer(plant.time_to_grow)
-	#await growth_timer.timeout
-	#_place_block_server.rpc_id(1,plant.next_plant_stage.unique_name,position)
-	#place_block(plant.next_plant_stage.unique_name)
 
 @rpc("any_peer","call_local")
 func spawn_light(pos: Vector3,color:Color,energy:float, size:float = 5.0) -> void:
@@ -323,13 +310,13 @@ func spawn_light(pos: Vector3,color:Color,energy:float, size:float = 5.0) -> voi
 	light.light_color = color
 	light.light_energy = energy
 	light.light_size = size
-	var light_container = get_tree().get_first_node_in_group("LightContainer")
+	var light_container = Helper.light_container
 	light_container.add_child(light)
 
 @rpc("any_peer","call_local")
 func destory_light(pos:Vector3):
 	var find_pos = pos + Vector3(0.5,0.5,0.5)
-	var light_container = get_tree().get_first_node_in_group("LightContainer")
+	var light_container = Helper.light_container
 	for light in light_container.get_children():
 		print("light check for ",find_pos, "light pos ",light.global_position)
 		if light.global_position == find_pos:
@@ -338,7 +325,7 @@ func destory_light(pos:Vector3):
 @rpc("any_peer","call_local")
 func destory_sound(pos:Vector3):
 	var find_pos = pos
-	var sound_container = get_tree().get_first_node_in_group("SoundContainer")
+	var sound_container = Helper.sound_container
 	for sound in sound_container.get_children():
 		if sound.position == find_pos:
 			sound.queue_free()
@@ -348,6 +335,6 @@ func spawn_sound(pos:Vector3, sound:String) -> void:
 	var _sound = sound_.instantiate() as AudioStreamPlayer3D
 	_sound.stream = load(sound)
 	_sound.position = pos 
-	var sound_container = get_tree().get_first_node_in_group("SoundContainer")
+	var sound_container = Helper.sound_container
 	sound_container.add_child(_sound)
 	
