@@ -37,6 +37,7 @@ var start_fall_height:float
 var end_fall_height:float
 var fall_time:float = 0.0
 
+
 @export var can_autojump: bool = true
 
 # Clamp sync delta for faster interpolation
@@ -86,7 +87,7 @@ var check_terrian_timer:Timer
 @onready var can_auto_jump_check: RayCast3D = $RotationRoot/AutoJump2
 @onready var _synchronizer: MultiplayerSynchronizer = $MultiplayerSynchronizer
 @onready var _move_direction := Vector3.ZERO
-@onready var hand = $RotationRoot/Head/Camera3D/Hand
+@onready var item_holder = $RotationRoot/Head/Camera3D/Sway/item_holder
 @onready var third_person_model: Node3D = $"RotationRoot/Model" # TP
 
 
@@ -129,10 +130,10 @@ func _exit_tree():
 	
 func _update_tp_fp_visibility() -> void:
 	if is_multiplayer_authority():
-		hand.show()
+		item_holder.show()
 		third_person_model.hide()
 	else:
-		hand.hide()
+		item_holder.hide()
 		third_person_model.show()
 
 
@@ -145,7 +146,6 @@ func _unhandled_input(event: InputEvent) -> void:
 		rotation_root.rotate_y(-event.relative.x * SENSITIVITY)
 		camera.rotate_x(-event.relative.y * SENSITIVITY)
 		camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-90), deg_to_rad(90))
-	
 
 func update_shaders():
 	var blocks_shader:ShaderMaterial = load("res://assets/materials/block_shader.tres")
@@ -220,10 +220,11 @@ func _physics_process(delta: float) -> void:
 					hit(damage)
 
 			set_fall_height = false
-
+	
+	
 	move_and_slide()
 	set_sync_properties()
-
+	
 func set_sync_properties() -> void:
 	_position = position
 	_velocity = velocity
@@ -315,10 +316,10 @@ func add_item_to_hand(scene:PackedScene) -> void:
 	remove_item_in_hand()
 			
 	var holdable_mesh = scene.instantiate()
-	hand.add_child(holdable_mesh) 
+	item_holder.add_child(holdable_mesh) 
 
 func remove_item_in_hand() -> void:
-	for i in hand.get_children():
+	for i in item_holder.get_children():
 		i.queue_free()
 	
 @rpc("any_peer","call_local")
@@ -444,22 +445,11 @@ func normal_movement(delta:float):
 		if _move_direction:
 			if ANI.current_animation != "waling":
 				ANI.play("waling")
-			if hand_ani.current_animation != "pick up":
-				if hand_ani.current_animation != "attack":
-					if hand_ani.current_animation != "eat":
-						if hand_ani.current_animation != "walk":
-							hand_ani.play("walk")
 			velocity.x = _move_direction.x * speed
 			velocity.z = _move_direction.z * speed
 		else:
 			if ANI.current_animation != "idle":
 				ANI.play("idle")
-				
-			if hand_ani.current_animation != "pick up":
-				if hand_ani.current_animation != "attack":
-					if hand_ani.current_animation != "eat":
-						if hand_ani.current_animation != "idle":
-							hand_ani.play("idle")
 					
 			velocity.x = lerp(velocity.x, _move_direction.x * speed, delta * 7.0)
 			velocity.z = lerp(velocity.z, _move_direction.z * speed, delta * 7.0)
@@ -476,6 +466,7 @@ func normal_movement(delta:float):
 	if can_autojump and moving_forward and is_on_floor():
 		if auto_jump.is_colliding() and !can_auto_jump_check.is_colliding():
 			velocity.y = JUMP_VELOCITY
+			
 			
 func flying_movement(delta:float):
 	var dir = Vector3.ZERO
@@ -494,15 +485,6 @@ func mine_and_place(delta:float):
 	var hotbar = Helper.hotbar
 	var hotbar_item:ItemBase = hotbar.get_current().item
 
-	if Input.is_action_pressed("Mine"):
-		if hand_ani.current_animation != "attack":
-			if hand_ani.current_animation != "eat":
-				hand_ani.play("attack")
-	else:
-		if hand_ani.current_animation != "idle" and hand_ani.current_animation != "walk":
-			if hand_ani.current_animation != "RESET":
-				if hand_ani.current_animation != "eat":
-					hand_ani.play("RESET")
 			
 	if Input.is_action_just_pressed("Build"):
 		

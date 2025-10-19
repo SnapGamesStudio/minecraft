@@ -79,14 +79,14 @@ func create_viewer(_id: int, creature: CreatureBase) -> void:
 		creature.add_child(viewer)
 
 func create_creature_spawner(spawner_pos:Vector3i,creature:String):
-	#return
+	return
 	creature_spawners[spawner_pos] = {"creature":creature}
 	#print("created_spawner")
 	#print("spawners ",creature_spawners)
 	pass
 	
 func tick():
-	#return
+	return
 	if !multiplayer.is_server(): return
 	if creature_spawners.size() == 0: return
 		
