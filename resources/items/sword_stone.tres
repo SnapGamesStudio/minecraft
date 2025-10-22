@@ -16,6 +16,7 @@ projectable = false
 amount_needed = 0
 throws_self = false
 use_ani = ExtResource("4_w45yr")
+toggle_ani = false
 unique_name = &""
 texture = ExtResource("4_sppuj")
 max_stack = 1

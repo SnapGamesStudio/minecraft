@@ -16,6 +16,7 @@ projectable = false
 amount_needed = 0
 throws_self = false
 use_ani = ExtResource("4_wvxfx")
+toggle_ani = false
 unique_name = &""
 texture = ExtResource("5_bwsir")
 max_stack = 1

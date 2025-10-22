@@ -16,6 +16,7 @@ projectable = false
 amount_needed = 0
 throws_self = false
 use_ani = ExtResource("4_frued")
+toggle_ani = false
 unique_name = &""
 texture = ExtResource("8_ljc8x")
 max_stack = 1

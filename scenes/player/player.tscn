@@ -2,14 +2,14 @@
 
 [ext_resource type="Script" path="res://scripts/player/player.gd" id="1"]
 [ext_resource type="Script" path="res://scripts/player/terrain_interaction.gd" id="2_5q13p"]
+[ext_resource type="PackedScene" uid="uid://n0lwp263pqys" path="res://scenes/common/health_component.tscn" id="2_y4xb3"]
 [ext_resource type="Script" path="res://scripts/player/player_hands.gd" id="4_064gd"]
 [ext_resource type="VoxelBlockyTypeLibrary" uid="uid://c7aemhrd4kvsy" path="res://resources/voxel_block_library.tres" id="5_5801w"]
 [ext_resource type="PackedScene" uid="uid://clt86wlubencc" path="res://scenes/items/dropped_item.tscn" id="6_6kxdw"]
 [ext_resource type="Script" path="res://scripts/player/sway.gd" id="6_pfl55"]
 [ext_resource type="Script" path="res://scripts/player/item_holder.gd" id="7_6g6ng"]
-[ext_resource type="Animation" uid="uid://bbo1ea7xm654" path="res://assets/animations/sword_use.res" id="9_rw8yk"]
 [ext_resource type="Theme" uid="uid://c1tenirmy1xiy" path="res://assets/menu/main_menu_theme.tres" id="10_fsqbe"]
-[ext_resource type="Animation" uid="uid://bnrjjdwfq2qmo" path="res://assets/animations/eat.res" id="10_xm37r"]
+[ext_resource type="Animation" uid="uid://d2xgiqj6sh8c1" path="res://assets/animations/sheild_ani.tres" id="10_xser0"]
 [ext_resource type="Script" path="res://scripts/player/ground_check.gd" id="11_5go8a"]
 [ext_resource type="Script" path="res://addons/CameraShake3D/CameraShake3D/CameraShake3DNode.gd" id="11_8ntd3"]
 [ext_resource type="Texture2D" uid="uid://caymkbt21b5xt" path="res://assets/models/runestone player_Head Base Color.png" id="11_brm37"]
@@ -449,8 +449,7 @@ tracks/1/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_k023v"]
 _data = {
 "RESET": SubResource("Animation_erbhp"),
-"eat": ExtResource("10_xm37r"),
-"sword_use": ExtResource("9_rw8yk")
+"sheild_ani": ExtResource("10_xser0")
 }
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_ar6mo"]
@@ -542,6 +541,8 @@ max_health = 50
 fall_hurt_height = 3.0
 hunger_update_time = 15.0
 hunger_step = 0.05
+
+[node name="HealthComponent" parent="." instance=ExtResource("2_y4xb3")]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
@@ -737,6 +738,8 @@ attributes = SubResource("CameraAttributesPhysical_wbd57")
 transform = Transform3D(1, 0, 0, 0, -4.47035e-08, -1, 0, 1, -4.47035e-08, 0, 0, -0.0823141)
 target_position = Vector3(1.45519e-11, -5, 1.45519e-11)
 collision_mask = 3
+collide_with_areas = true
+collide_with_bodies = false
 debug_shape_custom_color = Color(0.988235, 0, 0, 0.0823529)
 
 [node name="Drop_node" type="Node3D" parent="RotationRoot/Head/Camera3D"]
@@ -801,6 +804,7 @@ ping_label = NodePath("../../Ping")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 
 [node name="Area3D" type="Area3D" parent="Hands/TerrainInteraction/BlockOutline"]
+visible = false
 collision_layer = 0
 collision_mask = 134217728
 
@@ -996,6 +1000,7 @@ collision_mask = 2
 hit_from_inside = true
 debug_shape_custom_color = Color(1, 0, 0, 1)
 
+[connection signal="child_order_changed" from="RotationRoot/Head/Camera3D/Sway/item_holder" to="RotationRoot/Head/Camera3D/Sway/item_holder" method="_on_child_order_changed"]
 [connection signal="block_broken" from="Hands/TerrainInteraction" to="Hands/TerrainInteraction" method="_on_block_broken"]
 [connection signal="body_entered" from="Hands/TerrainInteraction/BlockOutline/Area3D" to="Hands/TerrainInteraction" method="_on_Area_body_entered"]
 [connection signal="body_exited" from="Hands/TerrainInteraction/BlockOutline/Area3D" to="Hands/TerrainInteraction" method="_on_Area_body_exited"]

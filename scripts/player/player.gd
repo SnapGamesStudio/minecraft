@@ -23,6 +23,7 @@ const WALK_SPEED = 5.0
 const SPRINT_SPEED = 8.0
 const JUMP_VELOCITY = 7.0
 const CROUCH_SPEED = 3.0
+var custom_speed:bool = false
 const gravity = 22.5
 var speed: float
 
@@ -76,7 +77,6 @@ var check_terrian_timer:Timer
 @onready var ping_label: Label = $Ping
 @onready var pos_label: Label = $Pos
 @onready var collision: CollisionShape3D = $CollisionShape3D
-@onready var hand_ani: AnimationPlayer = $RotationRoot/Head/HandAni
 @onready var floor_ray: RayCast3D = $floor
 @onready var camera_shake: CameraShake3DNode = $RotationRoot/Head/CameraShake3DNode
 @onready var terrain_interation:TerrainInteraction = $Hands/TerrainInteraction
@@ -125,8 +125,6 @@ func _ready() -> void:
 
 func _exit_tree():
 	save_data()
-	Console.remove_command("player_flying")
-	Console.remove_command("player_clipping")
 	
 func _update_tp_fp_visibility() -> void:
 	if is_multiplayer_authority():
@@ -177,14 +175,14 @@ func _physics_process(delta: float) -> void:
 	if not is_multiplayer_authority() and Connection.is_peer_connected:
 		interpolate_client(delta); return
 
-	if !Globals.paused and Input.mouse_mode != Input.MOUSE_MODE_VISIBLE:
+	if !Globals.paused and Input.mouse_mode != Input.MOUSE_MODE_VISIBLE and !DevConsole.visible:
 		mine_and_place(delta)
-	if !is_flying and !Globals.paused and !swimming and Input.mouse_mode != Input.MOUSE_MODE_VISIBLE:
+	if !is_flying and !Globals.paused and !swimming and Input.mouse_mode != Input.MOUSE_MODE_VISIBLE and !DevConsole.visible:
 		normal_movement(delta)
-	if is_flying and !Globals.paused and !swimming and Input.mouse_mode != Input.MOUSE_MODE_VISIBLE:
+	if is_flying and !Globals.paused and !swimming and Input.mouse_mode != Input.MOUSE_MODE_VISIBLE and !DevConsole.visible:
 		flying_movement(delta)
 		
-	if Globals.paused and Input.mouse_mode == Input.MOUSE_MODE_VISIBLE:
+	if Globals.paused and Input.mouse_mode == Input.MOUSE_MODE_VISIBLE or DevConsole.visible:
 		velocity.x = lerp(velocity.x,0.0,.1)
 		velocity.z = lerp(velocity.x,0.0,.1)
 
@@ -426,18 +424,19 @@ func hunger_points_gained(amount: int) -> void:
 
 func normal_movement(delta:float):
 	# Handle Sprint.
-	if Input.is_action_pressed("Sprint"):
-		speed = SPRINT_SPEED
-	else:
-		speed = WALK_SPEED
-		
-		# Crouch
-		if Input.is_action_pressed("Crouch"):
-			crouching = true
-			speed = CROUCH_SPEED
+	if not custom_speed:
+		if Input.is_action_pressed("Sprint"):
+			speed = SPRINT_SPEED
 		else:
 			speed = WALK_SPEED
-			crouching = false
+			
+			# Crouch
+			if Input.is_action_pressed("Crouch"):
+				crouching = true
+				speed = CROUCH_SPEED
+			else:
+				speed = WALK_SPEED
+				crouching = false
 			
 	var input_dir = Input.get_vector("Left", "Right", "Forward", "Backward")
 	_move_direction = (rotation_root.transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
@@ -504,27 +503,15 @@ func mine_and_place(delta:float):
 		if ray.is_colliding():
 			var coll = ray.get_collider()
 			
-			if coll is Dropped_Item:
-				coll.collect()
-				Helper.sound_manager.play_sound("pick_up",ray.get_collision_point())
-			
-			if coll is CreatureBase:
-				if hotbar_item != null:
-					if "damage" in hotbar_item:
-						coll.hit.rpc_id(1, global_position,hotbar_item.damage)
+			if coll.is_in_group("Hitbox"):
+				var parent = coll.get_parent()
+				if parent is HealthComponent:
+					if hotbar_item is ItemTool:
+						print("attack ",parent.owner.name)
+						parent.rpc_id(parent.get_multiplayer_authority(),"hit",hotbar_item.damage)
 					else:
-						coll.hit.rpc_id(1, global_position)
-				else:
-					coll.hit.rpc_id(1, global_position)
-					
-			if coll is Player:
-				if hotbar_item != null:
-					if "damage" in hotbar_item:
-						coll.hit.rpc_id( coll.get_multiplayer_authority(),hotbar_item.damage)
-					else:
-						coll.hit.rpc_id( coll.get_multiplayer_authority())
-				else:
-					coll.hit.rpc_id( coll.get_multiplayer_authority())
+						print("attack ",parent.owner.name)
+						parent.rpc_id(parent.get_multiplayer_authority(),"hit",1)
 	
 	if Input.is_action_just_released("Mine"):
 		if hotbar_item is ItemTool:

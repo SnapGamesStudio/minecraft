@@ -81,10 +81,7 @@ func _process(_delta: float) -> void:
 	if Input.is_action_pressed("Mine"):
 		var current_slot = Helper.hotbar.get_current()
 		var current_item:ItemBase = current_slot.item
-		if current_item != null:
-			if current_item is ItemTool or current_item is ItemFood:
-				item_holder.use_item(current_item)
-				
+	
 		if terrain_interaction.last_hit != null:
 			if not mine_timer.is_stopped():
 				if mining_block != terrain_interaction.last_hit.position:
@@ -121,7 +118,6 @@ func _process(_delta: float) -> void:
 					mine_timer.start()
 					mine_timer.connect("timeout",Callable(self,"_break_block").bind(breaking_block))
 	else:
-		item_holder.stop()
 		break_block.stop()
 
 func is_interactable() -> bool:
